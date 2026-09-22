@@ -5,17 +5,20 @@
 //  Created by Aesmond on 22/09/2026.
 //
 
+import SwiftUI
+
 enum AppToken {
-    static let cornerRadius: Double = 16
+    static let cornerRadius: Double = Primitive.radius2xl
     static let fieldBorderWidth: Double = 2
     static let fieldLabelSize: Double = 15
     static let fieldLabelWeight: Double = 400
     static let fieldHeight: Double = 48
     static let fieldHorizontalPadding: Double = 16
-    static let searchBarCornerRadius: Double = 16
+    static let searchBarCornerRadius: Double = Primitive.radius2xl
     static let searchBarHeight: Double = 48
     static let buttonHeight: Double = 48
-    static let buttonCornerRadius: Double = 16
+    static let buttonCornerRadius: Double = Primitive.radius2xl
+    static let buttonPressedAnimation = Animation.snappy
     
     enum Primitive {
         // Padding
