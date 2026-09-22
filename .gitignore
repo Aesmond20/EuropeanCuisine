@@ -1,0 +1,62 @@
+# Créé par https://www.toptal.com/developers/gitignore/api/macos,swiftpm,xcode
+# Modifier sur https://www.toptal.com/developers/gitignore?templates=macos,swiftpm,xcode
+
+### macOS ###
+# Général
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# L'icône doit se terminer par deux \r
+Icône
+
+
+# Miniatures
+._*
+
+# Fichiers susceptibles d'apparaître à la racine d'un volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.ÉlémentsTemporaires
+.Déchets
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Répertoires potentiellement créés sur un partage AFP distant
+.AppleDB
+.AppleDesktop
+Corbeille réseau
+Articles temporaires
+.apdisk
+
+### Correctif macOS ###
+# Fichiers générés par iCloud
+*.icloud
+
+### SwiftPM ###
+Colis
+.construire/
+xcuserdata
+Données dérivées/
+*.xcodeproj
+
+
+### Xcode ###
+## Paramètres utilisateur
+xcuserdata/
+
+## Xcode 8 et versions antérieures
+*.xcscmblueprint
+*.xccheckout
+
+### Correctif Xcode ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcodeproj/project.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
+/>*.gcno
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+# Fin de https://www.toptal.com/developers/gitignore/api/macos,swiftpm,xcode
