@@ -6,6 +6,10 @@
 	objectVersion = 110;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6A970B903062B06F00168F11 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6A970B8F3062B06F00168F11 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		6A970B753062AC9C00168F11 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		6A970B673062AC9A00168F11 /* EuropeanCuisine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EuropeanCuisine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A970B743062AC9C00168F11 /* EuropeanCuisineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EuropeanCuisineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A970B7E3062AC9C00168F11 /* EuropeanCuisineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EuropeanCuisineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A970B8F3062B06F00168F11 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -69,6 +74,7 @@
 		6A970B5E3062AC9A00168F11 = {
 			isa = PBXGroup;
 			children = (
+				6A970B8F3062B06F00168F11 /* README.md */,
 				6A970B693062AC9A00168F11 /* EuropeanCuisine */,
 				6A970B773062AC9C00168F11 /* EuropeanCuisineTests */,
 				6A970B813062AC9C00168F11 /* EuropeanCuisineUITests */,
@@ -197,6 +203,7 @@
 		6A970B653062AC9A00168F11 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
+				6A970B903062B06F00168F11 /* README.md in Resources */,
 			);
 		};
 		6A970B723062AC9C00168F11 /* Resources */ = {
