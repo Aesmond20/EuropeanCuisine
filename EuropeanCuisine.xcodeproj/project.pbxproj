@@ -3,51 +3,44 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 110;
+	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		6A970B903062B06F00168F11 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6A970B8F3062B06F00168F11 /* README.md */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
-		6A970B753062AC9C00168F11 /* PBXContainerItemProxy */ = {
+		D7257FE23065AA6900D47D2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6A970B5F3062AC9A00168F11 /* Project object */;
+			containerPortal = D7257FCC3065AA6700D47D2C /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6A970B663062AC9A00168F11;
+			remoteGlobalIDString = D7257FD33065AA6700D47D2C;
 			remoteInfo = EuropeanCuisine;
 		};
-		6A970B7F3062AC9C00168F11 /* PBXContainerItemProxy */ = {
+		D7257FEC3065AA6900D47D2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6A970B5F3062AC9A00168F11 /* Project object */;
+			containerPortal = D7257FCC3065AA6700D47D2C /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6A970B663062AC9A00168F11;
+			remoteGlobalIDString = D7257FD33065AA6700D47D2C;
 			remoteInfo = EuropeanCuisine;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6A970B673062AC9A00168F11 /* EuropeanCuisine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EuropeanCuisine.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A970B743062AC9C00168F11 /* EuropeanCuisineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EuropeanCuisineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A970B7E3062AC9C00168F11 /* EuropeanCuisineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EuropeanCuisineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A970B8F3062B06F00168F11 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D7257FD43065AA6700D47D2C /* EuropeanCuisine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EuropeanCuisine.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7257FE13065AA6900D47D2C /* EuropeanCuisineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EuropeanCuisineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7257FEB3065AA6900D47D2C /* EuropeanCuisineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EuropeanCuisineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		6A970B693062AC9A00168F11 /* EuropeanCuisine */ = {
+		D7257FD63065AA6700D47D2C /* EuropeanCuisine */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			indentWidth = 4;
 			path = EuropeanCuisine;
 			sourceTree = "<group>";
-			tabWidth = 4;
 		};
-		6A970B773062AC9C00168F11 /* EuropeanCuisineTests */ = {
+		D7257FE43065AA6900D47D2C /* EuropeanCuisineTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = EuropeanCuisineTests;
 			sourceTree = "<group>";
 		};
-		6A970B813062AC9C00168F11 /* EuropeanCuisineUITests */ = {
+		D7257FEE3065AA6900D47D2C /* EuropeanCuisineUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = EuropeanCuisineUITests;
 			sourceTree = "<group>";
@@ -55,41 +48,46 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6A970B643062AC9A00168F11 /* Frameworks */ = {
+		D7257FD13065AA6700D47D2C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6A970B713062AC9C00168F11 /* Frameworks */ = {
+		D7257FDE3065AA6900D47D2C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6A970B7B3062AC9C00168F11 /* Frameworks */ = {
+		D7257FE83065AA6900D47D2C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6A970B5E3062AC9A00168F11 = {
+		D7257FCB3065AA6700D47D2C = {
 			isa = PBXGroup;
 			children = (
-				6A970B8F3062B06F00168F11 /* README.md */,
-				6A970B693062AC9A00168F11 /* EuropeanCuisine */,
-				6A970B773062AC9C00168F11 /* EuropeanCuisineTests */,
-				6A970B813062AC9C00168F11 /* EuropeanCuisineUITests */,
-				6A970B683062AC9A00168F11 /* Products */,
+				D7257FD63065AA6700D47D2C /* EuropeanCuisine */,
+				D7257FE43065AA6900D47D2C /* EuropeanCuisineTests */,
+				D7257FEE3065AA6900D47D2C /* EuropeanCuisineUITests */,
+				D7257FD53065AA6700D47D2C /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		6A970B683062AC9A00168F11 /* Products */ = {
+		D7257FD53065AA6700D47D2C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6A970B673062AC9A00168F11 /* EuropeanCuisine.app */,
-				6A970B743062AC9C00168F11 /* EuropeanCuisineTests.xctest */,
-				6A970B7E3062AC9C00168F11 /* EuropeanCuisineUITests.xctest */,
+				D7257FD43065AA6700D47D2C /* EuropeanCuisine.app */,
+				D7257FE13065AA6900D47D2C /* EuropeanCuisineTests.xctest */,
+				D7257FEB3065AA6900D47D2C /* EuropeanCuisineUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -97,162 +95,181 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6A970B663062AC9A00168F11 /* EuropeanCuisine */ = {
+		D7257FD33065AA6700D47D2C /* EuropeanCuisine */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6A970B863062AC9C00168F11 /* Build configuration list for PBXNativeTarget "EuropeanCuisine" */;
+			buildConfigurationList = D7257FF53065AA6900D47D2C /* Build configuration list for PBXNativeTarget "EuropeanCuisine" */;
 			buildPhases = (
-				6A970B633062AC9A00168F11 /* Sources */,
-				6A970B643062AC9A00168F11 /* Frameworks */,
-				6A970B653062AC9A00168F11 /* Resources */,
+				D7257FD03065AA6700D47D2C /* Sources */,
+				D7257FD13065AA6700D47D2C /* Frameworks */,
+				D7257FD23065AA6700D47D2C /* Resources */,
 			);
 			buildRules = (
 			);
+			dependencies = (
+			);
 			fileSystemSynchronizedGroups = (
-				6A970B693062AC9A00168F11 /* EuropeanCuisine */,
+				D7257FD63065AA6700D47D2C /* EuropeanCuisine */,
 			);
 			name = EuropeanCuisine;
+			packageProductDependencies = (
+			);
 			productName = EuropeanCuisine;
-			productReference = 6A970B673062AC9A00168F11 /* EuropeanCuisine.app */;
+			productReference = D7257FD43065AA6700D47D2C /* EuropeanCuisine.app */;
 			productType = "com.apple.product-type.application";
 		};
-		6A970B733062AC9C00168F11 /* EuropeanCuisineTests */ = {
+		D7257FE03065AA6900D47D2C /* EuropeanCuisineTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6A970B893062AC9C00168F11 /* Build configuration list for PBXNativeTarget "EuropeanCuisineTests" */;
+			buildConfigurationList = D7257FF83065AA6900D47D2C /* Build configuration list for PBXNativeTarget "EuropeanCuisineTests" */;
 			buildPhases = (
-				6A970B703062AC9C00168F11 /* Sources */,
-				6A970B713062AC9C00168F11 /* Frameworks */,
-				6A970B723062AC9C00168F11 /* Resources */,
+				D7257FDD3065AA6900D47D2C /* Sources */,
+				D7257FDE3065AA6900D47D2C /* Frameworks */,
+				D7257FDF3065AA6900D47D2C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6A970B763062AC9C00168F11 /* PBXTargetDependency */,
+				D7257FE33065AA6900D47D2C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				6A970B773062AC9C00168F11 /* EuropeanCuisineTests */,
+				D7257FE43065AA6900D47D2C /* EuropeanCuisineTests */,
 			);
 			name = EuropeanCuisineTests;
+			packageProductDependencies = (
+			);
 			productName = EuropeanCuisineTests;
-			productReference = 6A970B743062AC9C00168F11 /* EuropeanCuisineTests.xctest */;
+			productReference = D7257FE13065AA6900D47D2C /* EuropeanCuisineTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6A970B7D3062AC9C00168F11 /* EuropeanCuisineUITests */ = {
+		D7257FEA3065AA6900D47D2C /* EuropeanCuisineUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6A970B8C3062AC9C00168F11 /* Build configuration list for PBXNativeTarget "EuropeanCuisineUITests" */;
+			buildConfigurationList = D7257FFB3065AA6900D47D2C /* Build configuration list for PBXNativeTarget "EuropeanCuisineUITests" */;
 			buildPhases = (
-				6A970B7A3062AC9C00168F11 /* Sources */,
-				6A970B7B3062AC9C00168F11 /* Frameworks */,
-				6A970B7C3062AC9C00168F11 /* Resources */,
+				D7257FE73065AA6900D47D2C /* Sources */,
+				D7257FE83065AA6900D47D2C /* Frameworks */,
+				D7257FE93065AA6900D47D2C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				6A970B803062AC9C00168F11 /* PBXTargetDependency */,
+				D7257FED3065AA6900D47D2C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				6A970B813062AC9C00168F11 /* EuropeanCuisineUITests */,
+				D7257FEE3065AA6900D47D2C /* EuropeanCuisineUITests */,
 			);
 			name = EuropeanCuisineUITests;
+			packageProductDependencies = (
+			);
 			productName = EuropeanCuisineUITests;
-			productReference = 6A970B7E3062AC9C00168F11 /* EuropeanCuisineUITests.xctest */;
+			productReference = D7257FEB3065AA6900D47D2C /* EuropeanCuisineUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		6A970B5F3062AC9A00168F11 /* Project object */ = {
+		D7257FCC3065AA6700D47D2C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2700;
-				LastUpgradeCheck = 2700;
+				LastSwiftUpdateCheck = 2660;
+				LastUpgradeCheck = 2660;
 				TargetAttributes = {
-					6A970B663062AC9A00168F11 = {
-						CreatedOnToolsVersion = 27.0;
+					D7257FD33065AA6700D47D2C = {
+						CreatedOnToolsVersion = 26.6;
 					};
-					6A970B733062AC9C00168F11 = {
-						CreatedOnToolsVersion = 27.0;
-						TestTargetID = 6A970B663062AC9A00168F11;
+					D7257FE03065AA6900D47D2C = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = D7257FD33065AA6700D47D2C;
 					};
-					6A970B7D3062AC9C00168F11 = {
-						CreatedOnToolsVersion = 27.0;
-						TestTargetID = 6A970B663062AC9A00168F11;
+					D7257FEA3065AA6900D47D2C = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = D7257FD33065AA6700D47D2C;
 					};
 				};
 			};
-			buildConfigurationList = 6A970B623062AC9A00168F11 /* Build configuration list for PBXProject "EuropeanCuisine" */;
+			buildConfigurationList = D7257FCF3065AA6700D47D2C /* Build configuration list for PBXProject "EuropeanCuisine" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				fr,
 			);
-			mainGroup = 6A970B5E3062AC9A00168F11;
+			mainGroup = D7257FCB3065AA6700D47D2C;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 6A970B683062AC9A00168F11 /* Products */;
+			productRefGroup = D7257FD53065AA6700D47D2C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6A970B663062AC9A00168F11 /* EuropeanCuisine */,
-				6A970B733062AC9C00168F11 /* EuropeanCuisineTests */,
-				6A970B7D3062AC9C00168F11 /* EuropeanCuisineUITests */,
+				D7257FD33065AA6700D47D2C /* EuropeanCuisine */,
+				D7257FE03065AA6900D47D2C /* EuropeanCuisineTests */,
+				D7257FEA3065AA6900D47D2C /* EuropeanCuisineUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6A970B653062AC9A00168F11 /* Resources */ = {
+		D7257FD23065AA6700D47D2C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
-				6A970B903062B06F00168F11 /* README.md in Resources */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6A970B723062AC9C00168F11 /* Resources */ = {
+		D7257FDF3065AA6900D47D2C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6A970B7C3062AC9C00168F11 /* Resources */ = {
+		D7257FE93065AA6900D47D2C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6A970B633062AC9A00168F11 /* Sources */ = {
+		D7257FD03065AA6700D47D2C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6A970B703062AC9C00168F11 /* Sources */ = {
+		D7257FDD3065AA6900D47D2C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6A970B7A3062AC9C00168F11 /* Sources */ = {
+		D7257FE73065AA6900D47D2C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6A970B763062AC9C00168F11 /* PBXTargetDependency */ = {
+		D7257FE33065AA6900D47D2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6A970B663062AC9A00168F11 /* EuropeanCuisine */;
-			targetProxy = 6A970B753062AC9C00168F11 /* PBXContainerItemProxy */;
+			target = D7257FD33065AA6700D47D2C /* EuropeanCuisine */;
+			targetProxy = D7257FE23065AA6900D47D2C /* PBXContainerItemProxy */;
 		};
-		6A970B803062AC9C00168F11 /* PBXTargetDependency */ = {
+		D7257FED3065AA6900D47D2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6A970B663062AC9A00168F11 /* EuropeanCuisine */;
-			targetProxy = 6A970B7F3062AC9C00168F11 /* PBXContainerItemProxy */;
+			target = D7257FD33065AA6700D47D2C /* EuropeanCuisine */;
+			targetProxy = D7257FEC3065AA6900D47D2C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		6A970B843062AC9C00168F11 /* Debug configuration for PBXProject "EuropeanCuisine" */ = {
+		D7257FF33065AA6900D47D2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -287,7 +304,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = D8G29AN4C3;
+				DEVELOPMENT_TEAM = 2R5488TTS6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -305,19 +322,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		6A970B853062AC9C00168F11 /* Release configuration for PBXProject "EuropeanCuisine" */ = {
+		D7257FF43065AA6900D47D2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -352,7 +368,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = D8G29AN4C3;
+				DEVELOPMENT_TEAM = 2R5488TTS6;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -364,39 +380,39 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		6A970B873062AC9C00168F11 /* Debug configuration for PBXNativeTarget "EuropeanCuisine" */ = {
+		D7257FF63065AA6900D47D2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D8G29AN4C3;
+				DEVELOPMENT_TEAM = 2R5488TTS6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "EuroDélices";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.aesmond.EuropeanCuisine;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathieunivelles.EuropeanCuisine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -408,28 +424,29 @@
 			};
 			name = Debug;
 		};
-		6A970B883062AC9C00168F11 /* Release configuration for PBXNativeTarget "EuropeanCuisine" */ = {
+		D7257FF73065AA6900D47D2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D8G29AN4C3;
+				DEVELOPMENT_TEAM = 2R5488TTS6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "EuroDélices";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.aesmond.EuropeanCuisine;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathieunivelles.EuropeanCuisine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -441,17 +458,17 @@
 			};
 			name = Release;
 		};
-		6A970B8A3062AC9C00168F11 /* Debug configuration for PBXNativeTarget "EuropeanCuisineTests" */ = {
+		D7257FF93065AA6900D47D2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D8G29AN4C3;
+				DEVELOPMENT_TEAM = 2R5488TTS6;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.aesmond.EuropeanCuisineTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathieunivelles.EuropeanCuisineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -463,17 +480,17 @@
 			};
 			name = Debug;
 		};
-		6A970B8B3062AC9C00168F11 /* Release configuration for PBXNativeTarget "EuropeanCuisineTests" */ = {
+		D7257FFA3065AA6900D47D2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D8G29AN4C3;
+				DEVELOPMENT_TEAM = 2R5488TTS6;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.aesmond.EuropeanCuisineTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathieunivelles.EuropeanCuisineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -485,15 +502,15 @@
 			};
 			name = Release;
 		};
-		6A970B8D3062AC9C00168F11 /* Debug configuration for PBXNativeTarget "EuropeanCuisineUITests" */ = {
+		D7257FFC3065AA6900D47D2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D8G29AN4C3;
+				DEVELOPMENT_TEAM = 2R5488TTS6;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.aesmond.EuropeanCuisineUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathieunivelles.EuropeanCuisineUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -505,15 +522,15 @@
 			};
 			name = Debug;
 		};
-		6A970B8E3062AC9C00168F11 /* Release configuration for PBXNativeTarget "EuropeanCuisineUITests" */ = {
+		D7257FFD3065AA6900D47D2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D8G29AN4C3;
+				DEVELOPMENT_TEAM = 2R5488TTS6;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = fr.aesmond.EuropeanCuisineUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mathieunivelles.EuropeanCuisineUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -528,40 +545,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6A970B623062AC9A00168F11 /* Build configuration list for PBXProject "EuropeanCuisine" */ = {
+		D7257FCF3065AA6700D47D2C /* Build configuration list for PBXProject "EuropeanCuisine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6A970B843062AC9C00168F11 /* Debug configuration for PBXProject "EuropeanCuisine" */,
-				6A970B853062AC9C00168F11 /* Release configuration for PBXProject "EuropeanCuisine" */,
+				D7257FF33065AA6900D47D2C /* Debug */,
+				D7257FF43065AA6900D47D2C /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6A970B863062AC9C00168F11 /* Build configuration list for PBXNativeTarget "EuropeanCuisine" */ = {
+		D7257FF53065AA6900D47D2C /* Build configuration list for PBXNativeTarget "EuropeanCuisine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6A970B873062AC9C00168F11 /* Debug configuration for PBXNativeTarget "EuropeanCuisine" */,
-				6A970B883062AC9C00168F11 /* Release configuration for PBXNativeTarget "EuropeanCuisine" */,
+				D7257FF63065AA6900D47D2C /* Debug */,
+				D7257FF73065AA6900D47D2C /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6A970B893062AC9C00168F11 /* Build configuration list for PBXNativeTarget "EuropeanCuisineTests" */ = {
+		D7257FF83065AA6900D47D2C /* Build configuration list for PBXNativeTarget "EuropeanCuisineTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6A970B8A3062AC9C00168F11 /* Debug configuration for PBXNativeTarget "EuropeanCuisineTests" */,
-				6A970B8B3062AC9C00168F11 /* Release configuration for PBXNativeTarget "EuropeanCuisineTests" */,
+				D7257FF93065AA6900D47D2C /* Debug */,
+				D7257FFA3065AA6900D47D2C /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6A970B8C3062AC9C00168F11 /* Build configuration list for PBXNativeTarget "EuropeanCuisineUITests" */ = {
+		D7257FFB3065AA6900D47D2C /* Build configuration list for PBXNativeTarget "EuropeanCuisineUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6A970B8D3062AC9C00168F11 /* Debug configuration for PBXNativeTarget "EuropeanCuisineUITests" */,
-				6A970B8E3062AC9C00168F11 /* Release configuration for PBXNativeTarget "EuropeanCuisineUITests" */,
+				D7257FFC3065AA6900D47D2C /* Debug */,
+				D7257FFD3065AA6900D47D2C /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 6A970B5F3062AC9A00168F11 /* Project object */;
-	validationLevel = 1;
+	rootObject = D7257FCC3065AA6700D47D2C /* Project object */;
 }

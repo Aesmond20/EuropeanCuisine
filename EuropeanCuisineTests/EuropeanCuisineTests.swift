@@ -1,9 +1,10 @@
 //
 //  EuropeanCuisineTests.swift
 //  EuropeanCuisineTests
-//
-//  Created by apprenant120 on 22/09/2026.
-//
+//  
+//  Created by Mathieu Nivelles on 24/09/2026.
+//  Copyright © 2026 Mathieu Nivelles. All rights reserved.
+//  
 
 import Testing
 @testable import EuropeanCuisine

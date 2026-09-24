@@ -1,62 +1,75 @@
-# Créé par https://www.toptal.com/developers/gitignore/api/macos,swiftpm,xcode
-# Modifier sur https://www.toptal.com/developers/gitignore?templates=macos,swiftpm,xcode
+# Created by https://www.toptal.com/developers/gitignore/api/macos,xcode,swiftpm,vapor
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode,swiftpm,vapor
 
 ### macOS ###
-# Général
+# General
 .DS_Store
 .AppleDouble
 .LSOverride
 
-# L'icône doit se terminer par deux \r
-Icône
+# Icon must end with two \r
+Icon
 
 
-# Miniatures
+# Thumbnails
 ._*
 
-# Fichiers susceptibles d'apparaître à la racine d'un volume
+# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
-.ÉlémentsTemporaires
-.Déchets
+.TemporaryItems
+.Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
-# Répertoires potentiellement créés sur un partage AFP distant
+# Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
-Corbeille réseau
-Articles temporaires
+Network Trash Folder
+Temporary Items
 .apdisk
 
-### Correctif macOS ###
-# Fichiers générés par iCloud
+### macOS Patch ###
+# iCloud generated files
 *.icloud
 
 ### SwiftPM ###
-Colis
-.construire/
+Packages
+.build/
 xcuserdata
-Données dérivées/
+DerivedData/
 *.xcodeproj
 
 
+### Vapor ###
+Config/secrets
+
+### Vapor Patch ###
+
+
 ### Xcode ###
-## Paramètres utilisateur
+## User settings
 xcuserdata/
 
-## Xcode 8 et versions antérieures
+## Xcode 8 and earlier
 *.xcscmblueprint
 *.xccheckout
 
-### Correctif Xcode ###
+### Xcode Patch ###
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/
 !*.xcodeproj/project.xcworkspace/
 !*.xcworkspace/contents.xcworkspacedata
-/>*.gcno
+/*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# Fin de https://www.toptal.com/developers/gitignore/api/macos,swiftpm,xcode
+# End of https://www.toptal.com/developers/gitignore/api/macos,xcode,swiftpm,vapor
+
+
+### Custom ###
+
+.env
+.env.*
+!.env.example
