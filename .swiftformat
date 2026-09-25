@@ -12,6 +12,7 @@
 
 # file options
 --exclude Pods
+--swift-version 6.3
 
 # rules
 #--disable ...

@@ -16,10 +16,8 @@ struct OrangeadeProminentButtonStyle: ButtonStyle {
 
     enum Kind {
         case primary
-
         case secondary
         case tertiary
-
         case quaternary
         case destructive
         case disabled
@@ -72,11 +70,11 @@ struct OrangeadeProminentButtonStyle: ButtonStyle {
     }
 
     private var animationScale: Double {
-        isFullWidth ? 0.9 : 0.8
+        isFullWidth ? 1.1 : 1.2
     }
 
     private var foreground: Color {
-        if isEnabled && kind != .disabled {
+        if isEnabled, kind != .disabled {
             Styles.foreground
         } else {
             Styles.disabledForeground
