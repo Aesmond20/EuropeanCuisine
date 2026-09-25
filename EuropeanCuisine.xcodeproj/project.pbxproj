@@ -29,9 +29,22 @@
 		D7257FEB3065AA6900D47D2C /* EuropeanCuisineUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EuropeanCuisineUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D778BF8B3066A82900DD2E45 /* Exceptions for "EuropeanCuisine" folder in "EuropeanCuisine" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D7257FD33065AA6700D47D2C /* EuropeanCuisine */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D7257FD63065AA6700D47D2C /* EuropeanCuisine */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D778BF8B3066A82900DD2E45 /* Exceptions for "EuropeanCuisine" folder in "EuropeanCuisine" target */,
+			);
 			indentWidth = 4;
 			path = EuropeanCuisine;
 			sourceTree = "<group>";
@@ -446,6 +459,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EuropeanCuisine/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "EuroDélices";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -481,6 +495,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EuropeanCuisine/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "EuroDélices";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
