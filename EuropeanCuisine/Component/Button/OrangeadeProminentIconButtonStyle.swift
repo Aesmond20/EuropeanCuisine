@@ -35,7 +35,8 @@ struct OrangeadeProminentIconButtonStyle: ButtonStyle {
             .overlay {
                 if kind == .onboarding {
                     Styles.shape
-                        .strokeBorder(Styles.onboardingBorder, lineWidth: Styles.onboardingBorderWidth)
+                        .strokeBorder(Styles.onboardingBorder,
+                                      lineWidth: Styles.onboardingBorderWidth)
                 }
             }
             .scaleEffect(configuration.isPressed
@@ -133,7 +134,8 @@ private enum Styles {
         Button {} label: {
             Image(systemName: "star.fill")
         }
-        .buttonStyle(.orangeadeIconProminent(kind: .secondary, icon: Image(systemName: "star.fill")))
+        .buttonStyle(.orangeadeIconProminent(kind: .secondary,
+                                             icon: Image(systemName: "star.fill")))
 
         Button {} label: {
             Image(systemName: "star.fill")
@@ -143,7 +145,8 @@ private enum Styles {
         Button {} label: {
             Image(systemName: "star.fill")
         }
-        .buttonStyle(.orangeadeIconProminent(kind: .quaternary, icon: Image(systemName: "star.fill")))
+        .buttonStyle(.orangeadeIconProminent(kind: .quaternary,
+                                             icon: Image(systemName: "star.fill")))
 
         Button {} label: {
             Image(systemName: "star.fill")
@@ -160,12 +163,14 @@ private enum Styles {
             Button {} label: {
                 Image(systemName: "arrow.left")
             }
-            .buttonStyle(.orangeadeIconProminent(kind: .back, icon: Image(systemName: "arrow.left")))
+            .buttonStyle(.orangeadeIconProminent(kind: .back,
+                                                 icon: Image(systemName: "arrow.left")))
 
             Button {} label: {
                 Image(systemName: "arrow.left")
             }
-            .buttonStyle(.orangeadeIconProminent(kind: .onboarding, icon: Image(systemName: "arrow.left")))
+            .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
+                                                 icon: Image(systemName: "arrow.left")))
         }
     }
     .padding(32)
