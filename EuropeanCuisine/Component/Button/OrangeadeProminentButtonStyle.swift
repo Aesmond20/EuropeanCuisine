@@ -25,8 +25,7 @@ struct OrangeadeProminentButtonStyle: ButtonStyle {
         Group {
             if let icon {
                 HStack(alignment: .center,
-                       spacing: Styles.iconLabelSpacing)
-                {
+                       spacing: Styles.iconLabelSpacing) {
                     icon
                         .font(Styles.iconFont)
 
@@ -102,8 +101,7 @@ struct OrangeadeProminentButtonStyle: ButtonStyle {
 extension ButtonStyle where Self == OrangeadeProminentButtonStyle {
     static func orangeadeProminent(kind: Self.Kind,
                                    icon: Image? = nil,
-                                   isFullWidth: Bool = false) -> Self
-    {
+                                   isFullWidth: Bool = false) -> Self {
         Self(kind: kind,
              icon: icon,
              isFullWidth: isFullWidth)

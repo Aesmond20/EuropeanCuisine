@@ -86,8 +86,7 @@ struct OrangeadeProminentIconButtonStyle: ButtonStyle {
 
 extension ButtonStyle where Self == OrangeadeProminentIconButtonStyle {
     static func orangeadeIconProminent(kind: Self.Kind,
-                                       icon: Image) -> Self
-    {
+                                       icon: Image) -> Self {
         Self(kind: kind,
              icon: icon)
     }
