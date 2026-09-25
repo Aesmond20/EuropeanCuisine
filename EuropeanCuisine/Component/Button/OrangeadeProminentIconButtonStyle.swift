@@ -169,6 +169,6 @@ private enum Styles {
         }
     }
     .padding(32)
-        .background(AppColor.Page.background)
+    .background(AppColor.Page.background)
 //    .background(Color.black)
 }
