@@ -93,7 +93,7 @@ extension ButtonStyle where Self == OrangeadeProminentIconButtonStyle {
     }
 }
 
-private enum Styles {
+fileprivate enum Styles {
     static let size = AppToken.buttonHeight
 
     static let cornerRadius = AppToken.buttonCornerRadius

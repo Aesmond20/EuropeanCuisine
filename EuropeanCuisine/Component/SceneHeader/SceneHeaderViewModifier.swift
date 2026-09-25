@@ -66,23 +66,7 @@ struct SceneHeaderViewModifier: ViewModifier {
                             SceneHeader(title: title)
                         }
 
-                        if let searchText,
-                           let trailingSlot {
-                            HStack(alignment: .center,
-                                   spacing: Styles.horizontalSpacing) {
-                                SearchBar(text: searchText) {
-                                    showTrailingSlot = !$0
-                                }
-
-                                if showTrailingSlot {
-                                    trailingSlot
-                                        .transition(.move(edge: .trailing)
-                                            .combined(with: .blurReplace))
-                                }
-                            }
-                        } else if let searchText {
-                            SearchBar(text: searchText)
-                        }
+                        searchBarWithTrailingAccessory
                     }
                     .padding(.horizontal)
                     .padding(.bottom, Styles.bottomPading)
@@ -102,6 +86,27 @@ struct SceneHeaderViewModifier: ViewModifier {
                     }
                 }
             }
+    }
+
+    @ViewBuilder
+    private var searchBarWithTrailingAccessory: some View {
+        if let searchText,
+           let trailingSlot {
+            HStack(alignment: .center,
+                   spacing: Styles.horizontalSpacing) {
+                SearchBar(text: searchText) {
+                    showTrailingSlot = !$0
+                }
+
+                if showTrailingSlot {
+                    trailingSlot
+                        .transition(.move(edge: .trailing)
+                            .combined(with: .blurReplace))
+                }
+            }
+        } else if let searchText {
+            SearchBar(text: searchText)
+        }
     }
 }
 
