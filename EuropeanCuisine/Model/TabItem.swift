@@ -6,7 +6,7 @@
 //  Copyright © 2026 Mathieu Nivelles. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 enum TabItem: String, Identifiable, CaseIterable {
     case booths
