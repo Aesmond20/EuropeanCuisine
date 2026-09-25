@@ -18,3 +18,4 @@
 #--disable ...
 --enable isEmpty
 --disable redundantFileprivate
+--disable wrapMultilineStatementBraces
