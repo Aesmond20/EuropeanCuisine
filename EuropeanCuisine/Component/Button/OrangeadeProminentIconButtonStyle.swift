@@ -106,7 +106,7 @@ private enum Styles {
     static let tertiary = AppColor.accentTertiary
     static let quaternary = AppColor.accentQuaternary
     static let destructive = AppColor.destructive
-    static let back = AppColor.Page.background
+    static let back = AppColor.Scene.background
     static let onboarding = AppColor.accentContrast
 
     static let disabledForeground = AppColor.disabledForeground
@@ -174,6 +174,6 @@ private enum Styles {
         }
     }
     .padding(32)
-    .background(AppColor.Page.background)
+    .background(AppColor.Scene.background)
 //    .background(Color.black)
 }

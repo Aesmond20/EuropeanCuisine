@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PageHeader: View {
+struct SceneHeader: View {
     let title: String
     let onEdit: (() -> Void)?
 
@@ -48,8 +48,8 @@ struct PageHeader: View {
                                                          icon: AppImage.Icon.edit.image))
             }
         }
-               .frame(maxWidth: .infinity,
-                      alignment: .leading)
+        .frame(maxWidth: .infinity,
+               alignment: .leading)
     }
 }
 
@@ -66,9 +66,9 @@ fileprivate enum Styles {
 
 #Preview {
     VStack(alignment: .leading, spacing: 40) {
-        PageHeader(title: "Possimus")
+        SceneHeader(title: "Possimus")
 
-        PageHeader(title: "Possimus Molestias") {
+        SceneHeader(title: "Possimus Molestias") {
             print("Test")
         }
     }
