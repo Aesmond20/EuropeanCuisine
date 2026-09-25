@@ -16,6 +16,9 @@ enum AppImage {
         case book
         case unbook
         case edit
+        case search
+        case clearSearch
+        case closeSearch
 
         var systemName: String {
             switch self {
@@ -27,6 +30,12 @@ enum AppImage {
                 "bookmark.slash.fill"
             case .edit:
                 "square.and.pencil"
+            case .search:
+                "magnifyingglass"
+            case .clearSearch:
+                "xmark.circle.fill"
+            case .closeSearch:
+                "xmark"
             }
         }
 
