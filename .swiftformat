@@ -1,7 +1,7 @@
 # format options
 --allman false
 --indent 4
---max-width 120
+--max-width 100
 --self init-only
 --strip-unused-args unnamed-only
 --wrap-arguments after-first
