@@ -19,8 +19,6 @@ struct OrangeadeProminentButtonStyle: ButtonStyle {
         case secondary
         case tertiary
         case quaternary
-        case destructive
-        case disabled
     }
 
     func makeBody(configuration: Configuration) -> some View {
@@ -74,7 +72,7 @@ struct OrangeadeProminentButtonStyle: ButtonStyle {
     }
 
     private var foreground: Color {
-        if isEnabled, kind != .disabled {
+        if isEnabled {
             Styles.foreground
         } else {
             Styles.disabledForeground
@@ -97,10 +95,6 @@ struct OrangeadeProminentButtonStyle: ButtonStyle {
             return Styles.tertiary
         case .quaternary:
             return Styles.quaternary
-        case .destructive:
-            return Styles.destructive
-        case .disabled:
-            return Styles.disabledBackground
         }
     }
 }
@@ -185,7 +179,8 @@ private enum Styles {
             .buttonStyle(.orangeadeProminent(kind: .quaternary))
 
         Button("Vanille") {}
-            .buttonStyle(.orangeadeProminent(kind: .destructive))
+            .buttonStyle(.orangeadeProminent(kind: .primary))
+            .disabled(true)
     }
     .padding(32)
     .background(AppColor.Page.background)
