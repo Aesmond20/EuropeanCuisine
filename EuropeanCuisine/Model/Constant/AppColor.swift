@@ -27,7 +27,7 @@ enum AppColor {
     static let tabBarBorder: Color = .primitiveTabBarBorder
     static let tabBarItemBackground: Color = .primitiveTabBarItemBackground
 
-    enum Page {
+    enum Scene {
         static let background: Color = .primitiveBackground
     }
 

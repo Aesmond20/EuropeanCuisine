@@ -181,5 +181,5 @@ fileprivate enum Styles {
             .disabled(true)
     }
     .padding(32)
-    .background(AppColor.Page.background)
+    .background(AppColor.Scene.background)
 }

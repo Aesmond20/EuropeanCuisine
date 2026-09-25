@@ -35,7 +35,8 @@ struct OrangeadeProminentIconButtonStyle: ButtonStyle {
             .overlay {
                 if kind == .onboarding {
                     Styles.shape
-                        .strokeBorder(Styles.onboardingBorder, lineWidth: Styles.onboardingBorderWidth)
+                        .strokeBorder(Styles.onboardingBorder,
+                                      lineWidth: Styles.onboardingBorderWidth)
                 }
             }
             .scaleEffect(configuration.isPressed
@@ -105,7 +106,7 @@ fileprivate enum Styles {
     static let tertiary = AppColor.accentTertiary
     static let quaternary = AppColor.accentQuaternary
     static let destructive = AppColor.destructive
-    static let back = AppColor.Page.background
+    static let back = AppColor.Scene.background
     static let onboarding = AppColor.accentContrast
 
     static let disabledForeground = AppColor.disabledForeground
@@ -133,7 +134,8 @@ fileprivate enum Styles {
         Button {} label: {
             Image(systemName: "star.fill")
         }
-        .buttonStyle(.orangeadeIconProminent(kind: .secondary, icon: Image(systemName: "star.fill")))
+        .buttonStyle(.orangeadeIconProminent(kind: .secondary,
+                                             icon: Image(systemName: "star.fill")))
 
         Button {} label: {
             Image(systemName: "star.fill")
@@ -143,7 +145,8 @@ fileprivate enum Styles {
         Button {} label: {
             Image(systemName: "star.fill")
         }
-        .buttonStyle(.orangeadeIconProminent(kind: .quaternary, icon: Image(systemName: "star.fill")))
+        .buttonStyle(.orangeadeIconProminent(kind: .quaternary,
+                                             icon: Image(systemName: "star.fill")))
 
         Button {} label: {
             Image(systemName: "star.fill")
@@ -160,15 +163,17 @@ fileprivate enum Styles {
             Button {} label: {
                 Image(systemName: "arrow.left")
             }
-            .buttonStyle(.orangeadeIconProminent(kind: .back, icon: Image(systemName: "arrow.left")))
+            .buttonStyle(.orangeadeIconProminent(kind: .back,
+                                                 icon: Image(systemName: "arrow.left")))
 
             Button {} label: {
                 Image(systemName: "arrow.left")
             }
-            .buttonStyle(.orangeadeIconProminent(kind: .onboarding, icon: Image(systemName: "arrow.left")))
+            .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
+                                                 icon: Image(systemName: "arrow.left")))
         }
     }
     .padding(32)
-    .background(AppColor.Page.background)
+    .background(AppColor.Scene.background)
 //    .background(Color.black)
 }

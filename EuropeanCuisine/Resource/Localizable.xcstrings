@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Edit" : {
+
+    },
     "tab_bar_item.booths" : {
       "extractionState" : "manual",
       "localizations" : {
