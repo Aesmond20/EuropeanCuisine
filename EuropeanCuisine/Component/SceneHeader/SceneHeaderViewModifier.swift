@@ -36,7 +36,7 @@ struct SceneHeaderViewModifier: ViewModifier {
                                 .ignoresSafeArea(.all,
                                                  edges: .top)
                         }
-                    
+
                     Group {
                         if let onEdit {
                             SceneHeader(title: title, onEdit: onEdit)
@@ -48,15 +48,13 @@ struct SceneHeaderViewModifier: ViewModifier {
                     .padding(.bottom, Styles.bottomPading)
                     .background {
                         Rectangle()
-                            .fill(
-                                LinearGradient(colors: [
+                            .fill(LinearGradient(colors: [
                                     Styles.background.opacity(0.64),
                                     Styles.background.opacity(1),
-                                    Styles.background.opacity(1)
+                                    Styles.background.opacity(1),
                                 ],
-                                               startPoint: .bottom,
-                                               endPoint: .top)
-                            )
+                                startPoint: .bottom,
+                                endPoint: .top))
                             .padding(-20)
                             .blur(radius: 10)
                             .padding(20)

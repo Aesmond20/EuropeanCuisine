@@ -32,7 +32,8 @@ struct ProfileHeader: View {
                             .clipShape(Styles.pictureShape)
                             .overlay {
                                 Styles.pictureShape
-                                    .stroke(Styles.pictureBorder, lineWidth: Styles.pictureBorderWidth)
+                                    .stroke(Styles.pictureBorder,
+                                            lineWidth: Styles.pictureBorderWidth)
                             }
                     case .failure:
                         placeholder
