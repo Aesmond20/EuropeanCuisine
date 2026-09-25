@@ -1,5 +1,5 @@
 //
-//  PageHeader.swift
+//  SceneHeader.swift
 //  EuropeanCuisine
 //
 //  Created by Mathieu Nivelles on 25/09/2026.
@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct SceneHeader: View {
-    let title: String
-    let onEdit: (() -> Void)?
+    private let title: String
+    private let onEdit: (() -> Void)?
 
     init(title: String) {
         self.title = title
