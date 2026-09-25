@@ -23,11 +23,11 @@ enum AppColor {
     static let searchbarBorder: Color = .primitiveSearchbarBorder
     static let success: Color = .primitiveSuccess
     static let surface: Color = .primitiveSurface
-    
+
     enum Page {
         static let background: Color = .primitiveBackground
     }
-    
+
     enum Label {
         static let title: Color = .labelTitle
         static let primary: Color = .labelPrimary

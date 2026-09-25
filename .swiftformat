@@ -1,0 +1,18 @@
+# format options
+--allman false
+--indent 4
+--max-width 120
+--self init-only
+--strip-unused-args unnamed-only
+--wrap-arguments after-first
+--wrap-parameters after-first
+--wrap-collections before-first
+--xcode-indentation disabled
+--no-space-operators
+
+# file options
+--exclude Pods
+
+# rules
+#--disable ...
+--enable isEmpty

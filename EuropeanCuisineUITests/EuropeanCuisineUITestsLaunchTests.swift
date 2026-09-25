@@ -1,15 +1,14 @@
 //
 //  EuropeanCuisineUITestsLaunchTests.swift
 //  EuropeanCuisineUITests
-//  
+//
 //  Created by Mathieu Nivelles on 24/09/2026.
 //  Copyright © 2026 Mathieu Nivelles. All rights reserved.
-//  
+//
 
 import XCTest
 
 final class EuropeanCuisineUITestsLaunchTests: XCTestCase {
-
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }
@@ -19,7 +18,7 @@ final class EuropeanCuisineUITestsLaunchTests: XCTestCase {
     }
 
     @MainActor
-    func testLaunch() throws {
+    func testLaunch() {
         let app = XCUIApplication()
         app.launch()
 

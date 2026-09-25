@@ -19,7 +19,7 @@ enum AppToken {
     static let buttonHeight: Double = 48
     static let buttonCornerRadius: Double = Primitive.radius2xl
     static let buttonPressedAnimation = Animation.snappy
-    
+
     enum Primitive {
         // Padding
         static let padding0: Double = 0
@@ -34,7 +34,7 @@ enum AppToken {
         static let padding12: Double = 48
         static let padding16: Double = 64
         static let padding20: Double = 80
-        
+
         // Radius
         static let radiusNone: Double = 0
         static let radiusXs: Double = 2
@@ -47,7 +47,7 @@ enum AppToken {
         static let radius4xl: Double = 24
         static let radius5xl: Double = 32
         static let radiusFull: Double = 9999
-        
+
         // Spacing
         static let spacing0: Double = 0
         static let spacing05: Double = 2

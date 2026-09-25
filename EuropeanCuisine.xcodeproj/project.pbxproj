@@ -32,8 +32,10 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D7257FD63065AA6700D47D2C /* EuropeanCuisine */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			indentWidth = 4;
 			path = EuropeanCuisine;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		D7257FE43065AA6900D47D2C /* EuropeanCuisineTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -99,6 +101,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7257FF53065AA6900D47D2C /* Build configuration list for PBXNativeTarget "EuropeanCuisine" */;
 			buildPhases = (
+				D75D080C3065CCD5006F0988 /* SwiftFormat */,
 				D7257FD03065AA6700D47D2C /* Sources */,
 				D7257FD13065AA6700D47D2C /* Frameworks */,
 				D7257FD23065AA6700D47D2C /* Resources */,
@@ -230,6 +233,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D75D080C3065CCD5006F0988 /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftformat > /dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D7257FD03065AA6700D47D2C /* Sources */ = {
@@ -399,6 +424,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2R5488TTS6;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "EuroDélices";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -433,6 +459,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2R5488TTS6;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "EuroDélices";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
