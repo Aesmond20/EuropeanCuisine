@@ -19,34 +19,41 @@ struct OrangeadeProminentIconButtonStyle: ButtonStyle {
         case secondary
         case tertiary
         case quaternary
-//        case back
-//        case onboarding
+        case back
+        case onboarding
     }
 
     func makeBody(configuration: Configuration) -> some View {
-        HStack {
-            icon
-                .font(Styles.iconFont)
-        }
-
-        .foregroundStyle(foreground)
-        .frame(width: Styles.size, height: Styles.size)
-        .background {
-            Styles.shape
-                .fill(background(role: configuration.role))
-        }
-        .scaleEffect(configuration.isPressed
-            ? 1.2
-            : 1)
-        .opacity(configuration.isPressed
-            ? 0.72
-            : 1)
-        .animation(Styles.pressedAnimation,
-                   value: configuration.isPressed)
+        icon
+            .font(Styles.iconFont)
+            .foregroundStyle(foreground)
+            .frame(width: Styles.size, height: Styles.size)
+            .background {
+                Styles.shape
+                    .fill(background(role: configuration.role))
+            }
+            .overlay {
+                if kind == .onboarding {
+                    Styles.shape
+                        .strokeBorder(Styles.onboardingBorder, lineWidth: Styles.onboardingBorderWidth)
+                }
+            }
+            .scaleEffect(configuration.isPressed
+                ? 1.2
+                : 1)
+            .opacity(configuration.isPressed
+                ? 0.72
+                : 1)
+            .animation(Styles.pressedAnimation,
+                       value: configuration.isPressed)
     }
 
     private var foreground: Color {
-        if isEnabled {
+        if kind == .back {
+            Styles.secondary
+        } else if kind == .onboarding {
+            Styles.secondary
+        } else if isEnabled {
             Styles.foreground
         } else {
             Styles.disabledForeground
@@ -69,6 +76,10 @@ struct OrangeadeProminentIconButtonStyle: ButtonStyle {
             return Styles.tertiary
         case .quaternary:
             return Styles.quaternary
+        case .back:
+            return Styles.back
+        case .onboarding:
+            return Styles.onboarding
         }
     }
 }
@@ -94,9 +105,14 @@ private enum Styles {
     static let tertiary = AppColor.accentTertiary
     static let quaternary = AppColor.accentQuaternary
     static let destructive = AppColor.destructive
+    static let back = AppColor.Page.background
+    static let onboarding = AppColor.accentContrast
 
     static let disabledForeground = AppColor.disabledForeground
     static let disabledBackground = AppColor.disabledBackground
+
+    static let onboardingBorder = AppColor.fieldBorder
+    static let onboardingBorderWidth = AppToken.fieldBorderWidth
 
     static let iconFont: Font = .system(size: 24,
                                         weight: .semibold,
@@ -139,7 +155,20 @@ private enum Styles {
             Image(systemName: "star.fill")
         }
         .buttonStyle(.orangeadeIconProminent(kind: .tertiary, icon: Image(systemName: "star.fill")))
+
+        HStack {
+            Button {} label: {
+                Image(systemName: "arrow.left")
+            }
+            .buttonStyle(.orangeadeIconProminent(kind: .back, icon: Image(systemName: "arrow.left")))
+
+            Button {} label: {
+                Image(systemName: "arrow.left")
+            }
+            .buttonStyle(.orangeadeIconProminent(kind: .onboarding, icon: Image(systemName: "arrow.left")))
+        }
     }
     .padding(32)
     .background(AppColor.Page.background)
+//    .background(Color.black)
 }
