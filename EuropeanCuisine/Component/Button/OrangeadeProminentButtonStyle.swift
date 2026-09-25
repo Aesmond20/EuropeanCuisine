@@ -116,7 +116,7 @@ extension ButtonStyle where Self == OrangeadeProminentButtonStyle {
     }
 }
 
-private enum Styles {
+fileprivate enum Styles {
     static let hPadding = AppToken.Primitive.padding4
     static let height = AppToken.buttonHeight
 

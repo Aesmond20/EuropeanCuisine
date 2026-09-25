@@ -23,6 +23,9 @@ enum AppColor {
     static let searchbarBorder: Color = .primitiveSearchbarBorder
     static let success: Color = .primitiveSuccess
     static let surface: Color = .primitiveSurface
+    static let tabBarBackground: Color = .primitiveTabBarBackground
+    static let tabBarBorder: Color = .primitiveTabBarBorder
+    static let tabBarItemBackground: Color = .primitiveTabBarItemBackground
 
     enum Page {
         static let background: Color = .primitiveBackground
