@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Hello, world!" : {
-
-    },
     "tab_bar_item.booths" : {
       "extractionState" : "manual",
       "localizations" : {
