@@ -100,6 +100,6 @@ fileprivate enum Styles {
 
 #Preview {
     OrangeadeTabBar()
-        .padding(32)
+        .padding(24)
         .background(AppColor.Page.background)
 }
