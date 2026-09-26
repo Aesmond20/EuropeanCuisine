@@ -20,6 +20,8 @@ enum AppImage {
         case clearSearch
         case closeSearch
         case filter
+        case showSecure
+        case hideSecure
 
         var systemName: String {
             switch self {
@@ -39,6 +41,10 @@ enum AppImage {
                 "xmark"
             case .filter:
                 "line.3.horizontal.decrease"
+            case .showSecure:
+                "eye"
+            case .hideSecure:
+                "eye.slash"
             }
         }
 

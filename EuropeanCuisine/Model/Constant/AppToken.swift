@@ -10,10 +10,12 @@ import SwiftUI
 enum AppToken {
     static let cornerRadius: Double = Primitive.radius2xl
     static let fieldBorderWidth: Double = 2
+    static let fieldIconSize: Double = 20
+    static let fieldIconWeight: Font.Weight = .medium
     static let fieldLabelSize: Double = 15
-    static let fieldLabelWeight: Double = 400
+    static let fieldLabelWeight: Font.Weight = .regular
     static let fieldHeight: Double = 48
-    static let fieldHorizontalPadding: Double = 16
+    static let fieldHorizontalPadding: Double = AppToken.Primitive.padding4
     static let searchBarCornerRadius: Double = Primitive.radius2xl
     static let searchBarHeight: Double = 48
     static let buttonHeight: Double = 48
