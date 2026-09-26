@@ -29,6 +29,7 @@ enum AppColor {
 
     enum Scene {
         static let background: Color = .primitiveBackground
+        static let divider: Color = .primitiveDivider
     }
 
     enum Label {
