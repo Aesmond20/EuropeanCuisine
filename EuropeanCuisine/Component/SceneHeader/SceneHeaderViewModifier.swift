@@ -12,6 +12,7 @@ struct SceneHeaderViewModifier: ViewModifier {
     private let title: String
     private let onEdit: (() -> Void)?
     private var searchText: Binding<String>?
+    private let searchPlaceholder: String
     private var trailingSlot: AnyView?
 
     @State private var showTrailingSlot: Bool = true
@@ -20,6 +21,7 @@ struct SceneHeaderViewModifier: ViewModifier {
         self.title = title
         self.onEdit = nil
         self.searchText = nil
+        self.searchPlaceholder = ""
         self.trailingSlot = nil
     }
 
@@ -27,20 +29,28 @@ struct SceneHeaderViewModifier: ViewModifier {
         self.title = title
         self.onEdit = onEdit
         self.searchText = nil
+        self.searchPlaceholder = ""
         self.trailingSlot = nil
     }
 
-    init(title: String, searchText: Binding<String>) {
+    init(title: String,
+         searchText: Binding<String>,
+         searchPlaceholder: String) {
         self.title = title
         self.onEdit = nil
         self.searchText = searchText
+        self.searchPlaceholder = searchPlaceholder
         self.trailingSlot = nil
     }
 
-    init(title: String, searchText: Binding<String>, trailingAccessory: () -> some View) {
+    init(title: String,
+         searchText: Binding<String>,
+         searchPlaceholder: String,
+         trailingAccessory: () -> some View) {
         self.title = title
         self.onEdit = nil
         self.searchText = searchText
+        self.searchPlaceholder = searchPlaceholder
         self.trailingSlot = AnyView(trailingAccessory())
     }
 
@@ -94,7 +104,8 @@ struct SceneHeaderViewModifier: ViewModifier {
            let trailingSlot {
             HStack(alignment: .center,
                    spacing: Styles.horizontalSpacing) {
-                SearchBar(text: searchText) {
+                SearchBar(text: searchText,
+                          placeholder: searchPlaceholder) {
                     showTrailingSlot = !$0
                 }
 
@@ -105,7 +116,8 @@ struct SceneHeaderViewModifier: ViewModifier {
                 }
             }
         } else if let searchText {
-            SearchBar(text: searchText)
+            SearchBar(text: searchText,
+                      placeholder: searchPlaceholder)
         }
     }
 }
@@ -119,13 +131,21 @@ extension View {
         modifier(SceneHeaderViewModifier(title: title, onEdit: onEdit))
     }
 
-    func sceneHeader(_ title: String, searchText: Binding<String>) -> some View {
-        modifier(SceneHeaderViewModifier(title: title, searchText: searchText))
+    func sceneHeader(_ title: String,
+                     searchText: Binding<String>,
+                     searchPlaceholder: String) -> some View {
+        modifier(SceneHeaderViewModifier(title: title,
+                                         searchText: searchText,
+                                         searchPlaceholder: searchPlaceholder))
     }
 
-    func sceneHeader(_ title: String, searchText: Binding<String>,
+    func sceneHeader(_ title: String,
+                     searchText: Binding<String>,
+                     searchPlaceholder: String,
                      trailingAccessory: () -> some View) -> some View {
-        modifier(SceneHeaderViewModifier(title: title, searchText: searchText,
+        modifier(SceneHeaderViewModifier(title: title,
+                                         searchText: searchText,
+                                         searchPlaceholder: searchPlaceholder,
                                          trailingAccessory: trailingAccessory))
     }
 }
@@ -171,7 +191,9 @@ fileprivate enum Styles {
             }
         }
     }
-    .sceneHeader("Quibusdam Ut", searchText: $searchText)
+    .sceneHeader("Quibusdam Ut",
+                 searchText: $searchText,
+                 searchPlaceholder: "Search lorem")
 }
 
 #Preview("Title with Search And Button") {
@@ -184,7 +206,9 @@ fileprivate enum Styles {
             }
         }
     }
-    .sceneHeader("Quibusdam Ut", searchText: $searchText) {
+    .sceneHeader("Quibusdam Ut",
+                 searchText: $searchText,
+                 searchPlaceholder: "Search ipsum") {
         Button("") {}
             .buttonStyle(.orangeadeIconProminent(kind: .quaternary,
                                                  icon: AppImage.Icon.book.image))

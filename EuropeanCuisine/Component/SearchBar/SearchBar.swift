@@ -10,15 +10,18 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding private var text: String
+    private let placeholder: String
     private var onChangeFocused: ((Bool) -> Void)?
 
-    init(text: Binding<String>) {
+    init(text: Binding<String>, placeholder: String) {
         self._text = text
+        self.placeholder = placeholder
         self.onChangeFocused = nil
     }
 
-    init(text: Binding<String>, onChangeFocused: @escaping (Bool) -> Void) {
+    init(text: Binding<String>, placeholder: String, onChangeFocused: @escaping (Bool) -> Void) {
         self._text = text
+        self.placeholder = placeholder
         self.onChangeFocused = onChangeFocused
     }
 
@@ -56,7 +59,7 @@ struct SearchBar: View {
 
             TextField("",
                       text: $text,
-                      prompt: Text("Placeholder").foregroundStyle(placeholderColor)
+                      prompt: Text(placeholder).foregroundStyle(placeholderColor)
                           .font(Styles.placeholderFont))
                 .focused($isFocused)
                 .font(Styles.textFont)
@@ -178,9 +181,10 @@ fileprivate enum Styles {
     @Previewable @State var text2 = ""
 
     VStack {
-        SearchBar(text: $text)
+        SearchBar(text: $text,
+                  placeholder: "Search")
 
-        SearchBar(text: $text2, onChangeFocused: { print("Close \($0)") })
+        SearchBar(text: $text2, placeholder: "Search...", onChangeFocused: { print("Close \($0)") })
     }
     .padding()
 }
