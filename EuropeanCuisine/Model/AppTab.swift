@@ -1,14 +1,14 @@
 //
-//  TabItem.swift
+//  AppTab.swift
 //  EuropeanCuisine
 //
-//  Created by Mathieu Nivelles on 25/09/2026.
+//  Created by Mathieu Nivelles on 26/09/2026.
 //  Copyright © 2026 Mathieu Nivelles. All rights reserved.
 //
 
 import SwiftUI
 
-enum TabItem: String, Identifiable, CaseIterable {
+enum AppTab: String, Identifiable {
     case booths
     case workshops
     case reservations
@@ -41,6 +41,21 @@ enum TabItem: String, Identifiable, CaseIterable {
             String(localized: .tabBarItemReservations)
         case .profile:
             String(localized: .tabBarItemProfile)
+        }
+    }
+
+    @ViewBuilder
+    var rootView: some View {
+        switch self {
+        case .booths:
+            Text("Booths scene")
+                .frame(maxWidth: .infinity)
+        case .workshops:
+            WorkshopListScene()
+        case .reservations:
+            ReservationListScene()
+        case .profile:
+            ProfileScene()
         }
     }
 }

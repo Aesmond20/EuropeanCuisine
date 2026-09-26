@@ -13,10 +13,14 @@ struct WorkshopListScene: View {
 
     var body: some View {
         List {
-            ForEach(0 ..< 40, id: \.self) {
-                Text("Item \($0 + 1)")
-                    .listRowBackground(Color.clear)
-                    .listRowSeparatorTint(Styles.listSeparator)
+            ForEach(0 ..< 40, id: \.self) { index in
+                NavigationLink("Item \(index + 1)") {
+                    Text("Item \(index + 1)")
+                        .orangeadeTabViewVisibility(.hidden)
+                }
+
+                .listRowBackground(Color.clear)
+                .listRowSeparatorTint(Styles.listSeparator)
             }
         }
         .listStyle(.plain)
@@ -38,5 +42,7 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    WorkshopListScene()
+    NavigationStack {
+        WorkshopListScene()
+    }
 }
