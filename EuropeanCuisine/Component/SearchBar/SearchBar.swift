@@ -141,6 +141,8 @@ fileprivate struct CloseSearchButton: View {
 }
 
 fileprivate enum Styles {
+    static let accentColor = AppColor.accentPrimary
+
     static let wrapperHorizontalSpacing = AppToken.Primitive.spacing3
 
     static let background = AppColor.searchbarBackground
@@ -153,18 +155,17 @@ fileprivate enum Styles {
     static let shape = RoundedRectangle(cornerRadius: cornerRadius)
 
     static let borderColor = AppColor.searchbarBorder
-    static let borderFocusedColor = AppColor.accentPrimary
+    static let borderFocusedColor = accentColor
     static let borderWidth: Double = 2
 
     static let iconColor = AppColor.Label.primary
-    static let iconFocusedColor = AppColor.accentPrimary
-    static let iconFont: Font = .system(size: 19,
+    static let iconFocusedColor = accentColor
+    static let iconFont: Font = .system(size: 20,
                                         weight: .medium)
 
     static let placeholderColor = AppColor.Label.primary
     static let placeholderFocusedColor = AppColor.Label.secondary
-    static let placeholderFont: Font = .system(size: 17,
-                                               weight: .medium)
+    static let placeholderFont: Font = textFont
 
     static let textColor = AppColor.Label.title
     static let textFont: Font = .system(size: 17,
