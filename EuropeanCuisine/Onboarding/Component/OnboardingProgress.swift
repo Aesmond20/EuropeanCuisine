@@ -53,6 +53,6 @@ fileprivate enum Styles {
                            current: 3,
                            total: 5)
     }
-           .padding()
-           .background(AppColor.Scene.background)
+    .padding()
+    .background(AppColor.Scene.background)
 }

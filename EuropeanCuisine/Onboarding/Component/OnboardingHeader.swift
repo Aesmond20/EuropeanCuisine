@@ -40,7 +40,7 @@ struct OnboardingHeader: View {
                     .foregroundStyle(Styles.subtitleColor)
             }
         }
-               .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -65,7 +65,11 @@ fileprivate enum Styles {
         OnboardingHeader(title: "Placeat Dicta")
 
         OnboardingHeader(title: "Inventore Culpa",
-                         subtitle: "Natus odit consequatur est quas nostrum vitae. Consectetur quos ipsum necessitatibus officia rem laborum saepe accusamus aut dignissimos corrupti error eos quia provident.")
+                         subtitle: """
+                         Natus odit consequatur est quas nostrum vitae. Consectetur quos \
+                         ipsum necessitatibus officia rem laborum saepe accusamus \
+                         aut dignissimos corrupti error eos quia provident.
+                         """)
     }
     .padding()
     .background(AppColor.Scene.background)
