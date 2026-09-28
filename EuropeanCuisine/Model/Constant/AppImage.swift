@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum AppImage {
-    static let branchIcon: Image = .init(.branchIcon)
+    static let branchIcon: Image = .init(.branchIcon2)
 
     enum Icon {
         case isBooked
