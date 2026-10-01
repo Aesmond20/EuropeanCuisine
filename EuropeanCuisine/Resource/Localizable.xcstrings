@@ -10,6 +10,31 @@
     "Edit" : {
 
     },
+    "global.button.log_in.label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log in"
+          }
+        }
+      }
+    },
+    "global.button.sign_up.label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign up"
+          }
+        }
+      }
+    },
+    "Hello, world!" : {
+
+    },
     "Item %lld" : {
 
     },
