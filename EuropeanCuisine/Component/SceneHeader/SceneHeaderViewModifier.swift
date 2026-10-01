@@ -16,6 +16,7 @@ struct SceneHeaderViewModifier: ViewModifier {
     private var trailingSlot: AnyView?
 
     @State private var showTrailingSlot: Bool = true
+    @State private var hideTitle: Bool = false
 
     init(title: String) {
         self.title = title
@@ -70,9 +71,9 @@ struct SceneHeaderViewModifier: ViewModifier {
                         }
 
                     VStack(spacing: Styles.verticalSpacing) {
-                        if let onEdit {
+                        if let onEdit, !hideTitle {
                             SceneHeader(title: title, onEdit: onEdit)
-                        } else {
+                        } else if !hideTitle {
                             SceneHeader(title: title)
                         }
 
@@ -107,6 +108,7 @@ struct SceneHeaderViewModifier: ViewModifier {
                 SearchBar(text: searchText,
                           placeholder: searchPlaceholder) {
                     showTrailingSlot = !$0
+                    hideTitle = $0
                 }
 
                 if showTrailingSlot {
@@ -117,7 +119,9 @@ struct SceneHeaderViewModifier: ViewModifier {
             }
         } else if let searchText {
             SearchBar(text: searchText,
-                      placeholder: searchPlaceholder)
+                      placeholder: searchPlaceholder) {
+                hideTitle = $0
+            }
         }
     }
 }
