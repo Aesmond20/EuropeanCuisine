@@ -22,6 +22,9 @@ enum AppImage {
         case filter
         case showSecure
         case hideSecure
+        case back
+        case email
+        case password
 
         var systemName: String {
             switch self {
@@ -45,6 +48,12 @@ enum AppImage {
                 "eye"
             case .hideSecure:
                 "eye.slash"
+            case .back:
+                "arrow.left"
+            case .email:
+                "envelope"
+            case .password:
+                "lock"
             }
         }
 

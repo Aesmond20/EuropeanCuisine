@@ -12,6 +12,7 @@ enum AppToken {
     static let fieldBorderWidth: Double = 2
     static let fieldIconSize: Double = 20
     static let fieldIconWeight: Font.Weight = .medium
+    static let fieldIconMaxWidth: Double = 30
     static let fieldLabelSize: Double = 15
     static let fieldLabelWeight: Font.Weight = .regular
     static let fieldHeight: Double = 48
