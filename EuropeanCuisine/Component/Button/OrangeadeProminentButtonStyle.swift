@@ -60,6 +60,7 @@ struct OrangeadeProminentButtonStyle: ButtonStyle {
             : 1)
         .animation(Styles.pressedAnimation,
                    value: configuration.isPressed)
+        .contentShape(.rect)
     }
 
     private var animationRotationDegrees: Double {
