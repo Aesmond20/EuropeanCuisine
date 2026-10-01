@@ -45,6 +45,8 @@ struct TextInput: View {
                 icon
                     .font(Styles.iconFont)
                     .foregroundStyle(iconColor)
+                    .frame(width: Styles.iconMaxWidth,
+                           alignment: .center)
             }
 
             TextField("",
@@ -125,6 +127,7 @@ fileprivate enum Styles {
     static let iconFocusedColor = accentColor
     static let iconFont: Font = .system(size: AppToken.fieldIconSize,
                                         weight: AppToken.fieldIconWeight)
+    static let iconMaxWidth = AppToken.fieldIconMaxWidth
 
     static let textColor = AppColor.Label.primary
     static let textFont: Font = .system(size: AppToken.fieldLabelSize,
