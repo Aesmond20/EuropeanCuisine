@@ -12,22 +12,18 @@ struct OnboardingMessageWithAction: View {
     let message: String
     let actionMessage: String
     let action: () -> Void
-    
-    init(
-        message: String,
-        actionMessage: String,
-        action: @escaping () -> Void
-    ) {
+
+    init(message: String,
+         actionMessage: String,
+         action: @escaping () -> Void) {
         self.message = message
         self.actionMessage = actionMessage
         self.action = action
     }
-    
-    init(
-        message: LocalizedStringResource,
-        actionMessage: LocalizedStringResource,
-        action: @escaping () -> Void
-    ) {
+
+    init(message: LocalizedStringResource,
+         actionMessage: LocalizedStringResource,
+         action: @escaping () -> Void) {
         self.message = String(localized: message)
         self.actionMessage = String(localized: actionMessage)
         self.action = action

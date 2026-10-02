@@ -93,8 +93,9 @@ struct OnboardingSignUpPasswordView: View {
             PasswordValidationRule(label: .onboardingFieldPasswordRuleOneNumber,
                                    isValid: hasAtLeastOneNumber)
 
-            PasswordValidationRule(label: .onboardingFieldPasswordRuleMinCharacters(min: Constraints.User.Password.length.lowerBound),
-                                   isValid: hasAtLeastXcharacters)
+            PasswordValidationRule(label: .onboardingFieldPasswordRuleMinCharacters(min: Constraints
+                                       .User.Password.length.lowerBound),
+            isValid: hasAtLeastXcharacters)
 
             PasswordValidationRule(label: .onboardingFieldPasswordRulePasswordMatch,
                                    isValid: hasPasswordMatch)
@@ -114,13 +115,13 @@ struct OnboardingSignUpPasswordView: View {
 fileprivate struct PasswordValidationRule: View {
     let label: String
     let isValid: Bool
-    
+
     init(label: String,
          isValid: Bool) {
         self.label = label
         self.isValid = isValid
     }
-    
+
     init(label: LocalizedStringResource,
          isValid: Bool) {
         self.label = String(localized: label)

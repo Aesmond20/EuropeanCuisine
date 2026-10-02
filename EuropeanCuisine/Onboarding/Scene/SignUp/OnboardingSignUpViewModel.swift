@@ -135,12 +135,14 @@ final class OnboardingSignUpViewModel {
 
         if isNameTooShort {
             messages
-                .append(String(localized: .onboardingFieldNameErrorMessageTooShort(min: Constraints.User.Name.length.lowerBound)))
+                .append(String(localized: .onboardingFieldNameErrorMessageTooShort(min: Constraints
+                        .User.Name.length.lowerBound)))
         }
 
         if isNameTooLong {
             messages
-                .append(String(localized: .onboardingFieldNameErrorMessageTooLong(max: Constraints.User.Name.length.upperBound)))
+                .append(String(localized: .onboardingFieldNameErrorMessageTooLong(max: Constraints
+                        .User.Name.length.upperBound)))
         }
 
         return messages
@@ -151,7 +153,8 @@ final class OnboardingSignUpViewModel {
 
         if isPasswordTooLong {
             messages
-                .append(String(localized: .onboardingFieldPasswordErrorMessageTooLong(max: Constraints.User.Password.length.upperBound)))
+                .append(String(localized: .onboardingFieldPasswordErrorMessageTooLong(max: Constraints
+                        .User.Password.length.upperBound)))
         }
 
         return messages

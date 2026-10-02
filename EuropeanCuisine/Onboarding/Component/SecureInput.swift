@@ -39,7 +39,7 @@ struct SecureInput: View {
         self.isFocused = isFocused
         self.isValid = isValid
     }
-    
+
     init(_ placeholder: LocalizedStringResource,
          text: Binding<String>,
          isFocused: Bool,
@@ -50,7 +50,7 @@ struct SecureInput: View {
         self.isFocused = isFocused
         self.isValid = isValid
     }
-    
+
     init(_ placeholder: LocalizedStringResource,
          text: Binding<String>,
          icon: Image?,

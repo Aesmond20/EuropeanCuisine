@@ -18,7 +18,7 @@ struct OnboardingProgress: View {
         self.current = current
         self.total = total
     }
-    
+
     init(title: LocalizedStringResource,
          current: UInt8,
          total: UInt8) {

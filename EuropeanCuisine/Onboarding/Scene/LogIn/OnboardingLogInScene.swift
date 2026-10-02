@@ -45,7 +45,7 @@ struct OnboardingLogInScene: View {
                 .ignoresSafeArea(.all)
         }
     }
-    
+
     private var headerView: some View {
         HStack(spacing: .zero) {
             Button("", action: {})
@@ -55,34 +55,34 @@ struct OnboardingLogInScene: View {
         .padding(.horizontal)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
+
     private var formHeaderView: some View {
         OnboardingHeader(title: .onboardingLogInViewTitle,
                          subtitle: .onboardingLogInViewSubtitle)
     }
-    
+
     private var formView: some View {
         VStack(spacing: Styles.formVerticalSpacing) {
             emailView
-            
+
             passwordView
         }
     }
-    
+
     private var emailView: some View {
         InputLabelWithContent(label: .onboardingFieldEmailLabel) {
             TextInput(.onboardingFieldEmailPlaceholder,
                       text: $email,
                       icon: AppImage.Icon.fieldEmail.image,
                       isFocused: focusedField == .email)
-            .focused($focusedField, equals: .email)
-            .autocorrectionDisabled(true)
-            .textInputAutocapitalization(.never)
-            .textContentType(.emailAddress)
-            .keyboardType(.emailAddress)
+                .focused($focusedField, equals: .email)
+                .autocorrectionDisabled(true)
+                .textInputAutocapitalization(.never)
+                .textContentType(.emailAddress)
+                .keyboardType(.emailAddress)
         }
     }
-    
+
     private var passwordView: some View {
         InputLabelWithContent(label: .onboardingFieldPasswordLabel) {
             VStack(alignment: .trailing,
@@ -91,30 +91,30 @@ struct OnboardingLogInScene: View {
                             text: $password,
                             icon: AppImage.Icon.fieldPassword.image,
                             isFocused: focusedField == .password)
-                .focused($focusedField, equals: .password)
-                .autocorrectionDisabled(true)
-                .textInputAutocapitalization(.never)
-                .textContentType(.password)
-                
+                    .focused($focusedField, equals: .password)
+                    .autocorrectionDisabled(true)
+                    .textInputAutocapitalization(.never)
+                    .textContentType(.password)
+
                 Button(.onboardingFieldPasswordForgotPassword, action: {})
                     .font(Styles.forgotFont)
                     .tint(Styles.accentColor)
             }
         }
     }
-    
+
     private var footerView: some View {
         VStack(alignment: .center,
                spacing: Styles.actionsVerticalSpacing) {
             Button(.globalButtonLogInLabel, action: {})
                 .buttonStyle(.orangeadeProminent(kind: .primary,
                                                  isFullWidth: true))
-            
+
             OnboardingMessageWithAction(message: .onboardingMessageQuestionHasNotAccount,
                                         actionMessage: .globalButtonSignUpLabel,
                                         action: {})
         }
-               .padding(.horizontal)
+        .padding(.horizontal)
     }
 }
 

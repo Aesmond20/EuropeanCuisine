@@ -11,7 +11,7 @@ import SwiftUI
 struct OnboardingHeader: View {
     private let title: String
     private let subtitle: String?
-    
+
     init(title: LocalizedStringResource,
          subtitle: LocalizedStringResource? = nil) {
         self.title = String(localized: title)

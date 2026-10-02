@@ -37,7 +37,7 @@ struct TextInput: View {
         self.isFocused = isFocused
         self.isValid = isValid
     }
-    
+
     init(_ placeholder: LocalizedStringResource,
          text: Binding<String>,
          isFocused: Bool,
@@ -48,7 +48,7 @@ struct TextInput: View {
         self.isFocused = isFocused
         self.isValid = isValid
     }
-    
+
     init(_ placeholder: LocalizedStringResource,
          text: Binding<String>,
          icon: Image?,
