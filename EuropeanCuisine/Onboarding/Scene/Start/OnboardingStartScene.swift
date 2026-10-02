@@ -13,8 +13,22 @@ struct OnboardingStartScene: View {
         VStack(alignment: .leading, spacing: .zero) {
             Spacer()
 
-            Text("Escale Europe")
-                .font(.largeTitle)
+            VStack(alignment: .center,
+                   spacing: Styles.verticalSpacing) {
+                AppImage.onboardingAppName
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: Styles.titleWidth)
+
+                Text(.onboardingStartAppTagline)
+                    .font(Styles.taglineFont)
+                    .foregroundStyle(Styles.taglineColor)
+                    .multilineTextAlignment(Styles.taglineAlignment)
+
+                AppImage.onboardingAppHero
+                    .resizable()
+                    .scaledToFit()
+            }
 
             Spacer()
 
@@ -38,6 +52,15 @@ struct OnboardingStartScene: View {
 
 fileprivate enum Styles {
     static let background = AppColor.Scene.background
+
+    static let verticalSpacing = AppToken.Primitive.spacing6
+
+    static let titleWidth: Double = 300
+
+    static let taglineFont: Font = .dosis(size: 28,
+                                          weight: .extraBold)
+    static let taglineColor = AppColor.Label.title
+    static let taglineAlignment: TextAlignment = .center
 
     static let actionsVerticalSpacing = AppToken.Primitive.spacing4
 }

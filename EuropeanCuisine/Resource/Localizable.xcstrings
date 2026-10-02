@@ -10,14 +10,16 @@
     "Edit" : {
 
     },
-    "Escale Europe" : {
-
-    },
-    "Forgot your password?" : {
-
-    },
     "global.button.continue.label" : {
-      "extractionState" : "manual"
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
     },
     "global.button.log_in.label" : {
       "extractionState" : "manual",
@@ -359,6 +361,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Account Creation"
+          }
+        }
+      }
+    },
+    "onboarding.start.app_tagline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travel across Europe,\none bite at a time"
           }
         }
       }
