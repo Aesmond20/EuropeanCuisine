@@ -8,3 +8,6 @@ trailing_comma:
   severity: warning
   mandatory_comma: true
 reporter: "xcode"
+identifier_name:
+  excluded:
+    - vm
