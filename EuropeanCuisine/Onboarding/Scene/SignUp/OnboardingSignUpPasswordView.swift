@@ -37,8 +37,8 @@ struct OnboardingSignUpPasswordView: View {
     }
 
     private var headerView: some View {
-        OnboardingHeader(title: "Create a password",
-                         subtitle: "Add a way to protect your account.")
+        OnboardingHeader(title: .onboardingSignUpPasswordViewTitle,
+                         subtitle: .onboardingSignUpPasswordViewSubtitle)
     }
 
     private var formView: some View {
@@ -53,9 +53,9 @@ struct OnboardingSignUpPasswordView: View {
     }
 
     private var passwordView: some View {
-        InputLabelWithContent(label: "Password",
+        InputLabelWithContent(label: .onboardingFieldPasswordLabel,
                               errorMessages: passwordErrorMessages) {
-            SecureInput("Password",
+            SecureInput(.onboardingFieldPasswordPlaceholder,
                         text: $password,
                         icon: AppImage.Icon.fieldPassword.image,
                         isFocused: focusedField == .password,
@@ -68,8 +68,8 @@ struct OnboardingSignUpPasswordView: View {
     }
 
     private var confirmPasswordView: some View {
-        InputLabelWithContent(label: "Confirm password") {
-            SecureInput("Password",
+        InputLabelWithContent(label: .onboardingFieldConfirmPasswordLabel) {
+            SecureInput(.onboardingFieldConfirmPasswordPlaceholder,
                         text: $confirmPassword,
                         icon: AppImage.Icon.fieldPassword.image,
                         isFocused: focusedField == .confirmPassword,
@@ -84,19 +84,19 @@ struct OnboardingSignUpPasswordView: View {
     private var passwordRulesView: some View {
         VStack(alignment: .leading,
                spacing: Styles.rulesSpacing) {
-            PasswordValidationRule(label: "Uppercase letter",
+            PasswordValidationRule(label: .onboardingFieldPasswordRuleUppercaseLetter,
                                    isValid: hasUppercaseLetter)
 
-            PasswordValidationRule(label: "Lowercase letter",
+            PasswordValidationRule(label: .onboardingFieldPasswordRuleLowercaseLetter,
                                    isValid: hasLowercaseLetter)
 
-            PasswordValidationRule(label: "At least one number",
+            PasswordValidationRule(label: .onboardingFieldPasswordRuleOneNumber,
                                    isValid: hasAtLeastOneNumber)
 
-            PasswordValidationRule(label: "At least \(Constraints.User.Password.length.lowerBound) characters",
+            PasswordValidationRule(label: .onboardingFieldPasswordRuleMinCharacters(min: Constraints.User.Password.length.lowerBound),
                                    isValid: hasAtLeastXcharacters)
 
-            PasswordValidationRule(label: "Passwords match",
+            PasswordValidationRule(label: .onboardingFieldPasswordRulePasswordMatch,
                                    isValid: hasPasswordMatch)
         }
     }
@@ -114,6 +114,18 @@ struct OnboardingSignUpPasswordView: View {
 fileprivate struct PasswordValidationRule: View {
     let label: String
     let isValid: Bool
+    
+    init(label: String,
+         isValid: Bool) {
+        self.label = label
+        self.isValid = isValid
+    }
+    
+    init(label: LocalizedStringResource,
+         isValid: Bool) {
+        self.label = String(localized: label)
+        self.isValid = isValid
+    }
 
     var body: some View {
         HStack(alignment: .center,

@@ -39,6 +39,29 @@ struct SecureInput: View {
         self.isFocused = isFocused
         self.isValid = isValid
     }
+    
+    init(_ placeholder: LocalizedStringResource,
+         text: Binding<String>,
+         isFocused: Bool,
+         isValid: Bool = false) {
+        self.placeholder = String(localized: placeholder)
+        self._text = text
+        self.icon = nil
+        self.isFocused = isFocused
+        self.isValid = isValid
+    }
+    
+    init(_ placeholder: LocalizedStringResource,
+         text: Binding<String>,
+         icon: Image?,
+         isFocused: Bool,
+         isValid: Bool = false) {
+        self.placeholder = String(localized: placeholder)
+        self._text = text
+        self.icon = icon
+        self.isFocused = isFocused
+        self.isValid = isValid
+    }
 
     var body: some View {
         HStack(alignment: .center,

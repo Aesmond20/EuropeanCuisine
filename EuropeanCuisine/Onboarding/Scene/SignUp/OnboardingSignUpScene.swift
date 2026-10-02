@@ -77,7 +77,7 @@ struct OnboardingSignUpScene: View {
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
                                                      icon: AppImage.Icon.back.image))
 
-            OnboardingProgress(title: "Account Creation",
+            OnboardingProgress(title: .onboardingSignUpTitle,
                                current: vm.currentStep,
                                total: vm.totalStep)
                 .animation(.smooth,
@@ -127,8 +127,8 @@ struct OnboardingSignUpScene: View {
                                                  isFullWidth: true))
                 .disabled(vm.isActionDisabled)
 
-            OnboardingMessageWithAction(message: "Already have an account?",
-                                        actionMessage: String(localized: .globalButtonLogInLabel),
+            OnboardingMessageWithAction(message: .onboardingMessageQuestionHasAccount,
+                                        actionMessage: .globalButtonLogInLabel,
                                         action: {})
         }
         .padding(.horizontal)

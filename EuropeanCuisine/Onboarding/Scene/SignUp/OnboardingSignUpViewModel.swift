@@ -82,9 +82,9 @@ final class OnboardingSignUpViewModel {
     var actionLabel: String {
         switch step {
         case .email:
-            "Continue"
+            String(localized: .globalButtonContinueLabel)
         case .password:
-            "Continue"
+            String(localized: .globalButtonContinueLabel)
         case .name:
             String(localized: .globalButtonSignUpLabel)
         }
@@ -120,7 +120,7 @@ final class OnboardingSignUpViewModel {
         }
 
         if !isEmailValid {
-            messages.append("Email is not valid")
+            messages.append(String(localized: .onboardingFieldEmailErrorMessageIsNotValid))
         }
 
         return messages
@@ -135,12 +135,12 @@ final class OnboardingSignUpViewModel {
 
         if isNameTooShort {
             messages
-                .append("Name must be at least \(Constraints.User.Name.length.lowerBound) characters")
+                .append(String(localized: .onboardingFieldNameErrorMessageTooShort(min: Constraints.User.Name.length.lowerBound)))
         }
 
         if isNameTooLong {
             messages
-                .append("Name must be at most \(Constraints.User.Name.length.upperBound) characters")
+                .append(String(localized: .onboardingFieldNameErrorMessageTooLong(max: Constraints.User.Name.length.upperBound)))
         }
 
         return messages
@@ -151,7 +151,7 @@ final class OnboardingSignUpViewModel {
 
         if isPasswordTooLong {
             messages
-                .append("Password must be at most \(Constraints.User.Password.length.upperBound) characters")
+                .append(String(localized: .onboardingFieldPasswordErrorMessageTooLong(max: Constraints.User.Password.length.upperBound)))
         }
 
         return messages

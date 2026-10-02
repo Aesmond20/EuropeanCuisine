@@ -26,14 +26,14 @@ struct OnboardingSignUpNameView: View {
     }
 
     private var headerView: some View {
-        OnboardingHeader(title: "Tell us your name",
-                         subtitle: "Nearly there! Just tell us what you want us to call you in your profile.")
+        OnboardingHeader(title: .onboardingSignUpNameViewTitle,
+                         subtitle: .onboardingSignUpNameViewSubtitle)
     }
 
     private var formView: some View {
-        InputLabelWithContent(label: "Name",
+        InputLabelWithContent(label: .onboardingFieldNameLabel,
                               errorMessages: nameErrorMessages) {
-            TextInput("Sasha Hamel",
+            TextInput(.onboardingFieldNamePlaceholder,
                       text: $name,
                       icon: AppImage.Icon.fieldName.image,
                       isFocused: isNameFocused)

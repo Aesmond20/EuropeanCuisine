@@ -13,8 +13,22 @@ struct InputLabelWithContent<Content: View>: View {
     private let errorMessages: [String]
     private let content: Content
 
-    init(label: String, errorMessages: [String] = [], content: () -> Content) {
+    init(
+        label: String,
+        errorMessages: [String] = [],
+        content: () -> Content
+    ) {
         self.label = label
+        self.errorMessages = errorMessages
+        self.content = content()
+    }
+    
+    init(
+        label: LocalizedStringResource,
+        errorMessages: [String] = [],
+        content: () -> Content
+    ) {
+        self.label = String(localized: label)
         self.errorMessages = errorMessages
         self.content = content()
     }

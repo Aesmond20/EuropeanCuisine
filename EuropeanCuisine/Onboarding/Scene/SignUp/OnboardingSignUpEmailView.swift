@@ -26,13 +26,14 @@ struct OnboardingSignUpEmailView: View {
     }
 
     private var headerView: some View {
-        OnboardingHeader(title: "Let's start with your email",
-                         subtitle: "We'll check if you already have an account. If not, we'll create a new one.")
+        OnboardingHeader(title: .onboardingSignUpEmailViewTitle,
+                         subtitle: .onboardingSignUpEmailViewSubtitle)
     }
 
     private var formView: some View {
-        InputLabelWithContent(label: "Email", errorMessages: emailErrorMessages) {
-            TextInput("sasha@hamel.me",
+        InputLabelWithContent(label: .onboardingFieldEmailLabel,
+                              errorMessages: emailErrorMessages) {
+            TextInput(.onboardingFieldEmailPlaceholder,
                       text: $email,
                       icon: AppImage.Icon.fieldEmail.image,
                       isFocused: isEmailFocused)

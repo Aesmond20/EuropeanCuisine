@@ -11,6 +11,16 @@ import SwiftUI
 struct OnboardingHeader: View {
     private let title: String
     private let subtitle: String?
+    
+    init(title: LocalizedStringResource,
+         subtitle: LocalizedStringResource? = nil) {
+        self.title = String(localized: title)
+        self.subtitle = if let subtitle {
+            String(localized: subtitle)
+        } else {
+            nil
+        }
+    }
 
     init(title: String, subtitle: String? = nil) {
         self.title = title
