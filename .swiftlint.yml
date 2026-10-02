@@ -11,3 +11,4 @@ reporter: "xcode"
 identifier_name:
   excluded:
     - vm
+    - id
