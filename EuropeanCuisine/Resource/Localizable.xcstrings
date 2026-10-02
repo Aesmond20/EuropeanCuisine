@@ -10,6 +10,12 @@
     "Edit" : {
 
     },
+    "Escale Europe" : {
+
+    },
+    "Forgot your password?" : {
+
+    },
     "global.button.log_in.label" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -31,9 +37,6 @@
           }
         }
       }
-    },
-    "Hello, world!" : {
-
     },
     "Item %lld" : {
 

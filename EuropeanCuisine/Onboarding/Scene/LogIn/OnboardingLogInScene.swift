@@ -30,7 +30,7 @@ struct OnboardingLogInScene: View {
                         InputLabelWithContent(label: "Email") {
                             TextInput("sasha@hamel.me",
                                       text: $email,
-                                      icon: AppImage.Icon.email.image,
+                                      icon: AppImage.Icon.fieldEmail.image,
                                       isFocused: focusedField == .email)
                                 .focused($focusedField, equals: .email)
                                 .autocorrectionDisabled(true)
@@ -44,7 +44,7 @@ struct OnboardingLogInScene: View {
                                    spacing: Styles.passwordForgotSpacing) {
                                 SecureInput("Password",
                                             text: $password,
-                                            icon: AppImage.Icon.password.image,
+                                            icon: AppImage.Icon.fieldPassword.image,
                                             isFocused: focusedField == .password)
                                     .focused($focusedField, equals: .password)
                                     .autocorrectionDisabled(true)
