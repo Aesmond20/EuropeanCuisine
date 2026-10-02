@@ -33,12 +33,13 @@ struct OnboardingSignUpPasswordView: View {
             formView
         }
         .padding(.horizontal)
-        .padding(.vertical, Styles.verticalPadding)
+        .padding(.top, Styles.topPadding)
+        .padding(.bottom, Styles.bottomPadding)
     }
 
     private var headerView: some View {
-        OnboardingHeader(title: .onboardingSignUpPasswordViewTitle,
-                         subtitle: .onboardingSignUpPasswordViewSubtitle)
+        OnboardingFormHeader(title: .onboardingSignUpPasswordViewTitle,
+                             subtitle: .onboardingSignUpPasswordViewSubtitle)
     }
 
     private var formView: some View {
@@ -49,6 +50,16 @@ struct OnboardingSignUpPasswordView: View {
             confirmPasswordView
 
             passwordRulesView
+        }
+        .onSubmit {
+            switch focusedField {
+            case .password:
+                focusedField = .confirmPassword
+            case .confirmPassword:
+                focusedField = nil
+            case nil:
+                break
+            }
         }
     }
 
@@ -64,6 +75,7 @@ struct OnboardingSignUpPasswordView: View {
                 .autocorrectionDisabled(true)
                 .textInputAutocapitalization(.never)
                 .textContentType(.password)
+                .submitLabel(.next)
         }
     }
 
@@ -78,6 +90,7 @@ struct OnboardingSignUpPasswordView: View {
                 .autocorrectionDisabled(true)
                 .textInputAutocapitalization(.never)
                 .textContentType(.password)
+                .submitLabel(.done)
         }
     }
 
@@ -147,7 +160,8 @@ fileprivate struct PasswordValidationRule: View {
 }
 
 fileprivate enum Styles {
-    static let verticalPadding = AppToken.Primitive.padding6
+    static let topPadding = AppToken.Primitive.padding2
+    static let bottomPadding = AppToken.Primitive.padding6
 
     static let titleFormSpacing = AppToken.Primitive.spacing8
     static let formVerticalSpacing = AppToken.Primitive.spacing4

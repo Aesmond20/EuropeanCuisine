@@ -25,48 +25,15 @@ struct OnboardingSignUpScene: View {
             .animation(.smooth, value: vm.step)
         }
         .scrollBounceBehavior(.basedOnSize)
-        .safeAreaInset(edge: .top) {
-            headerWithBlurBackground
+        .onboardingHeader {
+            headerView
         }
-        .safeAreaInset(edge: .bottom) {
-            footerWithBlurBackground
+        .onboardingFooter {
+            footerView
         }
         .background {
             Styles.background
                 .ignoresSafeArea(.all)
-        }
-    }
-
-    private var headerWithBlurBackground: some View {
-        VStack(spacing: .zero) {
-            Rectangle()
-                .fill(.clear)
-                .frame(height: 1)
-                .frame(maxWidth: .infinity)
-                .background {
-                    Rectangle()
-                        .fill(Styles.background)
-                        .ignoresSafeArea(.all,
-                                         edges: .top)
-                }
-
-            headerView
-                .padding(.bottom, Styles.headerBottomPadding)
-                .background {
-                    Rectangle()
-                        .fill(LinearGradient(colors: [
-                                Styles.background.opacity(1),
-                                Styles.background.opacity(1),
-                                Styles.background.opacity(1),
-                                Styles.background.opacity(0.64),
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom))
-                        .padding(-20)
-                        .blur(radius: 10)
-                        .padding(20)
-                        .padding(.top, -20)
-                }
         }
     }
 
@@ -84,39 +51,6 @@ struct OnboardingSignUpScene: View {
                            value: vm.step)
         }
         .padding(.horizontal)
-    }
-
-    private var footerWithBlurBackground: some View {
-        VStack(spacing: .zero) {
-            footerView
-                .padding(.top, Styles.footerTopPadding)
-                .background {
-                    Rectangle()
-                        .fill(LinearGradient(colors: [
-                                Styles.background.opacity(0.64),
-                                Styles.background.opacity(1),
-                                Styles.background.opacity(1),
-                                Styles.background.opacity(1),
-                            ],
-                            startPoint: .top,
-                            endPoint: .bottom))
-                        .padding(-20)
-                        .blur(radius: 10)
-                        .padding(20)
-                        .padding(.bottom, -20)
-                }
-
-            Rectangle()
-                .fill(.clear)
-                .frame(height: 1)
-                .frame(maxWidth: .infinity)
-                .background {
-                    Rectangle()
-                        .fill(Styles.background)
-                        .ignoresSafeArea(.all,
-                                         edges: .bottom)
-                }
-        }
     }
 
     private var footerView: some View {
@@ -160,10 +94,8 @@ fileprivate enum Styles {
     static let background = AppColor.Scene.background
 
     static let headerHorizontalSpacing = AppToken.Primitive.spacing3
-    static let headerBottomPadding = AppToken.Primitive.padding2
 
     static let footerVerticalSpacing = AppToken.Primitive.spacing3
-    static let footerTopPadding = AppToken.Primitive.padding2
 }
 
 #Preview {

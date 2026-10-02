@@ -22,12 +22,13 @@ struct OnboardingSignUpEmailView: View {
             formView
         }
         .padding(.horizontal)
-        .padding(.vertical, Styles.verticalPadding)
+        .padding(.top, Styles.topPadding)
+        .padding(.bottom, Styles.bottomPadding)
     }
 
     private var headerView: some View {
-        OnboardingHeader(title: .onboardingSignUpEmailViewTitle,
-                         subtitle: .onboardingSignUpEmailViewSubtitle)
+        OnboardingFormHeader(title: .onboardingSignUpEmailViewTitle,
+                             subtitle: .onboardingSignUpEmailViewSubtitle)
     }
 
     private var formView: some View {
@@ -47,7 +48,8 @@ struct OnboardingSignUpEmailView: View {
 }
 
 fileprivate enum Styles {
-    static let verticalPadding = AppToken.Primitive.padding6
+    static let topPadding = AppToken.Primitive.padding2
+    static let bottomPadding = AppToken.Primitive.padding6
 
     static let titleFormSpacing = AppToken.Primitive.spacing8
 }

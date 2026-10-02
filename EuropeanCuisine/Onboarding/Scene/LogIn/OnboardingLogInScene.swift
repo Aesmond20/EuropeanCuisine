@@ -27,17 +27,18 @@ struct OnboardingLogInScene: View {
 
                     formView
                 }
-                .padding(.vertical, Styles.mainVerticalPadding)
+                .padding(.top, Styles.mainTopPadding)
+                .padding(.bottom, Styles.mainBottomPadding)
 
                 Spacer()
             }
             .padding(.horizontal)
         }
         .scrollBounceBehavior(.basedOnSize)
-        .safeAreaInset(edge: .top) {
+        .onboardingHeader {
             headerView
         }
-        .safeAreaInset(edge: .bottom) {
+        .onboardingFooter {
             footerView
         }
         .background {
@@ -57,8 +58,8 @@ struct OnboardingLogInScene: View {
     }
 
     private var formHeaderView: some View {
-        OnboardingHeader(title: .onboardingLogInViewTitle,
-                         subtitle: .onboardingLogInViewSubtitle)
+        OnboardingFormHeader(title: .onboardingLogInViewTitle,
+                             subtitle: .onboardingLogInViewSubtitle)
     }
 
     private var formView: some View {
@@ -66,6 +67,16 @@ struct OnboardingLogInScene: View {
             emailView
 
             passwordView
+        }
+        .onSubmit {
+            switch focusedField {
+            case .email:
+                focusedField = .password
+            case .password:
+                focusedField = nil
+            case nil:
+                break
+            }
         }
     }
 
@@ -80,6 +91,7 @@ struct OnboardingLogInScene: View {
                 .textInputAutocapitalization(.never)
                 .textContentType(.emailAddress)
                 .keyboardType(.emailAddress)
+                .submitLabel(.next)
         }
     }
 
@@ -95,6 +107,7 @@ struct OnboardingLogInScene: View {
                     .autocorrectionDisabled(true)
                     .textInputAutocapitalization(.never)
                     .textContentType(.password)
+                    .submitLabel(.done)
 
                 Button(.onboardingFieldPasswordForgotPassword, action: {})
                     .font(Styles.forgotFont)
@@ -122,7 +135,8 @@ fileprivate enum Styles {
     static let accentColor = AppColor.accentPrimary
     static let background = AppColor.Scene.background
 
-    static let mainVerticalPadding = AppToken.Primitive.padding8
+    static let mainTopPadding = AppToken.Primitive.padding2
+    static let mainBottomPadding = AppToken.Primitive.padding8
 
     static let actionsVerticalSpacing = AppToken.Primitive.spacing3
 
