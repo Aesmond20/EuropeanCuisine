@@ -9,6 +9,9 @@
 import SwiftUI
 
 struct OnboardingStartScene: View {
+    @State private var isSignUpPresented: Bool = false
+    @State private var isLogInPresented: Bool = false
+
     var body: some View {
         VStack(alignment: .leading, spacing: .zero) {
             Spacer()
@@ -33,11 +36,11 @@ struct OnboardingStartScene: View {
             Spacer()
 
             VStack(spacing: Styles.actionsVerticalSpacing) {
-                Button(.globalButtonSignUpLabel, action: {})
+                Button(.globalButtonSignUpLabel, action: { isSignUpPresented = true })
                     .buttonStyle(.orangeadeProminent(kind: .primary,
                                                      isFullWidth: true))
 
-                Button(.globalButtonLogInLabel, action: {})
+                Button(.globalButtonLogInLabel, action: { isLogInPresented = true })
                     .buttonStyle(.orangeadeProminent(kind: .secondary,
                                                      isFullWidth: true))
             }
@@ -46,6 +49,12 @@ struct OnboardingStartScene: View {
         .background {
             Styles.background
                 .ignoresSafeArea(.all)
+        }
+        .navigationDestination(isPresented: $isSignUpPresented) {
+            OnboardingSignUpScene()
+        }
+        .navigationDestination(isPresented: $isLogInPresented) {
+            OnboardingLogInScene()
         }
     }
 }
@@ -66,5 +75,7 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    OnboardingStartScene()
+    NavigationStack {
+        OnboardingStartScene()
+    }
 }

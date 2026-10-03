@@ -17,6 +17,7 @@ final class OnboardingSignUpViewModel {
     var name: String
 
     var isGoingForward = true
+    var goBackToParent: (() -> Void)?
 
     enum Step: CaseIterable {
         case email
@@ -187,7 +188,7 @@ final class OnboardingSignUpViewModel {
         isGoingForward = false
 
         guard let previous = step.previous else {
-            print("Before sign up")
+            goBackToParent?()
             return
         }
 
@@ -261,6 +262,9 @@ final class OnboardingSignUpViewModel {
 
     private func advance(to newStep: Step) {
         Task { @MainActor in
+            // permet de corriger un bug de transition des pages
+            // lors du changement de sens.
+            // Ex : vers la droite puis vers la gauche
             await Task.yield()
             withAnimation(.smooth) {
                 step = newStep

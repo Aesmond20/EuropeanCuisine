@@ -11,6 +11,10 @@ import SwiftUI
 struct OnboardingSignUpScene: View {
     @State private var vm: OnboardingSignUpViewModel = .init()
 
+    @State private var isLogInPresented: Bool = false
+
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         ScrollView {
             ZStack {
@@ -34,6 +38,13 @@ struct OnboardingSignUpScene: View {
         .background {
             Styles.background
                 .ignoresSafeArea(.all)
+        }
+        .navigationBarBackButtonHidden(true)
+        .onAppear {
+            vm.goBackToParent = { dismiss() }
+        }
+        .navigationDestination(isPresented: $isLogInPresented) {
+            OnboardingLogInScene()
         }
     }
 
@@ -63,7 +74,7 @@ struct OnboardingSignUpScene: View {
 
             OnboardingMessageWithAction(message: .onboardingMessageQuestionHasAccount,
                                         actionMessage: .globalButtonLogInLabel,
-                                        action: {})
+                                        action: { isLogInPresented = true })
         }
         .padding(.horizontal)
     }

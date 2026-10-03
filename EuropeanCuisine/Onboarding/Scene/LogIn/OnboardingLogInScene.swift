@@ -12,7 +12,10 @@ struct OnboardingLogInScene: View {
     @State private var email: String = ""
     @State private var password: String = ""
 
+    @State private var isSignUpPresented: Bool = false
+
     @FocusState private var focusedField: Field?
+    @Environment(\.dismiss) private var dismiss
 
     enum Field {
         case email
@@ -45,11 +48,19 @@ struct OnboardingLogInScene: View {
             Styles.background
                 .ignoresSafeArea(.all)
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationDestination(isPresented: $isSignUpPresented) {
+            OnboardingSignUpScene()
+        }
+    }
+
+    private func close() {
+        dismiss()
     }
 
     private var headerView: some View {
         HStack(spacing: .zero) {
-            Button("", action: {})
+            Button("", action: close)
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
                                                      icon: AppImage.Icon.back.image))
         }
@@ -125,7 +136,7 @@ struct OnboardingLogInScene: View {
 
             OnboardingMessageWithAction(message: .onboardingMessageQuestionHasNotAccount,
                                         actionMessage: .globalButtonSignUpLabel,
-                                        action: {})
+                                        action: { isSignUpPresented = true })
         }
         .padding(.horizontal)
     }
