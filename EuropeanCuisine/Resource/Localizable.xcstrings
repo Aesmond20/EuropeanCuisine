@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "%@" : {
+
+    },
     "Booths scene" : {
 
     },
@@ -28,6 +31,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Log in"
+          }
+        }
+      }
+    },
+    "global.button.log_out.label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Log out"
           }
         }
       }
@@ -372,6 +386,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Travel across Europe,\none bite at a time"
+          }
+        }
+      }
+    },
+    "profile.list.change_password.label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change password"
+          }
+        }
+      }
+    },
+    "profile.list.language.label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
+          }
+        }
+      }
+    },
+    "profile.list.legal.label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Legal"
+          }
+        }
+      }
+    },
+    "profile.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
           }
         }
       }

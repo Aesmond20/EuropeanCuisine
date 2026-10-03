@@ -131,8 +131,17 @@ extension View {
         modifier(SceneHeaderViewModifier(title: title))
     }
 
+    func sceneHeader(_ title: LocalizedStringResource) -> some View {
+        modifier(SceneHeaderViewModifier(title: String(localized: title)))
+    }
+
     func sceneHeader(_ title: String, onEdit: @escaping () -> Void) -> some View {
         modifier(SceneHeaderViewModifier(title: title, onEdit: onEdit))
+    }
+
+    func sceneHeader(_ title: LocalizedStringResource, onEdit: @escaping () -> Void) -> some View {
+        modifier(SceneHeaderViewModifier(title: String(localized: title),
+                                         onEdit: onEdit))
     }
 
     func sceneHeader(_ title: String,
@@ -143,6 +152,14 @@ extension View {
                                          searchPlaceholder: searchPlaceholder))
     }
 
+    func sceneHeader(_ title: LocalizedStringResource,
+                     searchText: Binding<String>,
+                     searchPlaceholder: LocalizedStringResource) -> some View {
+        modifier(SceneHeaderViewModifier(title: String(localized: title),
+                                         searchText: searchText,
+                                         searchPlaceholder: String(localized: searchPlaceholder)))
+    }
+
     func sceneHeader(_ title: String,
                      searchText: Binding<String>,
                      searchPlaceholder: String,
@@ -150,6 +167,16 @@ extension View {
         modifier(SceneHeaderViewModifier(title: title,
                                          searchText: searchText,
                                          searchPlaceholder: searchPlaceholder,
+                                         trailingAccessory: trailingAccessory))
+    }
+
+    func sceneHeader(_ title: LocalizedStringResource,
+                     searchText: Binding<String>,
+                     searchPlaceholder: LocalizedStringResource,
+                     trailingAccessory: () -> some View) -> some View {
+        modifier(SceneHeaderViewModifier(title: String(localized: title),
+                                         searchText: searchText,
+                                         searchPlaceholder: String(localized: searchPlaceholder),
                                          trailingAccessory: trailingAccessory))
     }
 }
