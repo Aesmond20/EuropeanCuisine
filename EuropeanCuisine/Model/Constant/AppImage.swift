@@ -12,6 +12,9 @@ enum AppImage {
     static let branchIcon: Image = .init(.branchIcon)
     static let onboardingAppName: Image = .init(.onboardingAppName)
     static let onboardingAppHero: Image = .init(.onboardingHero)
+    static let topTrailingSplashV1: Image = .init(.topTrailingSplashV1)
+    static let topTrailingSplashV2: Image = .init(.topTrailingSplashV2)
+    static let topTrailingSplashV3: Image = .init(.topTrailingSplashV3)
 
     enum Icon {
         case isBooked

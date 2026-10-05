@@ -14,45 +14,60 @@ struct SceneHeaderViewModifier: ViewModifier {
     private var searchText: Binding<String>?
     private let searchPlaceholder: String
     private var trailingSlot: AnyView?
+    private let topTrailingSplash: TopTrailingSplashData
 
     @State private var showTrailingSlot: Bool = true
     @State private var hideTitle: Bool = false
 
-    init(title: String) {
+    struct TopTrailingSplashData {
+        var version: TopTrailingSplash.Version = .one
+        var kind: TopTrailingSplash.Kind = .primary
+    }
+
+    init(title: String,
+         topTrailingSplash: TopTrailingSplashData) {
         self.title = title
         self.onEdit = nil
         self.searchText = nil
         self.searchPlaceholder = ""
         self.trailingSlot = nil
+        self.topTrailingSplash = topTrailingSplash
     }
 
-    init(title: String, onEdit: @escaping () -> Void) {
+    init(title: String,
+         topTrailingSplash: TopTrailingSplashData,
+         onEdit: @escaping () -> Void) {
         self.title = title
         self.onEdit = onEdit
         self.searchText = nil
         self.searchPlaceholder = ""
         self.trailingSlot = nil
-    }
-
-    init(title: String,
-         searchText: Binding<String>,
-         searchPlaceholder: String) {
-        self.title = title
-        self.onEdit = nil
-        self.searchText = searchText
-        self.searchPlaceholder = searchPlaceholder
-        self.trailingSlot = nil
+        self.topTrailingSplash = topTrailingSplash
     }
 
     init(title: String,
          searchText: Binding<String>,
          searchPlaceholder: String,
+         topTrailingSplash: TopTrailingSplashData) {
+        self.title = title
+        self.onEdit = nil
+        self.searchText = searchText
+        self.searchPlaceholder = searchPlaceholder
+        self.trailingSlot = nil
+        self.topTrailingSplash = topTrailingSplash
+    }
+
+    init(title: String,
+         searchText: Binding<String>,
+         searchPlaceholder: String,
+         topTrailingSplash: TopTrailingSplashData,
          trailingAccessory: () -> some View) {
         self.title = title
         self.onEdit = nil
         self.searchText = searchText
         self.searchPlaceholder = searchPlaceholder
         self.trailingSlot = AnyView(trailingAccessory())
+        self.topTrailingSplash = topTrailingSplash
     }
 
     func body(content: Content) -> some View {
@@ -63,6 +78,13 @@ struct SceneHeaderViewModifier: ViewModifier {
                         .fill(.clear)
                         .frame(height: 1)
                         .frame(maxWidth: .infinity)
+                        .overlay {
+                            TopTrailingSplash(version: topTrailingSplash.version,
+                                              kind: topTrailingSplash.kind)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity,
+                                       alignment: .topTrailing)
+                                .ignoresSafeArea(.all, edges: .top)
+                        }
                         .background {
                             Rectangle()
                                 .fill(Styles.background)
@@ -81,20 +103,20 @@ struct SceneHeaderViewModifier: ViewModifier {
                     }
                     .padding(.horizontal)
                     .padding(.bottom, Styles.bottomPading)
-                    .background {
-                        Rectangle()
-                            .fill(LinearGradient(colors: [
-                                    Styles.background.opacity(0.64),
-                                    Styles.background.opacity(1),
-                                    Styles.background.opacity(1),
-                                ],
-                                startPoint: .bottom,
-                                endPoint: .top))
-                            .padding(-20)
-                            .blur(radius: 10)
-                            .padding(20)
-                            .padding(.top, -20)
-                    }
+                }
+                .background {
+                    Rectangle()
+                        .fill(LinearGradient(colors: [
+                                Styles.background.opacity(0.64),
+                                Styles.background.opacity(1),
+                                Styles.background.opacity(1),
+                            ],
+                            startPoint: .bottom,
+                            endPoint: .top))
+                        .padding(-20)
+                        .blur(radius: 10)
+                        .padding(20)
+                        .padding(.top, -20)
                 }
             }
     }
@@ -127,56 +149,77 @@ struct SceneHeaderViewModifier: ViewModifier {
 }
 
 extension View {
-    func sceneHeader(_ title: String) -> some View {
-        modifier(SceneHeaderViewModifier(title: title))
+    func sceneHeader(_ title: String,
+                     topTrailingSplash: SceneHeaderViewModifier
+                         .TopTrailingSplashData = .init()) -> some View {
+        modifier(SceneHeaderViewModifier(title: title, topTrailingSplash: topTrailingSplash))
     }
 
-    func sceneHeader(_ title: LocalizedStringResource) -> some View {
-        modifier(SceneHeaderViewModifier(title: String(localized: title)))
-    }
-
-    func sceneHeader(_ title: String, onEdit: @escaping () -> Void) -> some View {
-        modifier(SceneHeaderViewModifier(title: title, onEdit: onEdit))
-    }
-
-    func sceneHeader(_ title: LocalizedStringResource, onEdit: @escaping () -> Void) -> some View {
+    func sceneHeader(_ title: LocalizedStringResource,
+                     topTrailingSplash: SceneHeaderViewModifier
+                         .TopTrailingSplashData = .init()) -> some View {
         modifier(SceneHeaderViewModifier(title: String(localized: title),
+                                         topTrailingSplash: topTrailingSplash))
+    }
+
+    func sceneHeader(_ title: String,
+                     topTrailingSplash: SceneHeaderViewModifier.TopTrailingSplashData = .init(),
+                     onEdit: @escaping () -> Void) -> some View {
+        modifier(SceneHeaderViewModifier(title: title, topTrailingSplash: topTrailingSplash,
+                                         onEdit: onEdit))
+    }
+
+    func sceneHeader(_ title: LocalizedStringResource,
+                     topTrailingSplash: SceneHeaderViewModifier.TopTrailingSplashData = .init(),
+                     onEdit: @escaping () -> Void) -> some View {
+        modifier(SceneHeaderViewModifier(title: String(localized: title),
+                                         topTrailingSplash: topTrailingSplash,
                                          onEdit: onEdit))
     }
 
     func sceneHeader(_ title: String,
                      searchText: Binding<String>,
-                     searchPlaceholder: String) -> some View {
+                     searchPlaceholder: String,
+                     topTrailingSplash: SceneHeaderViewModifier
+                         .TopTrailingSplashData = .init()) -> some View {
         modifier(SceneHeaderViewModifier(title: title,
                                          searchText: searchText,
-                                         searchPlaceholder: searchPlaceholder))
+                                         searchPlaceholder: searchPlaceholder,
+                                         topTrailingSplash: topTrailingSplash))
     }
 
     func sceneHeader(_ title: LocalizedStringResource,
                      searchText: Binding<String>,
-                     searchPlaceholder: LocalizedStringResource) -> some View {
+                     searchPlaceholder: LocalizedStringResource,
+                     topTrailingSplash: SceneHeaderViewModifier
+                         .TopTrailingSplashData = .init()) -> some View {
         modifier(SceneHeaderViewModifier(title: String(localized: title),
                                          searchText: searchText,
-                                         searchPlaceholder: String(localized: searchPlaceholder)))
+                                         searchPlaceholder: String(localized: searchPlaceholder),
+                                         topTrailingSplash: topTrailingSplash))
     }
 
     func sceneHeader(_ title: String,
                      searchText: Binding<String>,
                      searchPlaceholder: String,
+                     topTrailingSplash: SceneHeaderViewModifier.TopTrailingSplashData = .init(),
                      trailingAccessory: () -> some View) -> some View {
         modifier(SceneHeaderViewModifier(title: title,
                                          searchText: searchText,
                                          searchPlaceholder: searchPlaceholder,
+                                         topTrailingSplash: topTrailingSplash,
                                          trailingAccessory: trailingAccessory))
     }
 
     func sceneHeader(_ title: LocalizedStringResource,
                      searchText: Binding<String>,
                      searchPlaceholder: LocalizedStringResource,
+                     topTrailingSplash: SceneHeaderViewModifier.TopTrailingSplashData = .init(),
                      trailingAccessory: () -> some View) -> some View {
         modifier(SceneHeaderViewModifier(title: String(localized: title),
                                          searchText: searchText,
                                          searchPlaceholder: String(localized: searchPlaceholder),
+                                         topTrailingSplash: topTrailingSplash,
                                          trailingAccessory: trailingAccessory))
     }
 }
@@ -198,7 +241,9 @@ fileprivate enum Styles {
             }
         }
     }
-    .sceneHeader("Quibusdam Ut")
+    .sceneHeader("Quibusdam Ut",
+                 topTrailingSplash: .init(version: .two,
+                                          kind: .quaternary))
 }
 
 #Preview("Title with Edit") {

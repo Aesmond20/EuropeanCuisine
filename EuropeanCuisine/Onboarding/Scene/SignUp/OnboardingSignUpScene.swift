@@ -29,7 +29,8 @@ struct OnboardingSignUpScene: View {
             .animation(.smooth, value: vm.step)
         }
         .scrollBounceBehavior(.basedOnSize)
-        .onboardingHeader {
+        .onboardingHeader(topTrailingSplash: .init(version: .one,
+                                                   kind: vm.topTrailingSplashKind)) {
             headerView
         }
         .onboardingFooter {

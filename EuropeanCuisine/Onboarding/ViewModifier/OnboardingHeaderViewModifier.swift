@@ -10,9 +10,17 @@ import SwiftUI
 
 struct OnboardingHeaderViewModifier: ViewModifier {
     let headerContent: AnyView
+    let topTrailingSplash: TopTrailingSplashData
 
-    init(content: () -> some View) {
+    struct TopTrailingSplashData {
+        var version: TopTrailingSplash.Version = .one
+        var kind: TopTrailingSplash.Kind = .primary
+    }
+
+    init(topTrailingSplash: TopTrailingSplashData,
+         content: () -> some View) {
         self.headerContent = AnyView(content())
+        self.topTrailingSplash = topTrailingSplash
     }
 
     func body(content: Content) -> some View {
@@ -32,6 +40,12 @@ struct OnboardingHeaderViewModifier: ViewModifier {
 
                     headerContent
                         .padding(.bottom, Styles.bottomPadding)
+                        .background {
+                            TopTrailingSplash(version: topTrailingSplash.version,
+                                              kind: topTrailingSplash.kind)
+                                .ignoresSafeArea(.all, edges: .top)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
                         .background {
                             Rectangle()
                                 .fill(LinearGradient(colors: [
@@ -53,8 +67,12 @@ struct OnboardingHeaderViewModifier: ViewModifier {
 }
 
 extension View {
-    func onboardingHeader(content: () -> some View) -> some View {
-        modifier(OnboardingHeaderViewModifier(content: content))
+    func onboardingHeader(topTrailingSplash: OnboardingHeaderViewModifier
+        .TopTrailingSplashData = .init(),
+        // swiftlint:disable:next vertical_parameter_alignment
+        content: () -> some View) -> some View {
+        modifier(OnboardingHeaderViewModifier(topTrailingSplash: topTrailingSplash,
+                                              content: content))
     }
 }
 

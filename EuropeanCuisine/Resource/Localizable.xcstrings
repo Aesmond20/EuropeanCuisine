@@ -13,6 +13,9 @@
     "Edit" : {
 
     },
+    "First" : {
+
+    },
     "global.button.continue.label" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -434,6 +437,9 @@
         }
       }
     },
+    "Second" : {
+
+    },
     "tab_bar_item.booths" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -488,6 +494,9 @@
           }
         }
       }
+    },
+    "Third" : {
+
     }
   },
   "version" : "1.3"

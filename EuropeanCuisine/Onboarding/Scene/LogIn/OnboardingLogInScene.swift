@@ -38,7 +38,7 @@ struct OnboardingLogInScene: View {
             .padding(.horizontal)
         }
         .scrollBounceBehavior(.basedOnSize)
-        .onboardingHeader {
+        .onboardingHeader(topTrailingSplash: .init(version: .two, kind: .primary)) {
             headerView
         }
         .onboardingFooter {

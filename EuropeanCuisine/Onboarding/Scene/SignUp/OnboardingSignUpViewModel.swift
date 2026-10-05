@@ -102,6 +102,17 @@ final class OnboardingSignUpViewModel {
         }
     }
 
+    var topTrailingSplashKind: TopTrailingSplash.Kind {
+        switch step {
+        case .email:
+            .tertiary
+        case .password:
+            .secondary
+        case .name:
+            .quaternary
+        }
+    }
+
     var isActionDisabled: Bool {
         switch step {
         case .email:
