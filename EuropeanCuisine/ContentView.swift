@@ -17,12 +17,12 @@ struct ContentView: View {
 
             OrangeadeTab(icon: AppTab.workshops.icon,
                          name: AppTab.workshops.name) {
-                AppTab.workshops.rootView
+                WorkshopListScene()
             }
 
             OrangeadeTab(icon: AppTab.reservations.icon,
                          name: AppTab.reservations.name) {
-                AppTab.reservations.rootView
+                ReservationListScene()
             }
 
             OrangeadeTab(icon: AppTab.profile.icon,
@@ -34,5 +34,8 @@ struct ContentView: View {
 }
 
 #Preview {
+    @Previewable @State var reservationStore = ReservationStore()
+
     ContentView()
+        .environment(reservationStore)
 }

@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct EuropeanCuisineApp: App {
+    @State private var reservationStore: ReservationStore = .init()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(reservationStore)
         }
     }
 }

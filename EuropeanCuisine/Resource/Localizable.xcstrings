@@ -4,13 +4,50 @@
     "" : {
 
     },
+    "·" : {
+
+    },
+    "%lld/%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld/%2$lld"
+          }
+        }
+      }
+    },
+    "Back" : {
+
+    },
+    "Book now" : {
+
+    },
     "Booths scene" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Categories" : {
 
     },
     "Edit" : {
 
     },
-    "Item %lld" : {
+    "Good to Know" : {
+
+    },
+    "Not log in" : {
+
+    },
+    "Only available" : {
+
+    },
+    "Seats" : {
+
+    },
+    "Size: %lld" : {
 
     },
     "tab_bar_item.booths" : {
@@ -67,6 +104,9 @@
           }
         }
       }
+    },
+    "You cannot see your bookings because you are not logged in." : {
+
     }
   },
   "version" : "1.3"

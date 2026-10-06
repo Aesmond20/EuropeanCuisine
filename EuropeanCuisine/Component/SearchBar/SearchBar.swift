@@ -64,6 +64,7 @@ struct SearchBar: View {
                 .focused($isFocused)
                 .font(Styles.textFont)
                 .foregroundStyle(textColor)
+                .textInputAutocapitalization(.never)
 
             if text.isNotEmpty {
                 clearButton
