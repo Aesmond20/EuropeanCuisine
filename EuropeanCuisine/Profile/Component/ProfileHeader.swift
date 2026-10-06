@@ -9,100 +9,113 @@
 import SwiftUI
 
 struct ProfileHeader: View {
-    let pictureURL: String?
     let name: String
     let email: String
+    let pictureURL: String?
 
     var body: some View {
-        VStack(spacing: Styles.contentSpacing) {
-            if let pictureURL,
-               let url = URL(string: pictureURL) {
-                AsyncImage(url: url) { charge in
-                    switch charge {
-                    case .empty:
-                        ProgressView()
-                            .frame(width: Styles.pictureSize,
-                                   height: Styles.pictureSize)
-                    case let .success(image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: Styles.pictureSize,
-                                   height: Styles.pictureSize)
-                            .clipShape(Styles.pictureShape)
-                            .overlay {
-                                Styles.pictureShape
-                                    .stroke(Styles.pictureBorder,
-                                            lineWidth: Styles.pictureBorderWidth)
-                            }
-                    case .failure:
-                        placeholder
-                    @unknown default:
-                        placeholder
+        VStack(spacing: Styles.verticalSpacing) {
+            Group {
+                if let pictureURL,
+                   let url = URL(string: pictureURL) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case let .success(image):
+                            image
+                                .resizable()
+                                .scaledToFill()
+                        case .failure:
+                            placeholder
+                        @unknown default:
+                            EmptyView()
+                        }
                     }
+                } else {
+                    placeholder
                 }
-            } else {
-                placeholder
             }
-        }
+            .clipShape(Styles.pictureShape)
+            .frame(width: Styles.pictureSize,
+                   height: Styles.pictureSize)
+            .padding(Styles.pictureBorderWidth * 2)
+            .overlay {
+                Styles.pictureShape
+                    .strokeBorder(Styles.pictureBorder,
+                                  lineWidth: Styles.pictureBorderWidth)
+            }
 
-        VStack {
-            Text(name)
-                .font(Styles.nameFont)
-                .foregroundStyle(Styles.nameForeground)
+            VStack(alignment: .center,
+                   spacing: Styles.textVerticalSpacing) {
+                Text(name)
+                    .font(Styles.nameFont)
+                    .foregroundStyle(Styles.nameForeground)
 
-            Text(email)
-                .font(Styles.emailFont)
-                .foregroundStyle(Styles.emailForeground)
+                Text(email)
+                    .font(Styles.emailFont)
+                    .foregroundStyle(Styles.emailForeground)
+            }
         }
     }
 
     var placeholder: some View {
-        Image(systemName: "person.fill")
-            .font(Styles.placeholderIconFont)
-            .foregroundStyle(Styles.placeholderForeground)
-            .frame(width: Styles.pictureSize,
-                   height: Styles.pictureSize)
-            .background(Styles.placeholderBackground)
-            .clipShape(Styles.pictureShape)
-            .overlay {
-                Styles.pictureShape
-                    .stroke(Styles.pictureBorder, lineWidth: Styles.pictureBorderWidth)
+        Group {
+            if let initials = StringUtils.getUserInitials(for: name) {
+                Text(initials)
+                    .font(Styles.placeholderFont)
+            } else {
+                Text("\(AppImage.Icon.userPictureEmpty.image)")
+                    .font(Styles.placeholderIconFont)
             }
+        }
+        .minimumScaleFactor(Styles.placeholderMinimumScaleFactor)
+        .foregroundStyle(Styles.placeholderForeground)
+        .padding(.horizontal, Styles.placeholderHorizontalPadding)
+        .frame(width: Styles.pictureSize,
+               height: Styles.pictureSize)
+        .background(Styles.placeholderBackground)
     }
 }
 
 fileprivate enum Styles {
-    static let pictureSize: CGFloat = 128
-    static let pictureShape = RoundedRectangle(cornerRadius: AppToken.Primitive.radiusFull)
-    static let pictureBorder = AppColor.fieldBorder
-    static let pictureBorderWidth = AppToken.fieldBorderWidth
+    static let verticalSpacing = AppToken.Primitive.spacing2
 
-    static let placeholderIconFont: Font = .system(size: 40,
+    static let pictureSize: Double = 128
+    static let pictureShape = RoundedRectangle(cornerRadius: AppToken.Primitive.radiusFull)
+    static let pictureBorder = AppColor.accentSecondary.opacity(0.4)
+    static let pictureBorderWidth: Double = 4
+
+    static let placeholderFont: Font = .system(size: 64,
+                                               weight: .semibold,
+                                               design: .rounded)
+    static let placeholderIconFont: Font = .system(size: 64,
                                                    weight: .medium,
-                                                   design: .default)
+                                                   design: .rounded)
+    static let placeholderMinimumScaleFactor: Double = 0.64
+    static let placeholderHorizontalPadding = AppToken.Primitive.padding2
     static let placeholderForeground = AppColor.accentContrast
     static let placeholderBackground = AppColor.accentSecondary
 
-    static let contentSpacing = AppToken.Primitive.spacing2
+    static let textVerticalSpacing = AppToken.Primitive.spacing05
 
     static let nameFont: Font = .system(size: 28,
-                                        weight: .bold,
-                                        design: .default)
-    static let emailFont: Font = .system(size: 17,
-                                         weight: .medium,
-                                         design: .default)
-
+                                        weight: .bold)
     static let nameForeground = AppColor.Label.primary
+
+    static let emailFont: Font = .system(size: 17,
+                                         weight: .medium)
     static let emailForeground = AppColor.Label.secondary
 }
 
-#Preview {
-    ProfileHeader(pictureURL: "https://picsum.photos/1000/1000",
-                  name: "Camille Dupont",
-                  email: "camille.dupont@gmail.com")
+#Preview("with picture") {
+    ProfileHeader(name: "Camille Durand",
+                  email: "camille.dupont@gmail.com",
+                  pictureURL: "https://picsum.photos/1000/1000")
 }
 
 #Preview("empty") {
-    ProfileHeader(pictureURL: nil, name: "Camille", email: "camille@gmail.com")
+    ProfileHeader(name: "Camille",
+                  email: "camille@gmail.com",
+                  pictureURL: nil)
 }

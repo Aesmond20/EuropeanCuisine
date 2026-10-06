@@ -47,6 +47,7 @@ struct OrangeadeProminentIconButtonStyle: ButtonStyle {
                 : 1)
             .animation(Styles.pressedAnimation,
                        value: configuration.isPressed)
+            .contentShape(.rect)
     }
 
     private var foreground: Color {

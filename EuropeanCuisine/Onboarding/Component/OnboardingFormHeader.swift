@@ -1,5 +1,5 @@
 //
-//  OnboardingHeader.swift
+//  OnboardingFormHeader.swift
 //  EuropeanCuisine
 //
 //  Created by Mathieu Nivelles on 27/09/2026.
@@ -8,9 +8,19 @@
 
 import SwiftUI
 
-struct OnboardingHeader: View {
+struct OnboardingFormHeader: View {
     private let title: String
     private let subtitle: String?
+
+    init(title: LocalizedStringResource,
+         subtitle: LocalizedStringResource? = nil) {
+        self.title = String(localized: title)
+        self.subtitle = if let subtitle {
+            String(localized: subtitle)
+        } else {
+            nil
+        }
+    }
 
     init(title: String, subtitle: String? = nil) {
         self.title = title
@@ -62,14 +72,14 @@ fileprivate enum Styles {
 
 #Preview {
     VStack {
-        OnboardingHeader(title: "Placeat Dicta")
+        OnboardingFormHeader(title: "Placeat Dicta")
 
-        OnboardingHeader(title: "Inventore Culpa",
-                         subtitle: """
-                         Natus odit consequatur est quas nostrum vitae. Consectetur quos \
-                         ipsum necessitatibus officia rem laborum saepe accusamus \
-                         aut dignissimos corrupti error eos quia provident.
-                         """)
+        OnboardingFormHeader(title: "Inventore Culpa",
+                             subtitle: """
+                             Natus odit consequatur est quas nostrum vitae. Consectetur quos \
+                             ipsum necessitatibus officia rem laborum saepe accusamus \
+                             aut dignissimos corrupti error eos quia provident.
+                             """)
     }
     .padding()
     .background(AppColor.Scene.background)

@@ -10,6 +10,11 @@ import SwiftUI
 
 enum AppImage {
     static let branchIcon: Image = .init(.branchIcon)
+    static let onboardingAppName: Image = .init(.onboardingAppName)
+    static let onboardingAppHero: Image = .init(.onboardingHero)
+    static let topTrailingSplashV1: Image = .init(.topTrailingSplashV1)
+    static let topTrailingSplashV2: Image = .init(.topTrailingSplashV2)
+    static let topTrailingSplashV3: Image = .init(.topTrailingSplashV3)
 
     enum Icon {
         case isBooked
@@ -22,6 +27,17 @@ enum AppImage {
         case filter
         case showSecure
         case hideSecure
+        case back
+        case fieldName
+        case fieldEmail
+        case fieldPassword
+        case passwordRuleIsValid
+        case listDisclosure
+        case logOut
+        case legal
+        case password
+        case language
+        case userPictureEmpty
 
         var systemName: String {
             switch self {
@@ -45,6 +61,28 @@ enum AppImage {
                 "eye"
             case .hideSecure:
                 "eye.slash"
+            case .back:
+                "arrow.left"
+            case .fieldName:
+                "person"
+            case .fieldEmail:
+                "envelope"
+            case .fieldPassword:
+                "lock"
+            case .passwordRuleIsValid:
+                "checkmark"
+            case .listDisclosure:
+                "chevron.right"
+            case .logOut:
+                "rectangle.portrait.and.arrow.right"
+            case .legal:
+                "text.document"
+            case .password:
+                "lock"
+            case .language:
+                "globe"
+            case .userPictureEmpty:
+                "person.crop.circle.badge.questionmark.fill"
             }
         }
 

@@ -19,6 +19,14 @@ struct OnboardingProgress: View {
         self.total = total
     }
 
+    init(title: LocalizedStringResource,
+         current: UInt8,
+         total: UInt8) {
+        self.title = String(localized: title)
+        self.current = current
+        self.total = total
+    }
+
     var body: some View {
         VStack(alignment: .leading,
                spacing: Styles.verticalSpacing) {

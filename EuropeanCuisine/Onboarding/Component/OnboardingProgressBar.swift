@@ -31,16 +31,33 @@ struct OnboardingProgressBar: View {
     }
 
     var body: some View {
-        HStack(alignment: .center,
-               spacing: Styles.horizontalSpacing) {
-            ForEach(1 ... total, id: \.self) { index in
-                Capsule()
-                    .fill(index <= current
-                        ? Styles.backgroundIsOn
-                        : Styles.backgroundIsOff)
-                    .frame(height: Styles.height)
+        GeometryReader { proxy in
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .fill(Styles.backgroundIsOff)
+                    .frame(maxWidth: .infinity)
+
+                Rectangle()
+                    .fill(Styles.backgroundIsOn)
+                    .frame(width: getCurrentWidth(width: proxy.size.width))
+            }
+            .frame(height: Styles.height)
+            .mask {
+                HStack(alignment: .center,
+                       spacing: Styles.horizontalSpacing) {
+                    ForEach(1 ... total, id: \.self) { _ in
+                        Capsule()
+                    }
+                }
             }
         }
+        .frame(height: Styles.height)
+    }
+
+    private func getCurrentWidth(width: Double) -> Double {
+        let segmentWidth: Double = (width - (Double(total) - 1) * Styles.horizontalSpacing) /
+            Double(total)
+        return Double(current) * segmentWidth + (Double(current) - 1) * Styles.horizontalSpacing
     }
 }
 

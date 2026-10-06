@@ -52,8 +52,10 @@
 		};
 		D7257FE43065AA6900D47D2C /* EuropeanCuisineTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			indentWidth = 4;
 			path = EuropeanCuisineTests;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		D7257FEE3065AA6900D47D2C /* EuropeanCuisineUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;

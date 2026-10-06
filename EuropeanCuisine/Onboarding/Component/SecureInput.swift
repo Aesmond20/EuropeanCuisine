@@ -40,6 +40,29 @@ struct SecureInput: View {
         self.isValid = isValid
     }
 
+    init(_ placeholder: LocalizedStringResource,
+         text: Binding<String>,
+         isFocused: Bool,
+         isValid: Bool = false) {
+        self.placeholder = String(localized: placeholder)
+        self._text = text
+        self.icon = nil
+        self.isFocused = isFocused
+        self.isValid = isValid
+    }
+
+    init(_ placeholder: LocalizedStringResource,
+         text: Binding<String>,
+         icon: Image?,
+         isFocused: Bool,
+         isValid: Bool = false) {
+        self.placeholder = String(localized: placeholder)
+        self._text = text
+        self.icon = icon
+        self.isFocused = isFocused
+        self.isValid = isValid
+    }
+
     var body: some View {
         HStack(alignment: .center,
                spacing: Styles.horizontalSpacing) {
@@ -47,6 +70,8 @@ struct SecureInput: View {
                 icon
                     .font(Styles.iconFont)
                     .foregroundStyle(iconColor)
+                    .frame(width: Styles.iconMaxWidth,
+                           alignment: .center)
             }
 
             SecureField("",
@@ -150,6 +175,7 @@ fileprivate enum Styles {
     static let iconFocusedColor = accentColor
     static let iconFont: Font = .system(size: AppToken.fieldIconSize,
                                         weight: AppToken.fieldIconWeight)
+    static let iconMaxWidth = AppToken.fieldIconMaxWidth
 
     static let textColor = AppColor.Label.primary
     static let textFont: Font = .system(size: AppToken.fieldLabelSize,
