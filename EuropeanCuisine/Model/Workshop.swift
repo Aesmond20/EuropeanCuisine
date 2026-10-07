@@ -12,7 +12,7 @@ struct Workshop: Identifiable {
     let id: UUID
     let name: String
     let category: String
-    let remainingCapacity: Int
+    let bookedCapacity: Int
     let maximumCapacity: Int
     let startTime: Date
     let endTime: Date
@@ -22,7 +22,7 @@ struct Workshop: Identifiable {
     let isPRM: Bool
     let isFamilyFriendly: Bool
 
-    var bookedCapacity: Int {
-        maximumCapacity - remainingCapacity
+    var remainingCapacity: Int {
+        maximumCapacity - bookedCapacity
     }
 }

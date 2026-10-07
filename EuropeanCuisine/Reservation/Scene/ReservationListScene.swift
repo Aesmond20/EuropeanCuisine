@@ -12,8 +12,7 @@ struct ReservationListScene: View {
     @Environment(ReservationStore.self) private var reservationStore
 
     @State private var searchText: String = ""
-    @State private var showFilter: Bool = false
-    @State private var selectedCategory: String?
+    @State private var selectedCategories: Set<String> = []
 
     private var reservations: [Workshop] {
         WorkshopData.workshops.filter { workshop in
@@ -21,10 +20,9 @@ struct ReservationListScene: View {
 
             let matchesSearch = searchText.isEmpty
                 || workshop.name.localizedCaseInsensitiveContains(searchText)
-                || workshop.category.localizedCaseInsensitiveContains(searchText)
 
-            let matchesCategory = selectedCategory == nil
-                || workshop.category == selectedCategory
+            let matchesCategory = selectedCategories.isEmpty
+                || selectedCategories.contains(workshop.category)
 
             return matchesReservation && matchesSearch && matchesCategory
         }
@@ -41,8 +39,6 @@ struct ReservationListScene: View {
 
     private var reservationList: some View {
         List {
-            Text("Size: \(WorkshopData.workshops.count)")
-
             ForEach(reservations) { workshop in
                 NavigationLink {
                     WorkshopDetailScene(workshop: workshop)
@@ -59,15 +55,25 @@ struct ReservationListScene: View {
         .sceneHeader("Reservations",
                      searchText: $searchText,
                      searchPlaceholder: "Search a workshop") {
-            Button("") {
-                showFilter = true
+            Menu {
+                Section("Categories") {
+                    ForEach(categories, id: \.self) { category in
+                        Toggle(category, isOn: Binding(get: {
+                            selectedCategories.contains(category)
+                        }, set: { _, _ in
+                            if selectedCategories.contains(category) {
+                                selectedCategories.remove(category)
+                            } else {
+                                selectedCategories.insert(category)
+                            }
+                        }))
+                    }
+                }
+            } label: {
+                Button("") {}
+                    .buttonStyle(.orangeadeIconProminent(kind: .tertiary,
+                                                         icon: AppImage.Icon.filter.image))
             }
-            .buttonStyle(.orangeadeIconProminent(kind: .tertiary,
-                                                 icon: AppImage.Icon.filter.image))
-        }
-        .sheet(isPresented: $showFilter) {
-            ReservationFilterView(selectedCategory: $selectedCategory)
-                .presentationDetents([.medium])
         }
     }
 }
@@ -197,6 +203,8 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    ReservationListScene()
-        .environment(ReservationStore())
+    NavigationStack {
+        ReservationListScene()
+            .environment(ReservationStore())
+    }
 }

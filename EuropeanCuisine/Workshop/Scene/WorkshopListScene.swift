@@ -48,7 +48,7 @@ struct WorkshopListScene: View {
         }
         .listStyle(.plain)
         .background(Styles.background)
-        .sceneHeader("Workshops",
+        .sceneHeader("Workshop",
                      searchText: $searchText,
                      searchPlaceholder: "Search a workshop") {
             Menu {

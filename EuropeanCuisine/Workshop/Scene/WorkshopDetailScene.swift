@@ -63,9 +63,13 @@ struct WorkshopDetailScene: View {
         }
         .background(Styles.background)
         .scrollBounceBehavior(.basedOnSize)
-        .toolbar(.hidden, for: .navigationBar)
-        .safeAreaInset(edge: .top) {
-            backButton
+        .navigationBarBackButtonHidden(true)
+        .overlay(alignment: .topLeading) {
+            Button("") {
+                dismiss()
+            }
+            .buttonStyle(.orangeadeIconProminent(kind: .back,
+                                                 icon: Image(systemName: "arrow.left")))
         }
         .safeAreaInset(edge: .bottom) {
             actionButton
@@ -73,48 +77,33 @@ struct WorkshopDetailScene: View {
     }
 
     private var workshopImage: some View {
-        ZStack(alignment: .bottom) {
-            AsyncImage(url: URL(string: workshop.pictureURL)) { phase in
-                switch phase {
-                case let .success(image):
-                    image
-                        .resizable()
-                        .scaledToFill()
+        AsyncImage(url: URL(string: workshop.pictureURL)) { phase in
+            switch phase {
+            case let .success(image):
+                image
+                    .resizable()
+                    .scaledToFill()
 
-                default:
-                    Image(systemName: "fork.knife")
-                        .font(.system(size: 40, weight: .medium))
-                        .foregroundStyle(Styles.placeholderForeground)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 280)
-                        .background(Styles.placeholderBackground)
-                }
+            default:
+                Image(systemName: "fork.knife")
+                    .font(.system(size: 40, weight: .medium))
+                    .foregroundStyle(Styles.placeholderForeground)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 280)
+                    .background(Styles.placeholderBackground)
             }
-            .frame(maxWidth: .infinity)
-            .frame(height: 280)
-            .clipped()
-
-            Image("workshop_wave")
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 280)
+        .clipped()
+        .overlay(alignment: .bottom) {
+            Image(.waveIcon)
                 .resizable()
                 .scaledToFill()
+                .foregroundStyle(Color.primitiveBackground)
                 .frame(maxWidth: .infinity)
-                .frame(height: 100)
-                .clipped()
+                .frame(height: 25)
         }
-    }
-
-    private var backButton: some View {
-        HStack {
-            Button("Back") {
-                dismiss()
-            }
-            .buttonStyle(.orangeadeIconProminent(kind: .back,
-                                                 icon: Image(systemName: "chevron.left")))
-
-            Spacer()
-        }
-        .padding(.horizontal, AppToken.Primitive.padding4)
-        .padding(.vertical, AppToken.Primitive.spacing3)
     }
 
     private var goodToKnow: some View {

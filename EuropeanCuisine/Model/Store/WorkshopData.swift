@@ -13,7 +13,7 @@ enum WorkshopData {
         Workshop(id: UUID(),
                  name: "French Pastry Masterclass",
                  category: "Recipe",
-                 remainingCapacity: 7, maximumCapacity: 13,
+                 bookedCapacity: 7, maximumCapacity: 13,
                  startTime: date(hour: 10, minute: 0),
                  endTime: date(hour: 12, minute: 0),
                  about: """
@@ -27,7 +27,7 @@ enum WorkshopData {
         Workshop(id: UUID(),
                  name: "Taste of Italy",
                  category: "Recipe",
-                 remainingCapacity: 12, maximumCapacity: 17,
+                 bookedCapacity: 12, maximumCapacity: 17,
                  startTime: date(hour: 11, minute: 30),
                  endTime: date(hour: 13, minute: 0),
                  about: """
@@ -41,7 +41,7 @@ enum WorkshopData {
         Workshop(id: UUID(),
                  name: "European Street Food",
                  category: "Discovery",
-                 remainingCapacity: 18, maximumCapacity: 18,
+                 bookedCapacity: 0, maximumCapacity: 18,
                  startTime: date(hour: 13, minute: 30),
                  endTime: date(hour: 14, minute: 30),
                  about: """
@@ -55,7 +55,7 @@ enum WorkshopData {
         Workshop(id: UUID(),
                  name: "Mediterranean Flavours",
                  category: "Recipe",
-                 remainingCapacity: 5, maximumCapacity: 15,
+                 bookedCapacity: 5, maximumCapacity: 15,
                  startTime: date(hour: 14, minute: 30),
                  endTime: date(hour: 16, minute: 0),
                  about: """
@@ -69,7 +69,7 @@ enum WorkshopData {
         Workshop(id: UUID(),
                  name: "European Fashion & Food",
                  category: "Fashion show",
-                 remainingCapacity: 25, maximumCapacity: 30,
+                 bookedCapacity: 25, maximumCapacity: 30,
                  startTime: date(hour: 16, minute: 30),
                  endTime: date(hour: 17, minute: 30),
                  about: """
@@ -83,7 +83,7 @@ enum WorkshopData {
         Workshop(id: UUID(),
                  name: "Kids' European Baking",
                  category: "Kids & family",
-                 remainingCapacity: 0, maximumCapacity: 10,
+                 bookedCapacity: 10, maximumCapacity: 10,
                  startTime: date(hour: 15, minute: 0),
                  endTime: date(hour: 16, minute: 0),
                  about: """
@@ -97,7 +97,7 @@ enum WorkshopData {
         Workshop(id: UUID(),
                  name: "From Farm to Table",
                  category: "Keynote",
-                 remainingCapacity: 0, maximumCapacity: 40,
+                 bookedCapacity: 40, maximumCapacity: 40,
                  startTime: date(hour: 17, minute: 30),
                  endTime: date(hour: 18, minute: 30),
                  about: """
