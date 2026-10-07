@@ -74,21 +74,12 @@ struct SecureInput: View {
                            alignment: .center)
             }
 
-            SecureField("",
-                        text: $text,
-                        prompt: Text(placeholder)
-                            .font(Styles.placeholderFont)
-                            .foregroundStyle(placeholderColor))
-                .font(Styles.textFont)
-                .foregroundStyle(isSecure ? textColor : backgroundColor)
-                .overlay(alignment: .leading) {
-                    Text(text)
-                        .font(Styles.textFont)
-                        .foregroundStyle(textColor)
-                        .padding(.trailing, -Styles.horizontalSpacing / 2)
-                        .allowsHitTesting(false)
-                        .opacity(isSecure ? 0 : 1)
-                }
+            SecureFieldUIKit(placeholder: placeholder,
+                             placeholderColor: Styles.placeholderColor,
+                             text: $text,
+                             textColor: Styles.textColor,
+                             textFont: Styles.textUIFont,
+                             isSecure: isSecure)
 
             Button {
                 isSecure.toggle()
@@ -117,10 +108,6 @@ struct SecureInput: View {
         }
     }
 
-    private var placeholderColor: Color {
-        Styles.placeholderColor
-    }
-
     private var iconColor: Color {
         if isValid {
             Styles.successColor
@@ -129,10 +116,6 @@ struct SecureInput: View {
         } else {
             Styles.iconColor
         }
-    }
-
-    private var textColor: Color {
-        Styles.textColor
     }
 
     private var borderColor: Color {
@@ -147,6 +130,107 @@ struct SecureInput: View {
 
     private var backgroundColor: Color {
         Styles.background
+    }
+}
+
+// swiftlint:disable:next line_length
+/// https://commitstudiogs.medium.com/how-to-create-custom-context-menus-in-swiftui-textfield-with-uiviewrepresentable-861492623913
+fileprivate struct SecureFieldUIKit: UIViewRepresentable {
+    let placeholder: String
+    let placeholderColor: UIColor
+    @Binding var text: String
+    var textColor: UIColor
+    let textFont: UIFont
+    var isSecure: Bool
+
+    init(placeholder: String,
+         placeholderColor: Color,
+         text: Binding<String>,
+         textColor: Color,
+         textFont: UIFont,
+         isSecure: Bool) {
+        self.placeholder = placeholder
+        self.placeholderColor = UIColor(placeholderColor)
+        self._text = text
+        self.textColor = UIColor(textColor)
+        self.textFont = textFont
+        self.isSecure = isSecure
+    }
+
+    func makeUIView(context: Context) -> UITextField {
+        let textField = UITextField()
+        textField.isSecureTextEntry = isSecure
+        textField.textColor = textColor
+        textField.font = textFont
+        textField.attributedPlaceholder = NSAttributedString(string: placeholder,
+                                                             attributes: [
+                                                                 .foregroundColor: placeholderColor,
+                                                                 .font: textFont,
+                                                             ])
+        textField.placeholder = placeholder
+        textField.delegate = context.coordinator
+        textField.addTarget(context.coordinator,
+                            action: #selector(Coordinator.textFieldDidChange), for: .editingChanged)
+
+        textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        textField.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.spellCheckingType = .no
+
+        return textField
+    }
+
+    func updateUIView(_ textField: UITextField, context: Context) {
+        context.coordinator.parent = self
+
+        textField.isSecureTextEntry = isSecure
+
+        if textField.text != text {
+            textField.text = text
+        }
+
+        textField.textColor = textColor
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    final class Coordinator: NSObject, UITextFieldDelegate {
+        var parent: SecureFieldUIKit
+
+        init(_ parent: SecureFieldUIKit) {
+            self.parent = parent
+        }
+
+        @objc func textFieldDidChange(_ textField: UITextField) {
+            parent.text = textField.text ?? ""
+        }
+
+        /// Évite l'effacement du texte à la première frappe
+        /// quand le champ est en mode sécurisé et reprend le focus.
+        func textField(_ textField: UITextField,
+                       shouldChangeCharactersIn range: NSRange,
+                       replacementString string: String) -> Bool {
+            guard textField.isSecureTextEntry,
+                  let current = textField.text,
+                  let swiftRange = Range(range, in: current) else {
+                return true
+            }
+
+            let updated = current.replacingCharacters(in: swiftRange, with: string)
+            textField.text = updated
+            parent.text = updated
+
+            let offset = range.location + (string as NSString).length
+            if let position = textField.position(from: textField.beginningOfDocument,
+                                                 offset: offset) {
+                textField.selectedTextRange = textField.textRange(from: position, to: position)
+            }
+            return false
+        }
     }
 }
 
@@ -168,8 +252,6 @@ fileprivate enum Styles {
     static let borderWidth = AppToken.fieldBorderWidth
 
     static let placeholderColor = AppColor.Label.secondary
-    static let placeholderFont: Font = .system(size: AppToken.fieldLabelSize,
-                                               weight: AppToken.fieldLabelWeight)
 
     static let iconColor = AppColor.Label.secondary
     static let iconFocusedColor = accentColor
@@ -181,6 +263,8 @@ fileprivate enum Styles {
     static let textFont: Font = .system(size: AppToken.fieldLabelSize,
                                         weight: AppToken.fieldLabelWeight,
                                         design: .monospaced)
+    static let textUIFont: UIFont = .systemFont(ofSize: AppToken.fieldLabelSize,
+                                                weight: .regular)
 
     static let hideShowButtonColor = AppColor.Label.secondary
     static let hideShowButtonFont: Font = .system(size: 15,

@@ -87,8 +87,6 @@ struct OnboardingSignUpPasswordView: View {
                         isFocused: focusedField == .confirmPassword,
                         isValid: isPasswordValid)
                 .focused($focusedField, equals: .confirmPassword)
-                .autocorrectionDisabled(true)
-                .textInputAutocapitalization(.never)
                 .textContentType(.password)
                 .submitLabel(.done)
         }
