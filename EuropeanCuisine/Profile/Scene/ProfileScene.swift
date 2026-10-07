@@ -29,6 +29,8 @@ struct ProfileScene: View {
         .scrollBounceBehavior(.basedOnSize)
         .background(Styles.background)
         .sceneHeader(.profileTitle,
+                     topTrailingSplash: .init(version: .three,
+                                              kind: .primary),
                      onEdit: {})
     }
 }

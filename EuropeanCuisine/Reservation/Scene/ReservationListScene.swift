@@ -54,7 +54,9 @@ struct ReservationListScene: View {
         .background(Styles.background)
         .sceneHeader("Reservations",
                      searchText: $searchText,
-                     searchPlaceholder: "Search a workshop") {
+                     searchPlaceholder: "Search a workshop",
+                     topTrailingSplash: .init(version: .two,
+                                              kind: .primary)) {
             Menu {
                 Section("Categories") {
                     ForEach(categories, id: \.self) { category in

@@ -50,7 +50,9 @@ struct WorkshopListScene: View {
         .background(Styles.background)
         .sceneHeader("Workshop",
                      searchText: $searchText,
-                     searchPlaceholder: "Search a workshop") {
+                     searchPlaceholder: "Search a workshop",
+                     topTrailingSplash: .init(version: .one,
+                                              kind: .quaternary)) {
             Menu {
                 Section("Seats") {
                     Toggle("Only available",
