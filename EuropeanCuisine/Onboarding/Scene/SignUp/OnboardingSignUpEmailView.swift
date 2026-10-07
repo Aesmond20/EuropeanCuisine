@@ -37,13 +37,19 @@ struct OnboardingSignUpEmailView: View {
             TextInput(.onboardingFieldEmailPlaceholder,
                       text: $email,
                       icon: AppImage.Icon.fieldEmail.image,
-                      isFocused: isEmailFocused)
+                      isFocused: isEmailFocused,
+                      isValid: isEmailValid)
                 .focused($isEmailFocused)
                 .autocorrectionDisabled(true)
                 .textInputAutocapitalization(.never)
                 .textContentType(.emailAddress)
                 .keyboardType(.emailAddress)
         }
+    }
+
+    private var isEmailValid: Bool {
+        email.trimmed.isNotEmpty
+            && emailErrorMessages.isEmpty
     }
 }
 
