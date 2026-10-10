@@ -23,9 +23,6 @@
     "Book now" : {
 
     },
-    "Booths scene" : {
-
-    },
     "booths.list.empty.title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -64,6 +61,39 @@
     },
     "Categories" : {
 
+    },
+    "content_empty_view.search.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check the spelling or try a new search."
+          }
+        }
+      }
+    },
+    "content_empty_view.search.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Results"
+          }
+        }
+      }
+    },
+    "content_empty_view.search.title_with_search_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Results for \"%1$(text)@\""
+          }
+        }
+      }
     },
     "Edit" : {
 
@@ -116,9 +146,6 @@
       }
     },
     "Good to Know" : {
-
-    },
-    "Hello, world!" : {
 
     },
     "Not log in" : {

@@ -16,25 +16,31 @@ struct BoothListScene: View {
     var body: some View {
         listView
             .overlay {
-                if filteredBooths.isEmpty {
+                if booths.isEmpty {
                     emptyListView
+                } else if filteredBooths.isEmpty {
+                    emptySearchListView
                 }
             }
-        .background(Styles.background)
-        .sceneHeader(.boothsTitle,
-                     searchText: $searchText,
-                     searchPlaceholder: .boothsSearchFieldPlaceholder,
-                     topTrailingSplash: .init(version: .one,
-                                              kind: .tertiary))
+            .background(Styles.background)
+            .sceneHeader(.boothsTitle,
+                         searchText: $searchText,
+                         searchPlaceholder: .boothsSearchFieldPlaceholder,
+                         topTrailingSplash: .init(version: .one,
+                                                  kind: .tertiary))
+    }
+
+    private var emptyListView: some View {
+        ContentEmptyView(.boothsListEmptyTitle,
+                         systemImage: AppImage.Icon.boothEmptyList.systemName)
+    }
+
+    private var emptySearchListView: some View {
+        ContentEmptyView.search(text: searchText)
     }
 
     private var listView: some View {
         BoothList(booths: filteredBooths)
-    }
-
-    private var emptyListView: some View {
-        ContentUnavailableView(.boothsListEmptyTitle,
-                               systemImage: AppImage.Icon.boothEmptyList.systemName)
     }
 
     private var filteredBooths: [Booth] {
