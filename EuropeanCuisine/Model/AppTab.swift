@@ -21,13 +21,13 @@ enum AppTab: String, Identifiable {
     var icon: Image {
         switch self {
         case .booths:
-            Image(systemName: "storefront")
+            AppImage.Icon.tabBooths.image
         case .workshops:
-            Image(systemName: "person.2.wave.2.fill")
+            AppImage.Icon.tabWorkshops.image
         case .reservations:
-            Image(systemName: "calendar.badge.checkmark")
+            AppImage.Icon.tabReservations.image
         case .profile:
-            Image(systemName: "person.crop.circle")
+            AppImage.Icon.tabProfile.image
         }
     }
 
@@ -48,8 +48,7 @@ enum AppTab: String, Identifiable {
     var rootView: some View {
         switch self {
         case .booths:
-            Text("Booths scene")
-                .frame(maxWidth: .infinity)
+            BoothListScene()
         case .workshops:
             WorkshopListScene()
         case .reservations:

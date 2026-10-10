@@ -20,14 +20,44 @@
         }
       }
     },
-    "Back" : {
-
-    },
     "Book now" : {
 
     },
     "Booths scene" : {
 
+    },
+    "booths.list.empty.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No booths found"
+          }
+        }
+      }
+    },
+    "booths.search_field.placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search a booth"
+          }
+        }
+      }
+    },
+    "booths.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Booths"
+          }
+        }
+      }
     },
     "Cancel" : {
 
@@ -86,6 +116,9 @@
       }
     },
     "Good to Know" : {
+
+    },
+    "Hello, world!" : {
 
     },
     "Not log in" : {
@@ -472,9 +505,6 @@
 
     },
     "Second" : {
-
-    },
-    "Size: %lld" : {
 
     },
     "tab_bar_item.booths" : {

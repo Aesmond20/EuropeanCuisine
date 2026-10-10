@@ -17,6 +17,12 @@ enum AppImage {
     static let topTrailingSplashV3: Image = .init(.topTrailingSplashV3)
 
     enum Icon {
+        case tabBooths
+        case tabWorkshops
+        case tabReservations
+        case tabProfile
+        case boothThumbnailPlaceholder
+        case boothEmptyList
         case isBooked
         case book
         case unbook
@@ -41,6 +47,18 @@ enum AppImage {
 
         var systemName: String {
             switch self {
+            case .tabBooths:
+                "storefront"
+            case .tabWorkshops:
+                "person.2.wave.2.fill"
+            case .tabReservations:
+                "calendar.badge.checkmark"
+            case .tabProfile:
+                "person.crop.circle"
+            case .boothThumbnailPlaceholder:
+                "storefront.fill"
+            case .boothEmptyList:
+                "storefront"
             case .isBooked:
                 "bookmark.fill"
             case .book:

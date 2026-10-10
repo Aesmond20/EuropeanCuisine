@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        OrangeadeTabView(selection: 1) {
+        OrangeadeTabView(selection: 0) {
             OrangeadeTab(icon: AppTab.booths.icon,
                          name: AppTab.booths.name) {
                 AppTab.booths.rootView
@@ -17,12 +17,12 @@ struct ContentView: View {
 
             OrangeadeTab(icon: AppTab.workshops.icon,
                          name: AppTab.workshops.name) {
-                WorkshopListScene()
+                AppTab.workshops.rootView
             }
 
             OrangeadeTab(icon: AppTab.reservations.icon,
                          name: AppTab.reservations.name) {
-                ReservationListScene()
+                AppTab.reservations.rootView
             }
 
             OrangeadeTab(icon: AppTab.profile.icon,

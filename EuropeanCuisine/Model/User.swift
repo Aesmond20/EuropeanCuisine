@@ -19,5 +19,5 @@ extension User {
     static let example: User = .init(id: UUID(),
                                      name: "Sasha Hamel",
                                      email: "sasha.hamel@amail.me",
-                                     pictureURL: "https://picsum.photos/1000/1000")
+                                     pictureURL: "https://picsum.photos/seed/hamel/1000/1000")
 }
