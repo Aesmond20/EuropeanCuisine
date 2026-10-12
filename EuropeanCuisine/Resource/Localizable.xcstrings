@@ -20,8 +20,184 @@
         }
       }
     },
+    "allergen.celery" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Celery"
+          }
+        }
+      }
+    },
+    "allergen.cereals_containing_gluten" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cereals containing gluten"
+          }
+        }
+      }
+    },
+    "allergen.crustaceans" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crustaceans"
+          }
+        }
+      }
+    },
+    "allergen.eggs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Eggs"
+          }
+        }
+      }
+    },
+    "allergen.fish" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fish"
+          }
+        }
+      }
+    },
+    "allergen.lupin" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lupin"
+          }
+        }
+      }
+    },
+    "allergen.milk" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Milk"
+          }
+        }
+      }
+    },
+    "allergen.molluscs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Molluscs"
+          }
+        }
+      }
+    },
+    "allergen.mustard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mustard"
+          }
+        }
+      }
+    },
+    "allergen.nuts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tree nuts"
+          }
+        }
+      }
+    },
+    "allergen.peanuts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Peanuts"
+          }
+        }
+      }
+    },
+    "allergen.sesame_seeds" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sesame seeds"
+          }
+        }
+      }
+    },
+    "allergen.soybeans" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soybeans"
+          }
+        }
+      }
+    },
+    "allergen.sulphur_dioxide_and_sulphites" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sulphur dioxide and sulphites"
+          }
+        }
+      }
+    },
     "Book now" : {
 
+    },
+    "booth_detail.section.allergens.empty.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No known allergens"
+          }
+        }
+      }
+    },
+    "booth_detail.section.allergens.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allergens"
+          }
+        }
+      }
     },
     "booth_detail.section.description.title" : {
       "extractionState" : "manual",
@@ -202,9 +378,6 @@
           }
         }
       }
-    },
-    "Not log in" : {
-
     },
     "onboarding.field.confirm_password.label" : {
       "extractionState" : "manual",
@@ -645,9 +818,6 @@
       }
     },
     "Third" : {
-
-    },
-    "You cannot see your bookings because you are not logged in." : {
 
     }
   },

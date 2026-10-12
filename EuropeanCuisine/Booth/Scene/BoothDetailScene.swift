@@ -24,11 +24,23 @@ struct BoothDetailScene: View {
                 DetailHeader(title: booth.name,
                              subtitle: booth.countryName)
 
-                DetailInlineInfo(icon: AppImage.Icon.boothLocation.image,
-                                 label: booth.location)
+                VStack(alignment: .leading,
+                       spacing: Styles.inlineInfosVerticalSpacing) {
+                    DetailInlineInfo(icon: AppImage.Icon.boothLocation.image,
+                                     label: booth.location)
+
+                    DetailInlineInfo(icon: AppImage.Icon.eventDate.image,
+                                     label: openingHours)
+                }
 
                 DetailSectionParagraph(title: .boothDetailSectionDescriptionTitle,
                                        paragraph: booth.description)
+
+                if booth.allergens.isNotEmpty {
+                    BoothDetailAllergens(title: .boothDetailSectionAllergensTitle,
+                                         allergens: booth.allergens,
+                                         emptyMessage: .boothDetailSectionAllergensEmptyMessage)
+                }
 
                 if booth.isVegan || booth.isPRM || booth.isFamilyFriendly {
                     BoothDetailGoodToKnow(title: .boothDetailSectionGoodToKnowTitle,
@@ -38,8 +50,9 @@ struct BoothDetailScene: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.top, imageHeight)
             .padding(.vertical, Styles.verticalPadding)
+            .background(Styles.background)
+            .padding(.top, imageHeight)
         }
         .background(alignment: .top) {
             AsyncImage(url: URL(string: booth.pictureURL)) { image in
@@ -84,12 +97,21 @@ struct BoothDetailScene: View {
             }
         }
     }
+
+    private var openingHours: String {
+        let startTime = booth.startTime.formatted(date: .omitted, time: .shortened)
+        let endTime = booth.endTime.formatted(date: .omitted, time: .shortened)
+
+        return "\(startTime) - \(endTime)"
+    }
 }
 
 fileprivate enum Styles {
     static let background = AppColor.Scene.background
     static let verticalSpacing = AppToken.Primitive.spacing6
     static let verticalPadding = AppToken.Primitive.padding4
+
+    static let inlineInfosVerticalSpacing = AppToken.Primitive.spacing4
 
     static let imageRatio: Double = 6 / 5
 }

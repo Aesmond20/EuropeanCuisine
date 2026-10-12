@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D7FDA874307D1B2B0065C38D /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = D7FDA873307D1B2B0065C38D /* Flow */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D7257FE23065AA6900D47D2C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -69,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7FDA874307D1B2B0065C38D /* Flow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +136,7 @@
 			);
 			name = EuropeanCuisine;
 			packageProductDependencies = (
+				D7FDA873307D1B2B0065C38D /* Flow */,
 			);
 			productName = EuropeanCuisine;
 			productReference = D7257FD43065AA6700D47D2C /* EuropeanCuisine.app */;
@@ -215,6 +221,7 @@
 			mainGroup = D7257FCB3065AA6700D47D2C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				D7FDA872307D1B2B0065C38D /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D7257FD53065AA6700D47D2C /* Products */;
@@ -648,6 +655,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D7FDA872307D1B2B0065C38D /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tevelee/SwiftUI-Flow.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.5.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D7FDA873307D1B2B0065C38D /* Flow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D7FDA872307D1B2B0065C38D /* XCRemoteSwiftPackageReference "SwiftUI-Flow" */;
+			productName = Flow;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D7257FCC3065AA6700D47D2C /* Project object */;
 }
