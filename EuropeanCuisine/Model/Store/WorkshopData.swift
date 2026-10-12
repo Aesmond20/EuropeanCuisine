@@ -20,7 +20,7 @@ enum WorkshopData {
                  Discover the secrets of French pastry and learn how to prepare \
                  a delicate classic with a professional pastry chef.
                  """,
-                 pictureURL: "https://images.unsplash.com/photo-1551024506-0bccd828d307",
+                 pictureURL: "https://picsum.photos/seed/french/600/400",
                  isVegan: false,
                  isPRM: true,
                  isFamilyFriendly: true),

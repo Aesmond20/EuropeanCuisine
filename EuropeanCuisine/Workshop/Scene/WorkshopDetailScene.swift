@@ -14,6 +14,10 @@ struct WorkshopDetailScene: View {
 
     let workshop: Workshop
 
+    @State private var imageHeight: Double = 0
+    @State private var scrollOffsetY: Double = 0
+    @State private var scrollViewWidth: Double = 0
+
     private var isReserved: Bool {
         reservationStore.isBooked(workshop)
     }
@@ -21,8 +25,6 @@ struct WorkshopDetailScene: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: AppToken.Primitive.spacing5) {
-                workshopImage
-
                 VStack(alignment: .leading, spacing: AppToken.Primitive.spacing4) {
                     Text(workshop.name)
                         .font(Styles.titleFont)
@@ -60,9 +62,40 @@ struct WorkshopDetailScene: View {
                 .padding(.horizontal, AppToken.Primitive.padding4)
             }
             .padding(.bottom, AppToken.Primitive.padding8)
+            .padding(.top, imageHeight)
+        }
+        .background(alignment: .top) {
+            AsyncImage(url: URL(string: workshop.pictureURL)) { image in
+                image.resizable()
+                    .scaledToFill()
+            } placeholder: {
+                ProgressView()
+            }
+            .frame(height: imageHeight + max(scrollOffsetY, 0))
+            .offset(y: min(0, scrollOffsetY))
+            .clipped()
+            .overlay(alignment: .bottom) {
+                Image(.waveIcon)
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundStyle(Styles.background)
+                    .offset(y: 1)
+                    .frame(width: scrollViewWidth)
+            }
         }
         .background(Styles.background)
-        .scrollBounceBehavior(.basedOnSize)
+        .onScrollGeometryChange(for: Double.self) { geo in
+            geo.contentOffset.y
+        } action: { _, offsetY in
+            scrollOffsetY = -offsetY
+        }
+        .onScrollGeometryChange(for: Double.self) { geo in
+            geo.visibleRect.size.width
+        } action: { _, visibleWidth in
+            imageHeight = visibleWidth / Styles.imageRatio
+            scrollViewWidth = visibleWidth
+        }
+        .ignoresSafeArea(.all, edges: .top)
         .navigationBarBackButtonHidden(true)
         .overlay(alignment: .topLeading) {
             Button("") {
@@ -70,39 +103,10 @@ struct WorkshopDetailScene: View {
             }
             .buttonStyle(.orangeadeIconProminent(kind: .back,
                                                  icon: Image(systemName: "arrow.left")))
+            .padding(.horizontal)
         }
         .safeAreaInset(edge: .bottom) {
             actionButton
-        }
-    }
-
-    private var workshopImage: some View {
-        AsyncImage(url: URL(string: workshop.pictureURL)) { phase in
-            switch phase {
-            case let .success(image):
-                image
-                    .resizable()
-                    .scaledToFill()
-
-            default:
-                Image(systemName: "fork.knife")
-                    .font(.system(size: 40, weight: .medium))
-                    .foregroundStyle(Styles.placeholderForeground)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 280)
-                    .background(Styles.placeholderBackground)
-            }
-        }
-        .frame(maxWidth: .infinity)
-        .frame(height: 280)
-        .clipped()
-        .overlay(alignment: .bottom) {
-            Image(.waveIcon)
-                .resizable()
-                .scaledToFill()
-                .foregroundStyle(Color.primitiveBackground)
-                .frame(maxWidth: .infinity)
-                .frame(height: 25)
         }
     }
 
@@ -163,6 +167,8 @@ struct WorkshopDetailScene: View {
 }
 
 fileprivate enum Styles {
+    static let imageRatio: Double = 6 / 5
+
     static let background = AppColor.Scene.background
 
     static let titleFont = Font.dosis(size: 28,
