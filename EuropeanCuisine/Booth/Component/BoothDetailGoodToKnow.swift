@@ -9,27 +9,48 @@
 import SwiftUI
 
 struct BoothDetailGoodToKnow: View {
+    let title: String
     let isVegan: Bool
     let isPRM: Bool
     let isFamilyFriendly: Bool
 
+    init(title: String,
+         isVegan: Bool,
+         isPRM: Bool,
+         isFamilyFriendly: Bool) {
+        self.title = title
+        self.isVegan = isVegan
+        self.isPRM = isPRM
+        self.isFamilyFriendly = isFamilyFriendly
+    }
+
+    init(title: LocalizedStringResource,
+         isVegan: Bool,
+         isPRM: Bool,
+         isFamilyFriendly: Bool) {
+        self.title = String(localized: title)
+        self.isVegan = isVegan
+        self.isPRM = isPRM
+        self.isFamilyFriendly = isFamilyFriendly
+    }
+
     var body: some View {
-        DetailSectionContent(title: "Good to Know_PLC") {
+        DetailSectionContent(title: title) {
             VStack(alignment: .leading,
                    spacing: Styles.verticalSpacing) {
                 if isVegan {
                     DetailIconLabel(icon: AppImage.Icon.isVegan.image,
-                                    label: "Vegan friendly_PLC")
+                                    label: .goodToKnowVeganFriendly)
                 }
 
                 if isPRM {
                     DetailIconLabel(icon: AppImage.Icon.isPRM.image,
-                                    label: "Wheelchair accessible_PLC")
+                                    label: .goodToKnowPrm)
                 }
 
                 if isFamilyFriendly {
                     DetailIconLabel(icon: AppImage.Icon.isFamilyFriendly.image,
-                                    label: "Family friendly_PLC")
+                                    label: .goodToKnowFamilyFriendly)
                 }
             }
         }
@@ -41,7 +62,8 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    BoothDetailGoodToKnow(isVegan: true,
+    BoothDetailGoodToKnow(title: "Good to Know",
+                          isVegan: true,
                           isPRM: true,
                           isFamilyFriendly: true)
         .padding()

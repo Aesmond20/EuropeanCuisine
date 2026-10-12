@@ -23,7 +23,29 @@
     "Book now" : {
 
     },
-    "booths.list.empty.title" : {
+    "booth_detail.section.description.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
+          }
+        }
+      }
+    },
+    "booth_detail.section.good_to_know.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Good to Know"
+          }
+        }
+      }
+    },
+    "booth_list.list.empty.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -34,7 +56,7 @@
         }
       }
     },
-    "booths.search_field.placeholder" : {
+    "booth_list.search_field.placeholder" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -45,7 +67,7 @@
         }
       }
     },
-    "booths.title" : {
+    "booth_list.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -147,6 +169,39 @@
     },
     "Good to Know" : {
 
+    },
+    "good_to_know.family_friendly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Family friendly"
+          }
+        }
+      }
+    },
+    "good_to_know.prm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wheelchair accessible"
+          }
+        }
+      }
+    },
+    "good_to_know.vegan_friendly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegan friendly"
+          }
+        }
+      }
     },
     "Not log in" : {
 

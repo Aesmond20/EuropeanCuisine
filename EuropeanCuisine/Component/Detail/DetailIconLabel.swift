@@ -12,6 +12,16 @@ struct DetailIconLabel: View {
     let icon: Image
     let label: String
 
+    init(icon: Image, label: String) {
+        self.icon = icon
+        self.label = label
+    }
+
+    init(icon: Image, label: LocalizedStringResource) {
+        self.icon = icon
+        self.label = String(localized: label)
+    }
+
     var body: some View {
         HStack(alignment: .center,
                spacing: Styles.horizontalSpacing) {

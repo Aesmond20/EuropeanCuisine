@@ -12,6 +12,16 @@ struct DetailSectionParagraph: View {
     let title: String
     let paragraph: String
 
+    init(title: String, paragraph: String) {
+        self.title = title
+        self.paragraph = paragraph
+    }
+
+    init(title: LocalizedStringResource, paragraph: String) {
+        self.title = String(localized: title)
+        self.paragraph = paragraph
+    }
+
     var body: some View {
         VStack(alignment: .leading,
                spacing: Styles.verticalSpacing) {

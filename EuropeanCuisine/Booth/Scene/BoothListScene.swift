@@ -23,15 +23,15 @@ struct BoothListScene: View {
                 }
             }
             .background(Styles.background)
-            .sceneHeader(.boothsTitle,
+            .sceneHeader(.boothListTitle,
                          searchText: $searchText,
-                         searchPlaceholder: .boothsSearchFieldPlaceholder,
+                         searchPlaceholder: .boothListSearchFieldPlaceholder,
                          topTrailingSplash: .init(version: .one,
                                                   kind: .tertiary))
     }
 
     private var emptyListView: some View {
-        ContentEmptyView(.boothsListEmptyTitle,
+        ContentEmptyView(.boothListListEmptyTitle,
                          systemImage: AppImage.Icon.boothEmptyList.systemName)
     }
 

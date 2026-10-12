@@ -27,11 +27,12 @@ struct BoothDetailScene: View {
                 DetailInlineInfo(icon: AppImage.Icon.boothLocation.image,
                                  label: booth.location)
 
-                DetailSectionParagraph(title: "About_PLC",
+                DetailSectionParagraph(title: .boothDetailSectionDescriptionTitle,
                                        paragraph: booth.description)
 
                 if booth.isVegan || booth.isPRM || booth.isFamilyFriendly {
-                    BoothDetailGoodToKnow(isVegan: booth.isVegan,
+                    BoothDetailGoodToKnow(title: .boothDetailSectionGoodToKnowTitle,
+                                          isVegan: booth.isVegan,
                                           isPRM: booth.isPRM,
                                           isFamilyFriendly: booth.isFamilyFriendly)
                 }
@@ -79,7 +80,7 @@ struct BoothDetailScene: View {
                     dismiss()
                 }
                 .buttonStyle(.orangeadeIconProminent(kind: .back,
-                                                     icon: Image(systemName: "arrow.left")))
+                                                     icon: AppImage.Icon.back.image))
             }
         }
     }
