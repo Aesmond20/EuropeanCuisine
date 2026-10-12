@@ -30,52 +30,66 @@ struct ReservationListScene: View {
     }
 
     var body: some View {
-        if reservationStore.isLogIn {
-            reservationList
-        } else {
-            ReservationListLogOutScene()
-        }
+        reservationList
     }
 
     private var reservationList: some View {
         List {
-            ForEach(reservations) { workshop in
-                NavigationLink {
-                    WorkshopDetailScene(workshop: workshop)
-                        .orangeadeTabViewVisibility(.hidden)
-                } label: {
-                    ReservationRow(workshop: workshop)
+            if reservationStore.isLogIn {
+                ForEach(reservations) { workshop in
+                    NavigationLink {
+                        WorkshopDetailScene(workshop: workshop)
+                            .orangeadeTabViewVisibility(.hidden)
+                    } label: {
+                        ReservationRow(workshop: workshop)
+                    }
+                    .listRowBackground(Color.clear)
+                    .listRowSeparatorTint(Styles.listSeparator)
                 }
-                .listRowBackground(Color.clear)
-                .listRowSeparatorTint(Styles.listSeparator)
             }
         }
         .listStyle(.plain)
+        .overlay {
+            if !reservationStore.isLogIn {
+                ContentEmptyView("Not log in",
+                                 systemImage: "person.fill.xmark",
+                                 description: "You cannot see your bookings because you are not logged in.")
+            }
+        }
         .background(Styles.background)
-        .sceneHeader("Reservations",
-                     searchText: $searchText,
-                     searchPlaceholder: "Search a workshop",
-                     topTrailingSplash: .init(version: .two,
-                                              kind: .primary)) {
-            Menu {
-                Section("Categories") {
-                    ForEach(categories, id: \.self) { category in
-                        Toggle(category, isOn: Binding(get: {
-                            selectedCategories.contains(category)
-                        }, set: { _, _ in
-                            if selectedCategories.contains(category) {
-                                selectedCategories.remove(category)
-                            } else {
-                                selectedCategories.insert(category)
+        .if(reservationStore.isLogIn) {
+            $0
+                .sceneHeader("Reservations",
+                             searchText: $searchText,
+                             searchPlaceholder: "Search a workshop",
+                             topTrailingSplash: .init(version: .two,
+                                                      kind: .primary)) {
+                    Menu {
+                        Section("Categories") {
+                            ForEach(categories, id: \.self) { category in
+                                Toggle(category, isOn: Binding(get: {
+                                    selectedCategories.contains(category)
+                                }, set: { _, _ in
+                                    if selectedCategories.contains(category) {
+                                        selectedCategories.remove(category)
+                                    } else {
+                                        selectedCategories.insert(category)
+                                    }
+                                }))
                             }
-                        }))
+                        }
+                    } label: {
+                        Button("") {}
+                            .buttonStyle(.orangeadeIconProminent(kind: .tertiary,
+                                                                 icon: AppImage.Icon.filter.image))
                     }
                 }
-            } label: {
-                Button("") {}
-                    .buttonStyle(.orangeadeIconProminent(kind: .tertiary,
-                                                         icon: AppImage.Icon.filter.image))
-            }
+        }
+        .if(!reservationStore.isLogIn) {
+            $0
+                .sceneHeader("Reservations",
+                             topTrailingSplash: .init(version: .two,
+                                                      kind: .primary))
         }
     }
 }
