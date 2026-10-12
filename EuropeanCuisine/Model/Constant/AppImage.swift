@@ -15,6 +15,7 @@ enum AppImage {
     static let topTrailingSplashV1: Image = .init(.topTrailingSplashV1)
     static let topTrailingSplashV2: Image = .init(.topTrailingSplashV2)
     static let topTrailingSplashV3: Image = .init(.topTrailingSplashV3)
+    static let detailSceneWave: Image = .init(.waveIcon)
 
     enum Icon {
         case tabBooths
@@ -44,6 +45,12 @@ enum AppImage {
         case password
         case language
         case userPictureEmpty
+        case remainingSeats
+        case eventDate
+        case boothLocation
+        case isVegan
+        case isPRM
+        case isFamilyFriendly
 
         var systemName: String {
             switch self {
@@ -101,6 +108,18 @@ enum AppImage {
                 "globe"
             case .userPictureEmpty:
                 "person.crop.circle.badge.questionmark.fill"
+            case .remainingSeats:
+                "person.2"
+            case .eventDate:
+                "calendar.badge"
+            case .boothLocation:
+                "mappin.and.ellipse"
+            case .isVegan:
+                "leaf.fill"
+            case .isPRM:
+                "wheelchair"
+            case .isFamilyFriendly:
+                "figure.and.child.holdinghands"
             }
         }
 
