@@ -24,6 +24,7 @@ enum AppImage {
         case tabProfile
         case boothThumbnailPlaceholder
         case boothEmptyList
+        case boothNotFound
         case isBooked
         case book
         case unbook
@@ -65,6 +66,8 @@ enum AppImage {
             case .boothThumbnailPlaceholder:
                 "storefront.fill"
             case .boothEmptyList:
+                "storefront"
+            case .boothNotFound:
                 "storefront"
             case .isBooked:
                 "bookmark.fill"

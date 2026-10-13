@@ -10,15 +10,18 @@ import SwiftUI
 
 struct BoothList: View {
     let booths: [Booth]
+    let action: (UUID) -> Void
 
     var body: some View {
         List {
             ForEach(groupedBooths, id: \.country.code) { item in
                 Section {
                     ForEach(item.list) { booth in
-                        BoothCell(booth: booth)
-                            .listRowSeparatorTint(Styles.separatorColor)
-                            .listRowBackground(Color.clear)
+                        Button(action: { action(booth.id) }) {
+                            BoothCell(booth: booth)
+                        }
+                        .listRowSeparatorTint(Styles.separatorColor)
+                        .listRowBackground(Color.clear)
                     }
                 } header: {
                     ListSectionHeaderCountry(code: item.country.code,
@@ -54,5 +57,5 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    BoothList(booths: Booth.examples)
+    BoothList(booths: Booth.examples, action: { _ in })
 }
