@@ -17,8 +17,10 @@ final class OnboardingLogInViewModel {
     private let store: UserStore
     private let onOpenSignUp: () -> Void
     private let authClient: AuthAPIClient
+    private(set) var isFullscreen: Bool
 
-    init(store: UserStore,
+    init(isFullscreen: Bool?,
+         store: UserStore,
          close: @escaping () -> Void,
          onOpenSignUp: @escaping () -> Void) {
         self.email = ""
@@ -27,6 +29,7 @@ final class OnboardingLogInViewModel {
         self.close = close
         self.onOpenSignUp = onOpenSignUp
         self.authClient = .init()
+        self.isFullscreen = (isFullscreen == true)
     }
 
     var isValid: Bool {

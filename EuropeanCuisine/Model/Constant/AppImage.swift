@@ -53,6 +53,7 @@ enum AppImage {
         case isVegan
         case isPRM
         case isFamilyFriendly
+        case notLogIn
 
         var systemName: String {
             switch self {
@@ -126,6 +127,8 @@ enum AppImage {
                 "wheelchair"
             case .isFamilyFriendly:
                 "figure.and.child.holdinghands"
+            case .notLogIn:
+                "person.fill.xmark"
             }
         }
 

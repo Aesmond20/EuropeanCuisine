@@ -12,14 +12,18 @@ struct OnboardingSignUpScene: View {
     @Environment(UserStore.self) private var store
     @Environment(\.dismiss) private var dismiss
 
+    private let isFullscreen: Bool?
     private let onOpenLogIn: () -> Void
 
-    init(onOpenLogIn: @escaping () -> Void) {
+    init(isFullscreen: Bool? = nil,
+         onOpenLogIn: @escaping () -> Void) {
+        self.isFullscreen = isFullscreen
         self.onOpenLogIn = onOpenLogIn
     }
 
     var body: some View {
-        OnboardingSignUpSceneInternal(store: store,
+        OnboardingSignUpSceneInternal(isFullscreen: isFullscreen,
+                                      store: store,
                                       close: { dismiss() },
                                       onOpenLogIn: onOpenLogIn)
     }
@@ -28,10 +32,12 @@ struct OnboardingSignUpScene: View {
 struct OnboardingSignUpSceneInternal: View {
     @State private var vm: OnboardingSignUpViewModel
 
-    init(store: UserStore,
+    init(isFullscreen: Bool?,
+         store: UserStore,
          close: @escaping () -> Void,
          onOpenLogIn: @escaping () -> Void) {
-        self._vm = State(initialValue: .init(store: store,
+        self._vm = State(initialValue: .init(isFullscreen: isFullscreen,
+                                             store: store,
                                              close: close,
                                              onOpenLogIn: onOpenLogIn))
     }
@@ -69,7 +75,9 @@ struct OnboardingSignUpSceneInternal: View {
                spacing: Styles.headerHorizontalSpacing) {
             Button("", action: vm.goToPrevious)
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
-                                                     icon: AppImage.Icon.back.image))
+                                                     icon: vm.isFullscreen && vm.isFirstStep
+                                                         ? AppImage.Icon.close.image
+                                                         : AppImage.Icon.back.image))
 
             OnboardingProgress(title: .onboardingSignUpTitle,
                                current: vm.currentStep,

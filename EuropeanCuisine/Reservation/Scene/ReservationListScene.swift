@@ -52,7 +52,7 @@ struct ReservationListScene: View {
         .overlay {
             if !reservationStore.isLogIn {
                 ContentEmptyView("Not log in",
-                                 systemImage: "person.fill.xmark",
+                                 systemImage: AppImage.Icon.notLogIn.systemName,
                                  description: "You cannot see your bookings because you are not logged in.")
             }
         }

@@ -13,13 +13,17 @@ struct OnboardingLogInScene: View {
     @Environment(\.dismiss) private var dismiss
 
     private let onOpenSignUp: () -> Void
+    private let isFullscreen: Bool?
 
-    init(onOpenSignUp: @escaping () -> Void) {
+    init(isFullscreen: Bool? = nil,
+         onOpenSignUp: @escaping () -> Void) {
+        self.isFullscreen = isFullscreen
         self.onOpenSignUp = onOpenSignUp
     }
 
     var body: some View {
-        OnboardingLogInSceneInternal(store: store,
+        OnboardingLogInSceneInternal(isFullscreen: isFullscreen,
+                                     store: store,
                                      close: { dismiss() },
                                      onOpenSignUp: onOpenSignUp)
     }
@@ -35,10 +39,12 @@ struct OnboardingLogInSceneInternal: View {
         case password
     }
 
-    init(store: UserStore,
+    init(isFullscreen: Bool?,
+         store: UserStore,
          close: @escaping () -> Void,
          onOpenSignUp: @escaping () -> Void) {
-        self._vm = State(initialValue: .init(store: store,
+        self._vm = State(initialValue: .init(isFullscreen: isFullscreen,
+                                             store: store,
                                              close: close,
                                              onOpenSignUp: onOpenSignUp))
     }
@@ -76,10 +82,14 @@ struct OnboardingLogInSceneInternal: View {
         HStack(spacing: .zero) {
             Button("", action: vm.goBack)
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
-                                                     icon: AppImage.Icon.back.image))
+                                                     icon: vm.isFullscreen
+                                                         ? AppImage.Icon.close.image
+                                                         : AppImage.Icon.back.image))
         }
         .padding(.horizontal)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: vm.isFullscreen
+            ? .trailing
+            : .leading)
     }
 
     private var formHeaderView: some View {
@@ -177,6 +187,7 @@ fileprivate enum Styles {
 #Preview {
     @Previewable @State var userStore = UserStore()
 
-    OnboardingLogInScene(onOpenSignUp: {})
+    OnboardingLogInScene(isFullscreen: true,
+                         onOpenSignUp: {})
         .environment(userStore)
 }

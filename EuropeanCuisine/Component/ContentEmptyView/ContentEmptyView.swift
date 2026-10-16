@@ -12,8 +12,12 @@ struct ContentEmptyView: View {
     private let title: Text
     private let image: Image
     private let description: Text?
+    private let accessoryView: AnyView?
 
-    init(_ title: String, image: Image, description: String? = nil) {
+    init(_ title: String,
+         image: Image,
+         description: String? = nil,
+         @ViewBuilder accessory: () -> some View) {
         self.title = Text(title)
         self.image = image
         self.description = if let description {
@@ -21,6 +25,34 @@ struct ContentEmptyView: View {
         } else {
             nil
         }
+        self.accessoryView = AnyView(accessory())
+    }
+
+    init(_ title: String,
+         image: Image,
+         description: String? = nil) {
+        self.title = Text(title)
+        self.image = image
+        self.description = if let description {
+            Text(description)
+        } else {
+            nil
+        }
+        self.accessoryView = nil
+    }
+
+    init(_ title: LocalizedStringResource,
+         image: Image,
+         description: LocalizedStringResource? = nil,
+         @ViewBuilder accessory: () -> some View) {
+        self.title = Text(title)
+        self.image = image
+        self.description = if let description {
+            Text(description)
+        } else {
+            nil
+        }
+        self.accessoryView = AnyView(accessory())
     }
 
     init(_ title: LocalizedStringResource,
@@ -33,6 +65,21 @@ struct ContentEmptyView: View {
         } else {
             nil
         }
+        self.accessoryView = nil
+    }
+
+    init(_ title: String,
+         systemImage name: String,
+         description: String? = nil,
+         @ViewBuilder accessory: () -> some View) {
+        self.title = Text(title)
+        self.image = Image(systemName: name)
+        self.description = if let description {
+            Text(description)
+        } else {
+            nil
+        }
+        self.accessoryView = AnyView(accessory())
     }
 
     init(_ title: String,
@@ -45,6 +92,21 @@ struct ContentEmptyView: View {
         } else {
             nil
         }
+        self.accessoryView = nil
+    }
+
+    init(_ title: LocalizedStringResource,
+         systemImage name: String,
+         description: LocalizedStringResource? = nil,
+         @ViewBuilder accessory: () -> some View) {
+        self.title = Text(title)
+        self.image = Image(systemName: name)
+        self.description = if let description {
+            Text(description)
+        } else {
+            nil
+        }
+        self.accessoryView = AnyView(accessory())
     }
 
     init(_ title: LocalizedStringResource,
@@ -57,6 +119,7 @@ struct ContentEmptyView: View {
         } else {
             nil
         }
+        self.accessoryView = nil
     }
 
     var body: some View {
@@ -79,6 +142,10 @@ struct ContentEmptyView: View {
                         .foregroundStyle(Styles.descriptionColor)
                         .multilineTextAlignment(Styles.descriptionTextAlignment)
                 }
+            }
+
+            if let accessoryView {
+                accessoryView
             }
         }
         .padding(Styles.padding)

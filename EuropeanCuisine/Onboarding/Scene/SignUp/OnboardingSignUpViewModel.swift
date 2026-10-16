@@ -21,6 +21,7 @@ final class OnboardingSignUpViewModel {
     private let store: UserStore
     private var close: () -> Void
     private let onOpenLogIn: () -> Void
+    private(set) var isFullscreen: Bool
 
     private let authClient: AuthAPIClient
 
@@ -65,9 +66,14 @@ final class OnboardingSignUpViewModel {
                 nil
             }
         }
+
+        var isFirst: Bool {
+            self == .email
+        }
     }
 
-    init(store: UserStore,
+    init(isFullscreen: Bool?,
+         store: UserStore,
          close: @escaping () -> Void,
          onOpenLogIn: @escaping () -> Void) {
         self.step = .email
@@ -79,9 +85,14 @@ final class OnboardingSignUpViewModel {
         self.store = store
         self.close = close
         self.onOpenLogIn = onOpenLogIn
+        self.isFullscreen = (isFullscreen == true)
     }
 
     // MARK: - Public computed properties
+
+    var isFirstStep: Bool {
+        step.isFirst
+    }
 
     var currentStep: UInt8 {
         step.current

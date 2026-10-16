@@ -9,29 +9,84 @@
 import SwiftUI
 
 struct ProfileScene: View {
-    let user: User = .example
+    @Environment(UserStore.self) private var userStore
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .center,
-                   spacing: Styles.verticalSpacing) {
-                ProfileHeader(name: user.name,
-                              email: user.email,
-                              pictureURL: user.pictureURL)
+        ProfileSceneInternal(store: userStore)
+    }
+}
 
-                ProfileList(onChangePassword: {},
-                            onShowLegal: {},
-                            onLogOut: {})
+struct ProfileSceneInternal: View {
+    @State private var vm: ProfileViewModel
+
+    init(store: UserStore) {
+        self._vm = State(initialValue: .init(store: store))
+    }
+
+    var body: some View {
+        Group {
+            if let user = vm.user {
+                ScrollView {
+                    VStack(alignment: .center,
+                           spacing: Styles.verticalSpacing) {
+                        ProfileHeader(name: user.name,
+                                      email: user.email,
+                                      pictureURL: user.pictureURL)
+
+                        ProfileList(onChangePassword: {},
+                                    onShowLegal: {},
+                                    onLogOut: vm.logOutUser)
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, Styles.verticalPadding)
+                    .scrollBounceBehavior(.basedOnSize)
+                }
+            } else {
+                ContentEmptyView("Not log in_PLC",
+                                 systemImage: AppImage.Icon.notLogIn.systemName,
+                                 description: "You cannot see your profile because you are not logged in._PLC") {
+                    HStack(spacing: Styles.emptyActionsSpacing) {
+                        Button(.globalButtonSignUpLabel, action: vm.showSignUpUser)
+                            .buttonStyle(.orangeadeProminent(kind: .primary))
+
+                        Button(.globalButtonLogInLabel, action: vm.showLogInUser)
+                            .buttonStyle(.orangeadeProminent(kind: .tertiary))
+                    }
+                }
             }
-            .padding(.horizontal)
-            .padding(.vertical, Styles.verticalPadding)
         }
-        .scrollBounceBehavior(.basedOnSize)
         .background(Styles.background)
-        .sceneHeader(.profileTitle,
-                     topTrailingSplash: .init(version: .three,
-                                              kind: .primary),
-                     onEdit: {})
+        .if(!vm.hasUser) {
+            $0
+                .sceneHeader(.profileTitle,
+                             topTrailingSplash: .init(version: .three,
+                                                      kind: .primary))
+        }
+        .if(vm.hasUser) {
+            $0
+                .sceneHeader(.profileTitle,
+                             topTrailingSplash: .init(version: .three,
+                                                      kind: .primary),
+                             onEdit: {})
+        }
+        .fullScreenCover(isPresented: $vm.isSignUpPresented) {
+            OnboardingSignUpScene(isFullscreen: true,
+                                  onOpenLogIn: {
+                                      Task {
+                                          try? await Task.sleep(for: .seconds(1))
+                                          vm.showLogInUser()
+                                      }
+                                  })
+        }
+        .fullScreenCover(isPresented: $vm.isLogInPresented) {
+            OnboardingLogInScene(isFullscreen: true,
+                                 onOpenSignUp: {
+                                     Task {
+                                         try? await Task.sleep(for: .seconds(1))
+                                         vm.showSignUpUser()
+                                     }
+                                 })
+        }
     }
 }
 
@@ -109,8 +164,15 @@ fileprivate enum Styles {
     static let rowHorizontalPadding = AppToken.Primitive.padding4
 
     static let languageTint = AppColor.Label.secondary
+
+    static let emptyActionsSpacing = AppToken.Primitive.spacing4
 }
 
 #Preview {
-    ProfileScene()
+    @Previewable @State var store = UserStore()
+
+    NavigationStack {
+        ProfileScene()
+    }
+    .environment(store)
 }
