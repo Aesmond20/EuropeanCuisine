@@ -11,7 +11,7 @@ import Foundation
 struct Booth: Identifiable {
     let id: UUID
     let name: String
-    let description: String
+    let about: String
     let pictureURL: String
     let location: String
     let isVegan: Bool
@@ -37,7 +37,7 @@ extension Booth {
         // France
         Booth(id: UUID(),
               name: "Le Galetier",
-              description: "Galettes de sarrasin bretonnes garnies (jambon-fromage-œuf, andouille) et crêpes au caramel au beurre salé.",
+              about: "Galettes de sarrasin bretonnes garnies (jambon-fromage-œuf, andouille) et crêpes au caramel au beurre salé.",
               pictureURL: "https://picsum.photos/seed/galetier/800",
               location: "Allée A - Stand 1",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -47,7 +47,7 @@ extension Booth {
               countryCode: "FRA", countryName: "France"),
         Booth(id: UUID(),
               name: "Maison Savoyarde",
-              description: "Tartiflette, croziflette et raclette au feu de bois avec fromages de Savoie.",
+              about: "Tartiflette, croziflette et raclette au feu de bois avec fromages de Savoie.",
               pictureURL: "https://picsum.photos/seed/savoyarde/800",
               location: "Allée A - Stand 2",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -57,7 +57,7 @@ extension Booth {
               countryCode: "FRA", countryName: "France"),
         Booth(id: UUID(),
               name: "Éclair d'Or",
-              description: "Éclairs, macarons et religieuses préparés par un artisan pâtissier parisien.",
+              about: "Éclairs, macarons et religieuses préparés par un artisan pâtissier parisien.",
               pictureURL: "https://picsum.photos/seed/eclair/800",
               location: "Allée A - Stand 3",
               isVegan: false, isPRM: false, isFamilyFriendly: true,
@@ -69,7 +69,7 @@ extension Booth {
         // Croatie
         Booth(id: UUID(),
               name: "Štrukli Zagreb",
-              description: "Štrukli croates à la pâte fine et au fromage frais, servis cuits au four avec de la crème, ou bouillis.",
+              about: "Štrukli croates à la pâte fine et au fromage frais, servis cuits au four avec de la crème, ou bouillis.",
               pictureURL: "https://picsum.photos/seed/strukli/800",
               location: "Allée J - Stand 1",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -79,7 +79,7 @@ extension Booth {
               countryCode: "HRV", countryName: "Croatie"),
         Booth(id: UUID(),
               name: "Fritule Dalmatia",
-              description: "Petits beignets dalmates parfumés au zeste d'agrumes et au rhum, saupoudrés de sucre glace.",
+              about: "Petits beignets dalmates parfumés au zeste d'agrumes et au rhum, saupoudrés de sucre glace.",
               pictureURL: "https://picsum.photos/seed/fritule/800",
               location: "Allée J - Stand 2",
               isVegan: false, isPRM: false, isFamilyFriendly: true,
@@ -91,7 +91,7 @@ extension Booth {
         // Chypre
         Booth(id: UUID(),
               name: "Halloumi & Sheftalia Larnaka",
-              description: "Halloumi grillé, sheftalia (saucisses chypriotes), pita, tomates et menthe fraîche.",
+              about: "Halloumi grillé, sheftalia (saucisses chypriotes), pita, tomates et menthe fraîche.",
               pictureURL: "https://picsum.photos/seed/halloumi/800",
               location: "Allée J - Stand 3",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -103,7 +103,7 @@ extension Booth {
         // Espagne
         Booth(id: UUID(),
               name: "Tapas y Más",
-              description: "Assortiment de tapas : patatas bravas, croquetas, tortilla et jamón ibérico.",
+              about: "Assortiment de tapas : patatas bravas, croquetas, tortilla et jamón ibérico.",
               pictureURL: "https://picsum.photos/seed/tapas/800",
               location: "Allée C - Stand 1",
               isVegan: false, isPRM: true, isFamilyFriendly: false,
@@ -113,7 +113,7 @@ extension Booth {
               countryCode: "ESP", countryName: "Espagne"),
         Booth(id: UUID(),
               name: "Churros de Madrid",
-              description: "Churros frits minute servis avec chocolat chaud épais ou sucre-cannelle.",
+              about: "Churros frits minute servis avec chocolat chaud épais ou sucre-cannelle.",
               pictureURL: "https://picsum.photos/seed/churros/800",
               location: "Allée C - Stand 2",
               isVegan: true, isPRM: true, isFamilyFriendly: true,
@@ -123,7 +123,7 @@ extension Booth {
               countryCode: "ESP", countryName: "Espagne"),
         Booth(id: UUID(),
               name: "Paella Valenciana",
-              description: "Paella cuite dans une poêle géante au feu de bois : poulet-lapin ou fruits de mer.",
+              about: "Paella cuite dans une poêle géante au feu de bois : poulet-lapin ou fruits de mer.",
               pictureURL: "https://picsum.photos/seed/paella/800",
               location: "Allée C - Stand 3",
               isVegan: false, isPRM: false, isFamilyFriendly: true,
@@ -135,7 +135,7 @@ extension Booth {
         // Allemagne
         Booth(id: UUID(),
               name: "Bratwurst & Brezel",
-              description: "Saucisses grillées de Nuremberg, bretzels tout juste sortis du four et choucroute.",
+              about: "Saucisses grillées de Nuremberg, bretzels tout juste sortis du four et choucroute.",
               pictureURL: "https://picsum.photos/seed/bratwurst/800",
               location: "Allée D - Stand 1",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -145,7 +145,7 @@ extension Booth {
               countryCode: "DEU", countryName: "Allemagne"),
         Booth(id: UUID(),
               name: "Kartoffelpuffer Express",
-              description: "Galettes de pommes de terre croustillantes avec compote de pommes ou saumon fumé.",
+              about: "Galettes de pommes de terre croustillantes avec compote de pommes ou saumon fumé.",
               pictureURL: "https://picsum.photos/seed/kartoffelpuffer/800",
               location: "Allée D - Stand 2",
               isVegan: false, isPRM: false, isFamilyFriendly: true,
@@ -157,7 +157,7 @@ extension Booth {
         // Grèce
         Booth(id: UUID(),
               name: "Souvlaki Athína",
-              description: "Brochettes de porc ou de poulet, pita, tzatziki, tomates et oignons rouges.",
+              about: "Brochettes de porc ou de poulet, pita, tzatziki, tomates et oignons rouges.",
               pictureURL: "https://picsum.photos/seed/souvlaki/800",
               location: "Allée E - Stand 1",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -167,7 +167,7 @@ extension Booth {
               countryCode: "GRC", countryName: "Grèce"),
         Booth(id: UUID(),
               name: "Mezedes d'Ikaria",
-              description: "Mezzés végétaux : dolmadès, gigantes, fava de Santorin, houmous et salade grecque sans feta.",
+              about: "Mezzés végétaux : dolmadès, gigantes, fava de Santorin, houmous et salade grecque sans feta.",
               pictureURL: "https://picsum.photos/seed/mezedes/800",
               location: "Allée E - Stand 2",
               isVegan: true, isPRM: true, isFamilyFriendly: true,
@@ -179,7 +179,7 @@ extension Booth {
         // Pologne
         Booth(id: UUID(),
               name: "Pierogi Babcia",
-              description: "Raviolis polonais faits maison : viande, chou et champignons, pommes de terre et fromage blanc.",
+              about: "Raviolis polonais faits maison : viande, chou et champignons, pommes de terre et fromage blanc.",
               pictureURL: "https://picsum.photos/seed/pierogi/800",
               location: "Allée F - Stand 1",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -189,7 +189,7 @@ extension Booth {
               countryCode: "POL", countryName: "Pologne"),
         Booth(id: UUID(),
               name: "Zapiekanka Kraków",
-              description: "Baguette gratinée de Cracovie aux champignons, fromage fondu et ketchup.",
+              about: "Baguette gratinée de Cracovie aux champignons, fromage fondu et ketchup.",
               pictureURL: "https://picsum.photos/seed/zapiekanka/800",
               location: "Allée F - Stand 2",
               isVegan: false, isPRM: false, isFamilyFriendly: true,
@@ -201,7 +201,7 @@ extension Booth {
         // Portugal
         Booth(id: UUID(),
               name: "Pastéis de Nata Lisboa",
-              description: "Pastéis de nata chauds à la cannelle, accompagnés d'un café bica.",
+              about: "Pastéis de nata chauds à la cannelle, accompagnés d'un café bica.",
               pictureURL: "https://picsum.photos/seed/pasteis/800",
               location: "Allée G - Stand 1",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -213,7 +213,7 @@ extension Booth {
         // Belgique
         Booth(id: UUID(),
               name: "Frites de Bruxelles",
-              description: "Frites belges double cuisson, cuites à l'huile végétale, avec une dizaine de sauces maison.",
+              about: "Frites belges double cuisson, cuites à l'huile végétale, avec une dizaine de sauces maison.",
               pictureURL: "https://picsum.photos/seed/frites/800",
               location: "Allée G - Stand 2",
               isVegan: true, isPRM: true, isFamilyFriendly: true,
@@ -223,7 +223,7 @@ extension Booth {
               countryCode: "BEL", countryName: "Belgique"),
         Booth(id: UUID(),
               name: "Gaufres de Liège",
-              description: "Gaufres liégeoises au sucre perlé, nappées de chocolat belge, fruits rouges ou crème.",
+              about: "Gaufres liégeoises au sucre perlé, nappées de chocolat belge, fruits rouges ou crème.",
               pictureURL: "https://picsum.photos/seed/gaufres/800",
               location: "Allée G - Stand 3",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -235,7 +235,7 @@ extension Booth {
         // Suisse
         Booth(id: UUID(),
               name: "Raclette du Valais",
-              description: "Raclette au fromage AOP du Valais, pommes de terre en robe des champs, cornichons et oignons.",
+              about: "Raclette au fromage AOP du Valais, pommes de terre en robe des champs, cornichons et oignons.",
               pictureURL: "https://picsum.photos/seed/raclette/800",
               location: "Allée H - Stand 1",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -245,7 +245,7 @@ extension Booth {
               countryCode: "CHE", countryName: "Suisse"),
         Booth(id: UUID(),
               name: "Rösti & Älplermagronen",
-              description: "Rösti croustillants et macaronis des alpages aux pommes de terre, oignons et compote de pommes.",
+              about: "Rösti croustillants et macaronis des alpages aux pommes de terre, oignons et compote de pommes.",
               pictureURL: "https://picsum.photos/seed/rosti/800",
               location: "Allée H - Stand 2",
               isVegan: false, isPRM: false, isFamilyFriendly: true,
@@ -257,7 +257,7 @@ extension Booth {
         // Pays-Bas
         Booth(id: UUID(),
               name: "Stroopwafels & Poffertjes",
-              description: "Stroopwafels chaudes au caramel et mini-pancakes poffertjes au beurre et sucre glace.",
+              about: "Stroopwafels chaudes au caramel et mini-pancakes poffertjes au beurre et sucre glace.",
               pictureURL: "https://picsum.photos/seed/stroopwafel/800",
               location: "Allée I - Stand 1",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -269,7 +269,7 @@ extension Booth {
         // Hongrie
         Booth(id: UUID(),
               name: "Lángos Budapest",
-              description: "Beignets salés hongrois à la crème aigre, à l'ail et au fromage râpé, ou sucrés.",
+              about: "Beignets salés hongrois à la crème aigre, à l'ail et au fromage râpé, ou sucrés.",
               pictureURL: "https://picsum.photos/seed/langos/800",
               location: "Allée I - Stand 2",
               isVegan: false, isPRM: false, isFamilyFriendly: true,
@@ -281,7 +281,7 @@ extension Booth {
         // Suède
         Booth(id: UUID(),
               name: "Köttbullar & Kanelbullar",
-              description: "Boulettes de viande suédoises, sauce à la crème, confiture d'airelles et brioches à la cannelle.",
+              about: "Boulettes de viande suédoises, sauce à la crème, confiture d'airelles et brioches à la cannelle.",
               pictureURL: "https://picsum.photos/seed/kottbullar/800",
               location: "Allée I - Stand 3",
               isVegan: false, isPRM: true, isFamilyFriendly: true,
@@ -293,7 +293,7 @@ extension Booth {
         // Autriche
         Booth(id: UUID(),
               name: "Wiener Schnitzel Haus",
-              description: "Escalopes viennoises panées à la minute, salade de pommes de terre et citron.",
+              about: "Escalopes viennoises panées à la minute, salade de pommes de terre et citron.",
               pictureURL: "https://picsum.photos/seed/wiener/800",
               location: "Allée D - Stand 3",
               isVegan: false, isPRM: true, isFamilyFriendly: false,

@@ -11,7 +11,7 @@ import Foundation
 struct BoothResponse: Decodable {
     let id: UUID
     let name: String
-    let description: String
+    let about: String
     let pictureURL: String
     let location: String
     let isVegan: Bool
@@ -28,7 +28,7 @@ extension Booth {
     init(_ booth: BoothResponse) {
         self.id = booth.id
         self.name = booth.name
-        self.description = booth.description
+        self.about = booth.about
         self.pictureURL = booth.pictureURL
         self.location = booth.location
         self.isVegan = booth.isVegan

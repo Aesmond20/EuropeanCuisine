@@ -104,7 +104,7 @@ fileprivate enum Styles {
 
 fileprivate let boothExample: Booth = .init(id: UUID(),
                                             name: "Caecati Inventore",
-                                            description: "Magnam quis facere velit voluptate suscipit excepturi.",
+                                            about: "Magnam quis facere velit voluptate suscipit excepturi.",
                                             pictureURL: "https://picsum.photos/600/400",
                                             location: "Central 10",
                                             isVegan: true,
