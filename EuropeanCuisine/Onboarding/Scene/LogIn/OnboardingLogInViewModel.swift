@@ -13,18 +13,19 @@ final class OnboardingLogInViewModel {
     var email: String
     var password: String
 
-    private var close: (() -> Void)?
-
+    private let close: () -> Void
+    private let store: UserStore
     private let onOpenSignUp: () -> Void
-    private let onSuccess: (String) -> Void
     private let authClient: AuthAPIClient
 
-    init(onOpenSignUp: @escaping () -> Void,
-         onSuccess: @escaping (String) -> Void) {
+    init(store: UserStore,
+         close: @escaping () -> Void,
+         onOpenSignUp: @escaping () -> Void) {
         self.email = ""
         self.password = ""
+        self.store = store
+        self.close = close
         self.onOpenSignUp = onOpenSignUp
-        self.onSuccess = onSuccess
         self.authClient = .init()
     }
 
@@ -32,12 +33,12 @@ final class OnboardingLogInViewModel {
         isEmailValid && isPasswordValid
     }
 
-    func addClose(_ action: @escaping () -> Void) {
-        close = action
+    func goBack() {
+        close()
     }
 
     func openSignUp() {
-        close?()
+        close()
         onOpenSignUp()
     }
 
@@ -47,10 +48,11 @@ final class OnboardingLogInViewModel {
                 let requestData: LogInRequest = .init(email: email,
                                                       password: password)
 
-                let token = try await authClient.logIn(input: requestData)
+                let tokenResponse = try await authClient.logIn(input: requestData)
 
-                close?()
-                onSuccess(token.token)
+                store.addToken(tokenResponse.token)
+
+                close()
             } catch {
                 print("Error: \(error.localizedDescription)")
             }

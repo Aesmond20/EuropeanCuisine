@@ -30,6 +30,7 @@ struct BaseAPIClient {
     func perform(path: String,
                  method: HTTPMethod,
                  body: Data? = nil,
+                 authenticationToken token: String? = nil,
                  invalidResponseError: Error,
                  badStatusError: (Int) -> Error) async throws -> Data {
         var urlRequest = URLRequest(url: baseURL.appendingPathComponent(path))
@@ -39,6 +40,10 @@ struct BaseAPIClient {
         if let body {
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
             urlRequest.httpBody = body
+        }
+
+        if let token {
+            urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
 
         let (data, response) = try await session.data(for: urlRequest)
@@ -56,12 +61,14 @@ struct BaseAPIClient {
     func request<T: Decodable>(path: String,
                                method: HTTPMethod,
                                body: Data? = nil,
+                               authenticationToken: String? = nil,
                                invalidResponseError: Error,
                                badStatusError: (Int) -> Error,
                                decodingError: (Error) -> Error) async throws -> T {
         let data = try await perform(path: path,
                                      method: method,
                                      body: body,
+                                     authenticationToken: authenticationToken,
                                      invalidResponseError: invalidResponseError,
                                      badStatusError: badStatusError)
 

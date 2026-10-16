@@ -9,14 +9,31 @@
 import SwiftUI
 
 struct OnboardingSignUpScene: View {
-    @State private var vm: OnboardingSignUpViewModel
-
+    @Environment(UserStore.self) private var store
     @Environment(\.dismiss) private var dismiss
 
-    init(onOpenLogIn: @escaping () -> Void,
-         onSuccess: @escaping (String) -> Void) {
-        self._vm = State(initialValue: .init(onOpenLogIn: onOpenLogIn,
-                                             onSuccess: onSuccess))
+    private let onOpenLogIn: () -> Void
+
+    init(onOpenLogIn: @escaping () -> Void) {
+        self.onOpenLogIn = onOpenLogIn
+    }
+
+    var body: some View {
+        OnboardingSignUpSceneInternal(store: store,
+                                      close: { dismiss() },
+                                      onOpenLogIn: onOpenLogIn)
+    }
+}
+
+struct OnboardingSignUpSceneInternal: View {
+    @State private var vm: OnboardingSignUpViewModel
+
+    init(store: UserStore,
+         close: @escaping () -> Void,
+         onOpenLogIn: @escaping () -> Void) {
+        self._vm = State(initialValue: .init(store: store,
+                                             close: close,
+                                             onOpenLogIn: onOpenLogIn))
     }
 
     var body: some View {
@@ -45,9 +62,6 @@ struct OnboardingSignUpScene: View {
                 .ignoresSafeArea(.all)
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear {
-            vm.addClose { dismiss() }
-        }
     }
 
     private var headerView: some View {
@@ -112,6 +126,8 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    OnboardingSignUpScene(onOpenLogIn: {},
-                          onSuccess: { _ in })
+    @Previewable @State var userStore = UserStore()
+
+    OnboardingSignUpScene(onOpenLogIn: {})
+        .environment(userStore)
 }

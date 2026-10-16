@@ -9,20 +9,38 @@
 import SwiftUI
 
 struct OnboardingLogInScene: View {
+    @Environment(UserStore.self) private var store
+    @Environment(\.dismiss) private var dismiss
+
+    private let onOpenSignUp: () -> Void
+
+    init(onOpenSignUp: @escaping () -> Void) {
+        self.onOpenSignUp = onOpenSignUp
+    }
+
+    var body: some View {
+        OnboardingLogInSceneInternal(store: store,
+                                     close: { dismiss() },
+                                     onOpenSignUp: onOpenSignUp)
+    }
+}
+
+struct OnboardingLogInSceneInternal: View {
     @State private var vm: OnboardingLogInViewModel
 
     @FocusState private var focusedField: Field?
-    @Environment(\.dismiss) private var dismiss
 
     enum Field {
         case email
         case password
     }
 
-    init(onOpenSignUp: @escaping () -> Void,
-         onSuccess: @escaping (String) -> Void) {
-        self._vm = State(initialValue: .init(onOpenSignUp: onOpenSignUp,
-                                             onSuccess: onSuccess))
+    init(store: UserStore,
+         close: @escaping () -> Void,
+         onOpenSignUp: @escaping () -> Void) {
+        self._vm = State(initialValue: .init(store: store,
+                                             close: close,
+                                             onOpenSignUp: onOpenSignUp))
     }
 
     var body: some View {
@@ -52,18 +70,11 @@ struct OnboardingLogInScene: View {
                 .ignoresSafeArea(.all)
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear {
-            vm.addClose { dismiss() }
-        }
-    }
-
-    private func close() {
-        dismiss()
     }
 
     private var headerView: some View {
         HStack(spacing: .zero) {
-            Button("", action: close)
+            Button("", action: vm.goBack)
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
                                                      icon: AppImage.Icon.back.image))
         }
@@ -164,6 +175,8 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    OnboardingLogInScene(onOpenSignUp: {},
-                         onSuccess: { _ in })
+    @Previewable @State var userStore = UserStore()
+
+    OnboardingLogInScene(onOpenSignUp: {})
+        .environment(userStore)
 }

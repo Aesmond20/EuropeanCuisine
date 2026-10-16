@@ -36,6 +36,7 @@ enum AppImage {
         case showSecure
         case hideSecure
         case back
+        case close
         case fieldName
         case fieldEmail
         case fieldPassword
@@ -91,6 +92,8 @@ enum AppImage {
                 "eye.slash"
             case .back:
                 "arrow.left"
+            case .close:
+                "xmark"
             case .fieldName:
                 "person"
             case .fieldEmail:

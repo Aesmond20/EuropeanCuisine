@@ -9,8 +9,22 @@
 import SwiftUI
 
 struct OnboardingStartScene: View {
-    @State private var isSignUpPresented: Bool = false
-    @State private var isLogInPresented: Bool = false
+    @Environment(UserStore.self) private var store
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        OnboardingStartSceneInternal(store: store,
+                                     close: { dismiss() })
+    }
+}
+
+struct OnboardingStartSceneInternal: View {
+    @State private var vm: OnboardingStartViewModel
+
+    init(store: UserStore,
+         close: @escaping () -> Void) {
+        self._vm = State(initialValue: .init(store: store, close: close))
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: .zero) {
@@ -36,11 +50,11 @@ struct OnboardingStartScene: View {
             Spacer()
 
             VStack(spacing: Styles.actionsVerticalSpacing) {
-                Button(.globalButtonSignUpLabel, action: { isSignUpPresented = true })
+                Button(.globalButtonSignUpLabel, action: vm.showSignUp)
                     .buttonStyle(.orangeadeProminent(kind: .primary,
                                                      isFullWidth: true))
 
-                Button(.globalButtonLogInLabel, action: { isLogInPresented = true })
+                Button(.globalButtonLogInLabel, action: vm.showLogIn)
                     .buttonStyle(.orangeadeProminent(kind: .secondary,
                                                      isFullWidth: true))
             }
@@ -50,23 +64,34 @@ struct OnboardingStartScene: View {
             Styles.background
                 .ignoresSafeArea(.all)
         }
-        .navigationDestination(isPresented: $isSignUpPresented) {
-            OnboardingSignUpScene(onOpenLogIn: {
-                                      Task {
-                                          try? await Task.sleep(for: .seconds(1))
-                                          isLogInPresented = true
-                                      }
-                                  },
-                                  onSuccess: { print("The token is \($0)") })
+        .safeAreaInset(edge: .top) {
+            HStack {
+                Spacer()
+
+                Button("", action: vm.goBack)
+                    .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
+                                                         icon: AppImage.Icon.close.image))
+            }
+            .padding(.horizontal)
         }
-        .navigationDestination(isPresented: $isLogInPresented) {
+        .navigationDestination(isPresented: $vm.isSignUpPresented) {
+            OnboardingSignUpScene(onOpenLogIn: {
+                Task {
+                    try? await Task.sleep(for: .seconds(1))
+                    vm.showLogIn()
+                }
+            })
+        }
+        .navigationDestination(isPresented: $vm.isLogInPresented) {
             OnboardingLogInScene(onOpenSignUp: {
-                                     Task {
-                                         try? await Task.sleep(for: .seconds(1))
-                                         isSignUpPresented = true
-                                     }
-                                 },
-                                 onSuccess: { print("The token is \($0)") })
+                Task {
+                    try? await Task.sleep(for: .seconds(1))
+                    vm.showSignUp()
+                }
+            })
+        }
+        .onChange(of: vm.store.token) { _, _ in
+            vm.goBack()
         }
     }
 }
@@ -87,7 +112,30 @@ fileprivate enum Styles {
 }
 
 #Preview {
+    @Previewable @State var store = UserStore()
+
     NavigationStack {
         OnboardingStartScene()
+    }
+    .environment(store)
+}
+
+#Preview("From other view") {
+    @Previewable @State var store = UserStore()
+    @Previewable @State var isCoverOpen = false
+
+    VStack {
+        Button("Open Onboarding") {
+            isCoverOpen = true
+        }
+    }
+    .frame(maxWidth: .infinity,
+           maxHeight: .infinity,
+           alignment: .center)
+    .fullScreenCover(isPresented: $isCoverOpen) {
+        NavigationStack {
+            OnboardingStartScene()
+        }
+        .environment(store)
     }
 }

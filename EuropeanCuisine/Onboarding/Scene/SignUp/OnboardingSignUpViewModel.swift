@@ -17,9 +17,10 @@ final class OnboardingSignUpViewModel {
     var name: String
 
     var isGoingForward = true
-    private var close: (() -> Void)?
+
+    private let store: UserStore
+    private var close: () -> Void
     private let onOpenLogIn: () -> Void
-    private let onSuccess: (String) -> Void
 
     private let authClient: AuthAPIClient
 
@@ -66,16 +67,18 @@ final class OnboardingSignUpViewModel {
         }
     }
 
-    init(onOpenLogIn: @escaping () -> Void,
-         onSuccess: @escaping (String) -> Void) {
+    init(store: UserStore,
+         close: @escaping () -> Void,
+         onOpenLogIn: @escaping () -> Void) {
         self.step = .email
         self.email = ""
         self.password = ""
         self.confirmPassword = ""
         self.name = ""
         self.authClient = .init()
+        self.store = store
+        self.close = close
         self.onOpenLogIn = onOpenLogIn
-        self.onSuccess = onSuccess
     }
 
     // MARK: - Public computed properties
@@ -203,15 +206,11 @@ final class OnboardingSignUpViewModel {
 
     // MARK: - Public methods
 
-    func addClose(_ action: @escaping () -> Void) {
-        close = action
-    }
-
     func goToPrevious() {
         isGoingForward = false
 
         guard let previous = step.previous else {
-            close?()
+            close()
             return
         }
 
@@ -230,7 +229,7 @@ final class OnboardingSignUpViewModel {
     }
 
     func openLogIn() {
-        close?()
+        close()
         onOpenLogIn()
     }
 
@@ -301,15 +300,15 @@ final class OnboardingSignUpViewModel {
     }
 
     private func registerUser() async throws -> SignUpResponse {
-        let requestData: SignUpRequest = .init(name: name,
-                                               email: email,
+        let requestData: SignUpRequest = .init(name: name.trimmed,
+                                               email: email.trimmed,
                                                password: password)
 
         return try await authClient.signUp(input: requestData)
     }
 
     private func logInUser() async throws -> TokenResponse {
-        let requestData: LogInRequest = .init(email: email,
+        let requestData: LogInRequest = .init(email: email.trimmed,
                                               password: password)
 
         return try await authClient.logIn(input: requestData)
@@ -319,10 +318,11 @@ final class OnboardingSignUpViewModel {
         Task {
             do {
                 _ = try await registerUser()
-                let token = try await logInUser()
+                let tokenResponse = try await logInUser()
 
-                close?()
-                onSuccess(token.token)
+                store.addToken(tokenResponse.token)
+
+                close()
             } catch {
                 print("Error: \(error.localizedDescription)")
             }
