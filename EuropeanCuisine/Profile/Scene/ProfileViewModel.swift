@@ -35,7 +35,7 @@ final class ProfileViewModel {
     func logOutUser() {
         store.removeToken()
 
-        neutralMessage = "You’re now logged out._PLC"
+        showLogOutMessage()
     }
 
     func showSignUpUser() {
@@ -46,7 +46,19 @@ final class ProfileViewModel {
         isLogInPresented = true
     }
 
-    func showSuccessLoginMessage() {
-        successMessage = "You’re in. Enjoy the festival!_PLC"
+    func showSuccessLogInMessage() {
+        Task {
+            try? await Task.sleep(for: .seconds(0.4))
+
+            successMessage = String(localized: .profileMessageNowLoggedIn)
+        }
+    }
+
+    func showLogOutMessage() {
+        Task {
+            try? await Task.sleep(for: .seconds(0.3))
+
+            neutralMessage = String(localized: .profileMessageNowLoggedOut)
+        }
     }
 }

@@ -90,7 +90,8 @@ struct OnboardingLogInSceneInternal: View {
 
     private var headerView: some View {
         HStack(spacing: .zero) {
-            Button("", action: vm.goBack)
+            Button(.globalButtonBackLabel,
+                   action: vm.goBack)
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
                                                      icon: vm.isFullscreen
                                                          ? AppImage.Icon.close.image

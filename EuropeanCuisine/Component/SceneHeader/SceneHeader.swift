@@ -43,7 +43,8 @@ struct SceneHeader: View {
             if let onEdit {
                 Spacer(minLength: Styles.horizontalSpacing)
 
-                Button("Edit", action: onEdit)
+                Button(.globalButtonEditLabel,
+                       action: onEdit)
                     .buttonStyle(.orangeadeIconProminent(kind: .tertiary,
                                                          icon: AppImage.Icon.edit.image))
             }

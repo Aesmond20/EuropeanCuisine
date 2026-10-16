@@ -47,6 +47,15 @@ struct Toast: View {
                 AppColor.accentSecondary
             }
         }
+
+        var border: Color {
+            switch self {
+            case .success, .error:
+                .white
+            case .neutral:
+                AppColor.accentSecondary.opacity(0.16)
+            }
+        }
     }
 
     var body: some View {
@@ -62,6 +71,11 @@ struct Toast: View {
         .padding(.horizontal, Styles.horizontalPadding)
         .padding(.vertical, Styles.verticalPadding)
         .background(kind.background, in: Styles.shape)
+        .overlay {
+            Styles.shape
+                .strokeBorder(kind.border,
+                              lineWidth: Styles.borderWidth)
+        }
     }
 }
 
@@ -105,6 +119,8 @@ fileprivate enum Styles {
     static let horizontalPadding = AppToken.Primitive.padding5
     static let verticalPadding = AppToken.Primitive.padding3
 
+    static let borderWidth: Double = 1
+
     static let iconFont: Font = .system(size: 24,
                                         weight: .medium)
     static let messageFont: Font = .system(size: 17,
@@ -116,6 +132,10 @@ fileprivate enum Styles {
         Toast.success("Adipisci porro quia aliquid consequatur.")
 
         Toast.error("Nulla voluptatem perferendis nulla ut et sed non.")
+
+        Toast
+            .neutral("Ex possimus culpa tempora accusantium doloribus debitis sed asperiores et non assumenda animi.")
     }
     .padding()
+    .background(AppColor.Scene.background)
 }

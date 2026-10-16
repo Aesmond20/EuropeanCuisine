@@ -115,7 +115,7 @@ struct BoothDetailScene: View {
     }
 
     private var emptyView: some View {
-        ContentEmptyView("No Booth found_PLC",
+        ContentEmptyView(.boothDetailEmptyTitle,
                          systemImage: AppImage.Icon.boothNotFound.systemName)
     }
 

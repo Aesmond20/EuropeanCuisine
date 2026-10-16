@@ -68,7 +68,8 @@ struct OnboardingStartSceneInternal: View {
             HStack {
                 Spacer()
 
-                Button("", action: vm.goBack)
+                Button(.globalButtonBackLabel,
+                       action: vm.goBack)
                     .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
                                                          icon: AppImage.Icon.close.image))
             }

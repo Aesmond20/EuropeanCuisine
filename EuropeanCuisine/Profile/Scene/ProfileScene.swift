@@ -40,12 +40,12 @@ struct ProfileSceneInternal: View {
                     }
                     .padding(.horizontal)
                     .padding(.vertical, Styles.verticalPadding)
-                    .scrollBounceBehavior(.basedOnSize)
                 }
+                .scrollBounceBehavior(.basedOnSize)
             } else {
-                ContentEmptyView("Not log in_PLC",
+                ContentEmptyView(.profileNotLogInEmptyViewTitle,
                                  systemImage: AppImage.Icon.notLogIn.systemName,
-                                 description: "You cannot see your profile because you are not logged in._PLC") {
+                                 description: .profileNotLogInEmptyViewDescription) {
                     HStack(spacing: Styles.emptyActionsSpacing) {
                         Button(.globalButtonSignUpLabel, action: vm.showSignUpUser)
                             .buttonStyle(.orangeadeProminent(kind: .primary))
@@ -70,15 +70,11 @@ struct ProfileSceneInternal: View {
                                                       kind: .primary),
                              onEdit: {})
         }
-        .onChange(of: vm.user?.id, { _, newValue in
-            if let newValue {
-                Task {
-                    try? await Task.sleep(for: .seconds(0.5))
-                    
-                    vm.showSuccessLoginMessage()
-                }
+        .onChange(of: vm.user?.id) { _, newValue in
+            if newValue != nil {
+                vm.showSuccessLogInMessage()
             }
-        })
+        }
         .fullScreenCover(isPresented: $vm.isSignUpPresented) {
             OnboardingSignUpScene(isFullscreen: true,
                                   onOpenLogIn: {
@@ -104,7 +100,7 @@ struct ProfileSceneInternal: View {
             $0
                 .type(.floater())
                 .position(.top)
-                .autohideIn(4)
+                .autohideIn(3.2)
         }
         .popup(item: $vm.successMessage) { message in
             Toast.success(message)
@@ -113,7 +109,7 @@ struct ProfileSceneInternal: View {
             $0
                 .type(.floater())
                 .position(.top)
-                .autohideIn(4)
+                .autohideIn(3.2)
         }
     }
 }

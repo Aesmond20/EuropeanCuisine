@@ -177,6 +177,17 @@
     "Book now" : {
 
     },
+    "booth_detail.empty.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Booth found"
+          }
+        }
+      }
+    },
     "booth_detail.section.about.title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -227,7 +238,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No booths found"
+            "value" : "No Booths found"
           }
         }
       }
@@ -293,11 +304,68 @@
         }
       }
     },
+    "date.closing_status.closed_ago" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Closed %1$(minutes)lld minute ago"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Closed %1$(minutes)lld minutes ago"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "date.closing_status.closes_in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Closes in %1$(minutes)lld minute"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Closes in %1$(minutes)lld minutes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Edit" : {
 
     },
     "First" : {
 
+    },
+    "global.button.back.label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
     },
     "global.button.continue.label" : {
       "extractionState" : "manual",
@@ -306,6 +374,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continue"
+          }
+        }
+      }
+    },
+    "global.button.edit.label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
           }
         }
       }
@@ -577,6 +656,17 @@
         }
       }
     },
+    "onboarding.log_in_view.error.invalid_credentials" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid credentials"
+          }
+        }
+      }
+    },
     "onboarding.log_in_view.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -741,6 +831,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Legal"
+          }
+        }
+      }
+    },
+    "profile.message.now_logged_in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’re in. Enjoy the festival!"
+          }
+        }
+      }
+    },
+    "profile.message.now_logged_out" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You’re now logged out."
+          }
+        }
+      }
+    },
+    "profile.not_log_in.empty_view.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You cannot see your profile because you are not logged in."
+          }
+        }
+      }
+    },
+    "profile.not_log_in.empty_view.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not logged in"
           }
         }
       }

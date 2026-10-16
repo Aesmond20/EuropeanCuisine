@@ -83,7 +83,8 @@ struct OnboardingSignUpSceneInternal: View {
     private var headerView: some View {
         HStack(alignment: .center,
                spacing: Styles.headerHorizontalSpacing) {
-            Button("", action: vm.goToPrevious)
+            Button(.globalButtonBackLabel,
+                   action: vm.goToPrevious)
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
                                                      icon: vm.isFullscreen && vm.isFirstStep
                                                          ? AppImage.Icon.close.image
