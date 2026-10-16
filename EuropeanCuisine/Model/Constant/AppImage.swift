@@ -56,6 +56,7 @@ enum AppImage {
         case notLogIn
         case toastSuccess
         case toastError
+        case toastNeutral
 
         var systemName: String {
             switch self {
@@ -135,6 +136,8 @@ enum AppImage {
                 "checkmark.circle.fill"
             case .toastError:
                 "exclamationmark.triangle.fill"
+            case .toastNeutral:
+                "info.circle"
             }
         }
 

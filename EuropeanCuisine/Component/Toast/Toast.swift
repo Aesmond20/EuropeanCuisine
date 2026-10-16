@@ -15,6 +15,7 @@ struct Toast: View {
     enum Kind {
         case success
         case error
+        case neutral
 
         var icon: Image {
             switch self {
@@ -22,6 +23,8 @@ struct Toast: View {
                 AppImage.Icon.toastSuccess.image
             case .error:
                 AppImage.Icon.toastError.image
+            case .neutral:
+                AppImage.Icon.toastNeutral.image
             }
         }
 
@@ -31,11 +34,18 @@ struct Toast: View {
                 AppColor.success
             case .error:
                 AppColor.destructive
+            case .neutral:
+                AppColor.accentContrast
             }
         }
 
         var foreground: Color {
-            .white
+            switch self {
+            case .success, .error:
+                .white
+            case .neutral:
+                AppColor.accentSecondary
+            }
         }
     }
 
@@ -73,6 +83,16 @@ extension Toast {
 
     static func error(_ message: String) -> Toast {
         Toast(kind: .error,
+              message: message)
+    }
+
+    static func neutral(_ message: LocalizedStringResource) -> Toast {
+        Toast(kind: .neutral,
+              message: String(localized: message))
+    }
+
+    static func neutral(_ message: String) -> Toast {
+        Toast(kind: .neutral,
               message: message)
     }
 }

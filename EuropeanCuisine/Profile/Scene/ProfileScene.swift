@@ -6,6 +6,7 @@
 //  Copyright © 2026 Mathieu Nivelles. All rights reserved.
 //
 
+import PopupView
 import SwiftUI
 
 struct ProfileScene: View {
@@ -69,6 +70,15 @@ struct ProfileSceneInternal: View {
                                                       kind: .primary),
                              onEdit: {})
         }
+        .onChange(of: vm.user?.id, { _, newValue in
+            if let newValue {
+                Task {
+                    try? await Task.sleep(for: .seconds(0.5))
+                    
+                    vm.showSuccessLoginMessage()
+                }
+            }
+        })
         .fullScreenCover(isPresented: $vm.isSignUpPresented) {
             OnboardingSignUpScene(isFullscreen: true,
                                   onOpenLogIn: {
@@ -86,6 +96,24 @@ struct ProfileSceneInternal: View {
                                          vm.showSignUpUser()
                                      }
                                  })
+        }
+        .popup(item: $vm.neutralMessage) { message in
+            Toast.neutral(message)
+                .padding(.horizontal)
+        } customize: {
+            $0
+                .type(.floater())
+                .position(.top)
+                .autohideIn(4)
+        }
+        .popup(item: $vm.successMessage) { message in
+            Toast.success(message)
+                .padding(.horizontal)
+        } customize: {
+            $0
+                .type(.floater())
+                .position(.top)
+                .autohideIn(4)
         }
     }
 }

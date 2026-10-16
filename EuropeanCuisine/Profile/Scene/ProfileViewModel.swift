@@ -15,6 +15,9 @@ final class ProfileViewModel {
     var isSignUpPresented: Bool
     var isLogInPresented: Bool
 
+    var neutralMessage: String?
+    var successMessage: String?
+
     init(store: UserStore) {
         self.store = store
         self.isSignUpPresented = false
@@ -31,6 +34,8 @@ final class ProfileViewModel {
 
     func logOutUser() {
         store.removeToken()
+
+        neutralMessage = "You’re now logged out._PLC"
     }
 
     func showSignUpUser() {
@@ -39,5 +44,9 @@ final class ProfileViewModel {
 
     func showLogInUser() {
         isLogInPresented = true
+    }
+
+    func showSuccessLoginMessage() {
+        successMessage = "You’re in. Enjoy the festival!_PLC"
     }
 }
