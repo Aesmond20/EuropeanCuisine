@@ -9,17 +9,44 @@
 import SwiftUI
 
 struct OnboardingLogInScene: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
+    @Environment(UserStore.self) private var store
+    @Environment(\.dismiss) private var dismiss
 
-    @State private var isSignUpPresented: Bool = false
+    private let onOpenSignUp: () -> Void
+    private let isFullscreen: Bool?
+
+    init(isFullscreen: Bool? = nil,
+         onOpenSignUp: @escaping () -> Void) {
+        self.isFullscreen = isFullscreen
+        self.onOpenSignUp = onOpenSignUp
+    }
+
+    var body: some View {
+        OnboardingLogInSceneInternal(isFullscreen: isFullscreen,
+                                     store: store,
+                                     close: { dismiss() },
+                                     onOpenSignUp: onOpenSignUp)
+    }
+}
+
+struct OnboardingLogInSceneInternal: View {
+    @State private var vm: OnboardingLogInViewModel
 
     @FocusState private var focusedField: Field?
-    @Environment(\.dismiss) private var dismiss
 
     enum Field {
         case email
         case password
+    }
+
+    init(isFullscreen: Bool?,
+         store: UserStore,
+         close: @escaping () -> Void,
+         onOpenSignUp: @escaping () -> Void) {
+        self._vm = State(initialValue: .init(isFullscreen: isFullscreen,
+                                             store: store,
+                                             close: close,
+                                             onOpenSignUp: onOpenSignUp))
     }
 
     var body: some View {
@@ -49,23 +76,20 @@ struct OnboardingLogInScene: View {
                 .ignoresSafeArea(.all)
         }
         .navigationBarBackButtonHidden(true)
-        .navigationDestination(isPresented: $isSignUpPresented) {
-            OnboardingSignUpScene()
-        }
-    }
-
-    private func close() {
-        dismiss()
     }
 
     private var headerView: some View {
         HStack(spacing: .zero) {
-            Button("", action: close)
+            Button("", action: vm.goBack)
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
-                                                     icon: AppImage.Icon.back.image))
+                                                     icon: vm.isFullscreen
+                                                         ? AppImage.Icon.close.image
+                                                         : AppImage.Icon.back.image))
         }
         .padding(.horizontal)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: vm.isFullscreen
+            ? .trailing
+            : .leading)
     }
 
     private var formHeaderView: some View {
@@ -94,7 +118,7 @@ struct OnboardingLogInScene: View {
     private var emailView: some View {
         InputLabelWithContent(label: .onboardingFieldEmailLabel) {
             TextInput(.onboardingFieldEmailPlaceholder,
-                      text: $email,
+                      text: $vm.email,
                       icon: AppImage.Icon.fieldEmail.image,
                       isFocused: focusedField == .email)
                 .focused($focusedField, equals: .email)
@@ -111,7 +135,7 @@ struct OnboardingLogInScene: View {
             VStack(alignment: .trailing,
                    spacing: Styles.passwordForgotSpacing) {
                 SecureInput(.onboardingFieldPasswordPlaceholder,
-                            text: $password,
+                            text: $vm.password,
                             icon: AppImage.Icon.fieldPassword.image,
                             isFocused: focusedField == .password)
                     .focused($focusedField, equals: .password)
@@ -130,13 +154,14 @@ struct OnboardingLogInScene: View {
     private var footerView: some View {
         VStack(alignment: .center,
                spacing: Styles.actionsVerticalSpacing) {
-            Button(.globalButtonLogInLabel, action: {})
+            Button(.globalButtonLogInLabel, action: vm.logInUser)
                 .buttonStyle(.orangeadeProminent(kind: .primary,
                                                  isFullWidth: true))
+                .disabled(!vm.isValid)
 
             OnboardingMessageWithAction(message: .onboardingMessageQuestionHasNotAccount,
                                         actionMessage: .globalButtonSignUpLabel,
-                                        action: { isSignUpPresented = true })
+                                        action: vm.openSignUp)
         }
         .padding(.horizontal)
     }
@@ -160,5 +185,9 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    OnboardingLogInScene()
+    @Previewable @State var userStore = UserStore()
+
+    OnboardingLogInScene(isFullscreen: true,
+                         onOpenSignUp: {})
+        .environment(userStore)
 }

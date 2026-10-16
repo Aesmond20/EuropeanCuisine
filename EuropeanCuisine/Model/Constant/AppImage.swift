@@ -36,6 +36,7 @@ enum AppImage {
         case showSecure
         case hideSecure
         case back
+        case close
         case fieldName
         case fieldEmail
         case fieldPassword
@@ -52,6 +53,7 @@ enum AppImage {
         case isVegan
         case isPRM
         case isFamilyFriendly
+        case notLogIn
 
         var systemName: String {
             switch self {
@@ -91,6 +93,8 @@ enum AppImage {
                 "eye.slash"
             case .back:
                 "arrow.left"
+            case .close:
+                "xmark"
             case .fieldName:
                 "person"
             case .fieldEmail:
@@ -123,6 +127,8 @@ enum AppImage {
                 "wheelchair"
             case .isFamilyFriendly:
                 "figure.and.child.holdinghands"
+            case .notLogIn:
+                "person.fill.xmark"
             }
         }
 

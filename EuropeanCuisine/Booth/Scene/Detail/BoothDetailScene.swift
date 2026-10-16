@@ -58,8 +58,8 @@ struct BoothDetailScene: View {
                                                          endTime: booth.endTime))
                 }
 
-                DetailSectionParagraph(title: .boothDetailSectionDescriptionTitle,
-                                       paragraph: booth.description)
+                DetailSectionParagraph(title: .boothDetailSectionAboutTitle,
+                                       paragraph: booth.about)
 
                 if booth.allergens.isNotEmpty {
                     BoothDetailAllergens(title: .boothDetailSectionAllergensTitle,

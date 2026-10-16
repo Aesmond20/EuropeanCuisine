@@ -1,18 +1,18 @@
 //
-//  BoothAPIClient.swift
+//  BaseAPIClient.swift
 //  EuropeanCuisine
 //
-//  Created by Mathieu Nivelles on 12/10/2026.
+//  Created by Mathieu Nivelles on 16/10/2026.
 //  Copyright © 2026 Mathieu Nivelles. All rights reserved.
 //
 
 import Foundation
 
-struct BoothAPIClient {
+struct BaseAPIClient {
     private let baseURL: URL
     private let session: URLSession
-    private let decoder: JSONDecoder
-    private let encoder: JSONEncoder
+    private(set) var decoder: JSONDecoder
+    private(set) var encoder: JSONEncoder
 
     init() {
         self.baseURL = URL(string: "http://localhost:8080/api/v0")!
@@ -27,17 +27,12 @@ struct BoothAPIClient {
         self.encoder = encoder
     }
 
-    func fetchAll() async throws -> [BoothResponse] {
-        try await request(path: "booths",
-                          method: .get)
-    }
-
-    func fetchOne(id: UUID) async throws -> BoothResponse {
-        try await request(path: "booths/\(id)",
-                          method: .get)
-    }
-
-    private func perform(path: String, method: HTTPMethod, body: Data? = nil) async throws -> Data {
+    func perform(path: String,
+                 method: HTTPMethod,
+                 body: Data? = nil,
+                 authenticationToken token: String? = nil,
+                 invalidResponseError: Error,
+                 badStatusError: (Int) -> Error) async throws -> Data {
         var urlRequest = URLRequest(url: baseURL.appendingPathComponent(path))
         urlRequest.httpMethod = method.value
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -47,31 +42,45 @@ struct BoothAPIClient {
             urlRequest.httpBody = body
         }
 
+        if let token {
+            urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
+
         let (data, response) = try await session.data(for: urlRequest)
 
         guard let http = response as? HTTPURLResponse else {
-            throw BoothAPIClientError.invalidResponse
+            throw invalidResponseError
         }
 
         guard (200 ..< 300).contains(http.statusCode) else {
-            throw BoothAPIClientError.badStatus(http.statusCode)
+            throw badStatusError(http.statusCode)
         }
         return data
     }
 
-    private func request<T: Decodable>(path: String, method: HTTPMethod,
-                                       body: Data? = nil) async throws -> T {
-        let data = try await perform(path: path, method: method, body: body)
+    func request<T: Decodable>(path: String,
+                               method: HTTPMethod,
+                               body: Data? = nil,
+                               authenticationToken: String? = nil,
+                               invalidResponseError: Error,
+                               badStatusError: (Int) -> Error,
+                               decodingError: (Error) -> Error) async throws -> T {
+        let data = try await perform(path: path,
+                                     method: method,
+                                     body: body,
+                                     authenticationToken: authenticationToken,
+                                     invalidResponseError: invalidResponseError,
+                                     badStatusError: badStatusError)
 
         do {
             return try decoder.decode(T.self, from: data)
         } catch {
-            throw BoothAPIClientError.decoding(error)
+            throw decodingError(error)
         }
     }
 }
 
-extension BoothAPIClient {
+extension BaseAPIClient {
     enum HTTPMethod: String {
         case get
         case post

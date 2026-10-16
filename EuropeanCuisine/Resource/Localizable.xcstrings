@@ -177,6 +177,17 @@
     "Book now" : {
 
     },
+    "booth_detail.section.about.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
+          }
+        }
+      }
+    },
     "booth_detail.section.allergens.empty.message" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -195,17 +206,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Allergens"
-          }
-        }
-      }
-    },
-    "booth_detail.section.description.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "About"
           }
         }
       }
@@ -363,7 +363,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wheelchair accessible"
+            "value" : "People with reduced mobility"
           }
         }
       }

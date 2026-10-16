@@ -9,11 +9,38 @@
 import SwiftUI
 
 struct OnboardingSignUpScene: View {
-    @State private var vm: OnboardingSignUpViewModel = .init()
-
-    @State private var isLogInPresented: Bool = false
-
+    @Environment(UserStore.self) private var store
     @Environment(\.dismiss) private var dismiss
+
+    private let isFullscreen: Bool?
+    private let onOpenLogIn: () -> Void
+
+    init(isFullscreen: Bool? = nil,
+         onOpenLogIn: @escaping () -> Void) {
+        self.isFullscreen = isFullscreen
+        self.onOpenLogIn = onOpenLogIn
+    }
+
+    var body: some View {
+        OnboardingSignUpSceneInternal(isFullscreen: isFullscreen,
+                                      store: store,
+                                      close: { dismiss() },
+                                      onOpenLogIn: onOpenLogIn)
+    }
+}
+
+struct OnboardingSignUpSceneInternal: View {
+    @State private var vm: OnboardingSignUpViewModel
+
+    init(isFullscreen: Bool?,
+         store: UserStore,
+         close: @escaping () -> Void,
+         onOpenLogIn: @escaping () -> Void) {
+        self._vm = State(initialValue: .init(isFullscreen: isFullscreen,
+                                             store: store,
+                                             close: close,
+                                             onOpenLogIn: onOpenLogIn))
+    }
 
     var body: some View {
         ScrollView {
@@ -41,12 +68,6 @@ struct OnboardingSignUpScene: View {
                 .ignoresSafeArea(.all)
         }
         .navigationBarBackButtonHidden(true)
-        .onAppear {
-            vm.goBackToParent = { dismiss() }
-        }
-        .navigationDestination(isPresented: $isLogInPresented) {
-            OnboardingLogInScene()
-        }
     }
 
     private var headerView: some View {
@@ -54,7 +75,9 @@ struct OnboardingSignUpScene: View {
                spacing: Styles.headerHorizontalSpacing) {
             Button("", action: vm.goToPrevious)
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
-                                                     icon: AppImage.Icon.back.image))
+                                                     icon: vm.isFullscreen && vm.isFirstStep
+                                                         ? AppImage.Icon.close.image
+                                                         : AppImage.Icon.back.image))
 
             OnboardingProgress(title: .onboardingSignUpTitle,
                                current: vm.currentStep,
@@ -75,7 +98,7 @@ struct OnboardingSignUpScene: View {
 
             OnboardingMessageWithAction(message: .onboardingMessageQuestionHasAccount,
                                         actionMessage: .globalButtonLogInLabel,
-                                        action: { isLogInPresented = true })
+                                        action: vm.openLogIn)
         }
         .padding(.horizontal)
     }
@@ -111,5 +134,8 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    OnboardingSignUpScene()
+    @Previewable @State var userStore = UserStore()
+
+    OnboardingSignUpScene(onOpenLogIn: {})
+        .environment(userStore)
 }
