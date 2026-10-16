@@ -1,5 +1,5 @@
 //
-//  BoothDetailGoodToKnow.swift
+//  DetailGoodToKnow.swift
 //  EuropeanCuisine
 //
 //  Created by Mathieu Nivelles on 12/10/2026.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct BoothDetailGoodToKnow: View {
+struct DetailGoodToKnow: View {
     let title: String
     let isVegan: Bool
     let isPRM: Bool
@@ -62,9 +62,9 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    BoothDetailGoodToKnow(title: "Good to Know",
-                          isVegan: true,
-                          isPRM: true,
-                          isFamilyFriendly: true)
+    DetailGoodToKnow(title: "Good to Know",
+                     isVegan: true,
+                     isPRM: true,
+                     isFamilyFriendly: true)
         .padding()
 }

@@ -68,10 +68,10 @@ struct BoothDetailScene: View {
                 }
 
                 if booth.isVegan || booth.isPRM || booth.isFamilyFriendly {
-                    BoothDetailGoodToKnow(title: .boothDetailSectionGoodToKnowTitle,
-                                          isVegan: booth.isVegan,
-                                          isPRM: booth.isPRM,
-                                          isFamilyFriendly: booth.isFamilyFriendly)
+                    DetailGoodToKnow(title: .boothDetailSectionGoodToKnowTitle,
+                                     isVegan: booth.isVegan,
+                                     isPRM: booth.isPRM,
+                                     isFamilyFriendly: booth.isFamilyFriendly)
                 }
             }
             .padding(.horizontal)
