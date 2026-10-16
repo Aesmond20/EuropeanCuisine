@@ -627,7 +627,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "We'll check if you already have an account. If not, we'll create a new one."
+            "value" : "It’s how you’ll log in to your account. Double-check it before continuing."
           }
         }
       }

@@ -18,6 +18,7 @@ final class OnboardingSignUpViewModel {
 
     var isGoingForward = true
 
+    var errorMessage: String?
     private let store: UserStore
     private var close: () -> Void
     private let onOpenLogIn: () -> Void
@@ -82,6 +83,7 @@ final class OnboardingSignUpViewModel {
         self.confirmPassword = ""
         self.name = ""
         self.authClient = .init()
+        self.errorMessage = nil
         self.store = store
         self.close = close
         self.onOpenLogIn = onOpenLogIn
@@ -334,8 +336,10 @@ final class OnboardingSignUpViewModel {
                 store.addToken(tokenResponse.token)
 
                 close()
+            } catch let AuthAPIClientError.badStatus(code, reason) {
+                errorMessage = "E\(code): \(reason)"
             } catch {
-                print("Error: \(error.localizedDescription)")
+                errorMessage = error.localizedDescription
             }
         }
     }
