@@ -54,6 +54,8 @@ enum AppImage {
         case isPRM
         case isFamilyFriendly
         case notLogIn
+        case toastSuccess
+        case toastError
 
         var systemName: String {
             switch self {
@@ -129,6 +131,10 @@ enum AppImage {
                 "figure.and.child.holdinghands"
             case .notLogIn:
                 "person.fill.xmark"
+            case .toastSuccess:
+                "checkmark.circle.fill"
+            case .toastError:
+                "exclamationmark.triangle.fill"
             }
         }
 

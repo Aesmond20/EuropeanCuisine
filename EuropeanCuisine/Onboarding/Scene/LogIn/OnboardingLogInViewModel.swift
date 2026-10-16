@@ -13,6 +13,8 @@ final class OnboardingLogInViewModel {
     var email: String
     var password: String
 
+    var errorMessage: String?
+
     private let close: () -> Void
     private let store: UserStore
     private let onOpenSignUp: () -> Void
@@ -25,6 +27,7 @@ final class OnboardingLogInViewModel {
          onOpenSignUp: @escaping () -> Void) {
         self.email = ""
         self.password = ""
+        self.errorMessage = nil
         self.store = store
         self.close = close
         self.onOpenSignUp = onOpenSignUp
@@ -56,8 +59,11 @@ final class OnboardingLogInViewModel {
                 store.addToken(tokenResponse.token)
 
                 close()
+            } catch let AuthAPIClientError.badStatus(code, reason) {
+                errorMessage = "Invalid credentials"
+                print("E\(code): \(reason)")
             } catch {
-                print("Error: \(error.localizedDescription)")
+                errorMessage = error.localizedDescription
             }
         }
     }
