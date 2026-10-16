@@ -9,11 +9,15 @@
 import SwiftUI
 
 struct OnboardingSignUpScene: View {
-    @State private var vm: OnboardingSignUpViewModel = .init()
-
-    @State private var isLogInPresented: Bool = false
+    @State private var vm: OnboardingSignUpViewModel
 
     @Environment(\.dismiss) private var dismiss
+
+    init(onOpenLogIn: @escaping () -> Void,
+         onSuccess: @escaping (String) -> Void) {
+        self._vm = State(initialValue: .init(onOpenLogIn: onOpenLogIn,
+                                             onSuccess: onSuccess))
+    }
 
     var body: some View {
         ScrollView {
@@ -42,10 +46,7 @@ struct OnboardingSignUpScene: View {
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            vm.goBackToParent = { dismiss() }
-        }
-        .navigationDestination(isPresented: $isLogInPresented) {
-            OnboardingLogInScene()
+            vm.addClose { dismiss() }
         }
     }
 
@@ -75,7 +76,7 @@ struct OnboardingSignUpScene: View {
 
             OnboardingMessageWithAction(message: .onboardingMessageQuestionHasAccount,
                                         actionMessage: .globalButtonLogInLabel,
-                                        action: { isLogInPresented = true })
+                                        action: vm.openLogIn)
         }
         .padding(.horizontal)
     }
@@ -111,5 +112,6 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    OnboardingSignUpScene()
+    OnboardingSignUpScene(onOpenLogIn: {},
+                          onSuccess: { _ in })
 }

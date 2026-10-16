@@ -9,7 +9,6 @@
 import Foundation
 
 struct BoothAPIClient {
-    
     private let baseClient: BaseAPIClient
 
     init() {
@@ -26,29 +25,24 @@ struct BoothAPIClient {
                           method: .get)
     }
 
-    private func perform(
-        path: String,
-        method: BaseAPIClient.HTTPMethod,
-        body: Data? = nil
-    ) async throws -> Data {
-        return try await baseClient.perform(path: path,
-                                            method: method,
-                                            body: body,
-                                            invalidResponseError: BoothAPIClientError.invalidResponse,
-                                            badStatusError: { BoothAPIClientError.badStatus($0) })
+    private func perform(path: String,
+                         method: BaseAPIClient.HTTPMethod,
+                         body: Data? = nil) async throws -> Data {
+        try await baseClient.perform(path: path,
+                                     method: method,
+                                     body: body,
+                                     invalidResponseError: BoothAPIClientError
+                                         .invalidResponse,
+                                     badStatusError: { BoothAPIClientError.badStatus($0) })
     }
 
-    private func request<T: Decodable>(
-        path: String,
-        method: BaseAPIClient.HTTPMethod,
-        body: Data? = nil
-    ) async throws -> T {
-        return try await baseClient.request(
-            path: path,
-            method: method,
-            invalidResponseError: BoothAPIClientError.invalidResponse,
-            badStatusError: { BoothAPIClientError.badStatus($0) },
-            decodingError: { BoothAPIClientError.decoding($0) }
-        )
+    private func request<T: Decodable>(path: String,
+                                       method: BaseAPIClient.HTTPMethod,
+                                       body: Data? = nil) async throws -> T {
+        try await baseClient.request(path: path,
+                                     method: method,
+                                     invalidResponseError: BoothAPIClientError.invalidResponse,
+                                     badStatusError: { BoothAPIClientError.badStatus($0) },
+                                     decodingError: { BoothAPIClientError.decoding($0) })
     }
 }

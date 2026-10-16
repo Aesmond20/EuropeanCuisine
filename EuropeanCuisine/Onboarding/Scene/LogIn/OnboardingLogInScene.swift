@@ -9,10 +9,7 @@
 import SwiftUI
 
 struct OnboardingLogInScene: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
-
-    @State private var isSignUpPresented: Bool = false
+    @State private var vm: OnboardingLogInViewModel
 
     @FocusState private var focusedField: Field?
     @Environment(\.dismiss) private var dismiss
@@ -20,6 +17,12 @@ struct OnboardingLogInScene: View {
     enum Field {
         case email
         case password
+    }
+
+    init(onOpenSignUp: @escaping () -> Void,
+         onSuccess: @escaping (String) -> Void) {
+        self._vm = State(initialValue: .init(onOpenSignUp: onOpenSignUp,
+                                             onSuccess: onSuccess))
     }
 
     var body: some View {
@@ -49,8 +52,8 @@ struct OnboardingLogInScene: View {
                 .ignoresSafeArea(.all)
         }
         .navigationBarBackButtonHidden(true)
-        .navigationDestination(isPresented: $isSignUpPresented) {
-            OnboardingSignUpScene()
+        .onAppear {
+            vm.addClose { dismiss() }
         }
     }
 
@@ -94,7 +97,7 @@ struct OnboardingLogInScene: View {
     private var emailView: some View {
         InputLabelWithContent(label: .onboardingFieldEmailLabel) {
             TextInput(.onboardingFieldEmailPlaceholder,
-                      text: $email,
+                      text: $vm.email,
                       icon: AppImage.Icon.fieldEmail.image,
                       isFocused: focusedField == .email)
                 .focused($focusedField, equals: .email)
@@ -111,7 +114,7 @@ struct OnboardingLogInScene: View {
             VStack(alignment: .trailing,
                    spacing: Styles.passwordForgotSpacing) {
                 SecureInput(.onboardingFieldPasswordPlaceholder,
-                            text: $password,
+                            text: $vm.password,
                             icon: AppImage.Icon.fieldPassword.image,
                             isFocused: focusedField == .password)
                     .focused($focusedField, equals: .password)
@@ -130,13 +133,14 @@ struct OnboardingLogInScene: View {
     private var footerView: some View {
         VStack(alignment: .center,
                spacing: Styles.actionsVerticalSpacing) {
-            Button(.globalButtonLogInLabel, action: {})
+            Button(.globalButtonLogInLabel, action: vm.logInUser)
                 .buttonStyle(.orangeadeProminent(kind: .primary,
                                                  isFullWidth: true))
+                .disabled(!vm.isValid)
 
             OnboardingMessageWithAction(message: .onboardingMessageQuestionHasNotAccount,
                                         actionMessage: .globalButtonSignUpLabel,
-                                        action: { isSignUpPresented = true })
+                                        action: vm.openSignUp)
         }
         .padding(.horizontal)
     }
@@ -160,5 +164,6 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    OnboardingLogInScene()
+    OnboardingLogInScene(onOpenSignUp: {},
+                         onSuccess: { _ in })
 }

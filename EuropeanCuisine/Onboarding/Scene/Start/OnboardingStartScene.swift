@@ -51,10 +51,22 @@ struct OnboardingStartScene: View {
                 .ignoresSafeArea(.all)
         }
         .navigationDestination(isPresented: $isSignUpPresented) {
-            OnboardingSignUpScene()
+            OnboardingSignUpScene(onOpenLogIn: {
+                                      Task {
+                                          try? await Task.sleep(for: .seconds(1))
+                                          isLogInPresented = true
+                                      }
+                                  },
+                                  onSuccess: { print("The token is \($0)") })
         }
         .navigationDestination(isPresented: $isLogInPresented) {
-            OnboardingLogInScene()
+            OnboardingLogInScene(onOpenSignUp: {
+                                     Task {
+                                         try? await Task.sleep(for: .seconds(1))
+                                         isSignUpPresented = true
+                                     }
+                                 },
+                                 onSuccess: { print("The token is \($0)") })
         }
     }
 }

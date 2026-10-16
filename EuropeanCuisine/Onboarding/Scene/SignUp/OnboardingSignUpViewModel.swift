@@ -17,7 +17,11 @@ final class OnboardingSignUpViewModel {
     var name: String
 
     var isGoingForward = true
-    var goBackToParent: (() -> Void)?
+    private var close: (() -> Void)?
+    private let onOpenLogIn: () -> Void
+    private let onSuccess: (String) -> Void
+
+    private let authClient: AuthAPIClient
 
     enum Step: CaseIterable {
         case email
@@ -62,12 +66,16 @@ final class OnboardingSignUpViewModel {
         }
     }
 
-    init() {
+    init(onOpenLogIn: @escaping () -> Void,
+         onSuccess: @escaping (String) -> Void) {
         self.step = .email
         self.email = ""
         self.password = ""
         self.confirmPassword = ""
         self.name = ""
+        self.authClient = .init()
+        self.onOpenLogIn = onOpenLogIn
+        self.onSuccess = onSuccess
     }
 
     // MARK: - Public computed properties
@@ -195,11 +203,15 @@ final class OnboardingSignUpViewModel {
 
     // MARK: - Public methods
 
+    func addClose(_ action: @escaping () -> Void) {
+        close = action
+    }
+
     func goToPrevious() {
         isGoingForward = false
 
         guard let previous = step.previous else {
-            goBackToParent?()
+            close?()
             return
         }
 
@@ -210,11 +222,16 @@ final class OnboardingSignUpViewModel {
         isGoingForward = true
 
         guard let next = step.next else {
-            print("After sign up")
+            registerAndLogInUser()
             return
         }
 
         advance(to: next)
+    }
+
+    func openLogIn() {
+        close?()
+        onOpenLogIn()
     }
 
     // MARK: - Private properties
@@ -244,7 +261,7 @@ final class OnboardingSignUpViewModel {
     }
 
     private var isPasswordTooShort: Bool {
-        guard password.trimmed.count < Constraints.User.Password.length.lowerBound else {
+        guard password.count < Constraints.User.Password.length.lowerBound else {
             return false
         }
 
@@ -252,7 +269,7 @@ final class OnboardingSignUpViewModel {
     }
 
     private var isPasswordTooLong: Bool {
-        guard password.trimmed.count > Constraints.User.Password.length.upperBound else {
+        guard password.count > Constraints.User.Password.length.upperBound else {
             return false
         }
 
@@ -279,6 +296,35 @@ final class OnboardingSignUpViewModel {
             await Task.yield()
             withAnimation(.smooth) {
                 step = newStep
+            }
+        }
+    }
+
+    private func registerUser() async throws -> SignUpResponse {
+        let requestData: SignUpRequest = .init(name: name,
+                                               email: email,
+                                               password: password)
+
+        return try await authClient.signUp(input: requestData)
+    }
+
+    private func logInUser() async throws -> TokenResponse {
+        let requestData: LogInRequest = .init(email: email,
+                                              password: password)
+
+        return try await authClient.logIn(input: requestData)
+    }
+
+    private func registerAndLogInUser() {
+        Task {
+            do {
+                _ = try await registerUser()
+                let token = try await logInUser()
+
+                close?()
+                onSuccess(token.token)
+            } catch {
+                print("Error: \(error.localizedDescription)")
             }
         }
     }
