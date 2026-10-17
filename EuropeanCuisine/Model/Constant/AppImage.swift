@@ -63,7 +63,7 @@ enum AppImage {
             case .tabBooths:
                 "storefront"
             case .tabWorkshops:
-                "person.2.wave.2.fill"
+                "inset.filled.rectangle.and.person.filled"
             case .tabReservations:
                 "calendar.badge.checkmark"
             case .tabProfile:
