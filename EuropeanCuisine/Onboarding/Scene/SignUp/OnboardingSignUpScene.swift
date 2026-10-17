@@ -6,6 +6,7 @@
 //  Copyright © 2026 Mathieu Nivelles. All rights reserved.
 //
 
+import PopupView
 import SwiftUI
 
 struct OnboardingSignUpScene: View {
@@ -68,12 +69,22 @@ struct OnboardingSignUpSceneInternal: View {
                 .ignoresSafeArea(.all)
         }
         .navigationBarBackButtonHidden(true)
+        .popup(item: $vm.errorMessage) { message in
+            Toast.error(message)
+                .padding(.horizontal)
+        } customize: {
+            $0
+                .type(.floater())
+                .position(.top)
+                .autohideIn(4)
+        }
     }
 
     private var headerView: some View {
         HStack(alignment: .center,
                spacing: Styles.headerHorizontalSpacing) {
-            Button("", action: vm.goToPrevious)
+            Button(.globalButtonBackLabel,
+                   action: vm.goToPrevious)
                 .buttonStyle(.orangeadeIconProminent(kind: .onboarding,
                                                      icon: vm.isFullscreen && vm.isFirstStep
                                                          ? AppImage.Icon.close.image

@@ -32,7 +32,7 @@ struct BaseAPIClient {
                  body: Data? = nil,
                  authenticationToken token: String? = nil,
                  invalidResponseError: Error,
-                 badStatusError: (Int) -> Error) async throws -> Data {
+                 badStatusError: (Int, String) -> Error) async throws -> Data {
         var urlRequest = URLRequest(url: baseURL.appendingPathComponent(path))
         urlRequest.httpMethod = method.value
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
@@ -53,7 +53,9 @@ struct BaseAPIClient {
         }
 
         guard (200 ..< 300).contains(http.statusCode) else {
-            throw badStatusError(http.statusCode)
+            let reason = (try? JSONDecoder().decode(APIErrorResponse.self, from: data))?.reason
+                ?? HTTPURLResponse.localizedString(forStatusCode: http.statusCode)
+            throw badStatusError(http.statusCode, reason)
         }
         return data
     }
@@ -63,7 +65,7 @@ struct BaseAPIClient {
                                body: Data? = nil,
                                authenticationToken: String? = nil,
                                invalidResponseError: Error,
-                               badStatusError: (Int) -> Error,
+                               badStatusError: (Int, String) -> Error,
                                decodingError: (Error) -> Error) async throws -> T {
         let data = try await perform(path: path,
                                      method: method,

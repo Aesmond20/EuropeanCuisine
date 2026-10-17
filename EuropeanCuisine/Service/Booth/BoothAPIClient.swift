@@ -33,7 +33,7 @@ struct BoothAPIClient {
                                      body: body,
                                      invalidResponseError: BoothAPIClientError
                                          .invalidResponse,
-                                     badStatusError: { BoothAPIClientError.badStatus($0) })
+                                     badStatusError: { BoothAPIClientError.badStatus($0, $1) })
     }
 
     private func request<T: Decodable>(path: String,
@@ -42,7 +42,7 @@ struct BoothAPIClient {
         try await baseClient.request(path: path,
                                      method: method,
                                      invalidResponseError: BoothAPIClientError.invalidResponse,
-                                     badStatusError: { BoothAPIClientError.badStatus($0) },
+                                     badStatusError: { BoothAPIClientError.badStatus($0, $1) },
                                      decodingError: { BoothAPIClientError.decoding($0) })
     }
 }

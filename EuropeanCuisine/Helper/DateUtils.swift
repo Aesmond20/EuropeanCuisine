@@ -27,9 +27,9 @@ enum DateUtils {
         }
 
         if (1 ... closingSoonWindow).contains(minutesToClose) {
-            return "Closes in \(minutesToClose) minutes"
+            return String(localized: .dateClosingStatusClosesIn(minutes: minutesToClose))
         } else if (-recentlyClosedWindow ... 0).contains(minutesToClose) {
-            return "Closes \(-minutesToClose) minutes ago"
+            return String(localized: .dateClosingStatusClosedAgo(minutes: -minutesToClose))
         } else {
             let start = startTime.formatted(date: .omitted, time: .shortened)
             let end = endTime.formatted(date: .omitted, time: .shortened)

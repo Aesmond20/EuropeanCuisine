@@ -15,6 +15,9 @@ final class ProfileViewModel {
     var isSignUpPresented: Bool
     var isLogInPresented: Bool
 
+    var neutralMessage: String?
+    var successMessage: String?
+
     init(store: UserStore) {
         self.store = store
         self.isSignUpPresented = false
@@ -31,6 +34,8 @@ final class ProfileViewModel {
 
     func logOutUser() {
         store.removeToken()
+
+        showLogOutMessage()
     }
 
     func showSignUpUser() {
@@ -39,5 +44,21 @@ final class ProfileViewModel {
 
     func showLogInUser() {
         isLogInPresented = true
+    }
+
+    func showSuccessLogInMessage() {
+        Task {
+            try? await Task.sleep(for: .seconds(0.4))
+
+            successMessage = String(localized: .profileMessageNowLoggedIn)
+        }
+    }
+
+    func showLogOutMessage() {
+        Task {
+            try? await Task.sleep(for: .seconds(0.3))
+
+            neutralMessage = String(localized: .profileMessageNowLoggedOut)
+        }
     }
 }

@@ -31,7 +31,7 @@ struct UserAPIClient {
                                      authenticationToken: authenticationToken,
                                      invalidResponseError: UserAPIClientError
                                          .invalidResponse,
-                                     badStatusError: { UserAPIClientError.badStatus($0) })
+                                     badStatusError: { UserAPIClientError.badStatus($0, $1) })
     }
 
     private func request<T: Decodable>(path: String,
@@ -43,7 +43,7 @@ struct UserAPIClient {
                                      body: body,
                                      authenticationToken: authenticationToken,
                                      invalidResponseError: UserAPIClientError.invalidResponse,
-                                     badStatusError: { UserAPIClientError.badStatus($0) },
+                                     badStatusError: { UserAPIClientError.badStatus($0, $1) },
                                      decodingError: { UserAPIClientError.decoding($0) })
     }
 }

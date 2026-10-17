@@ -10,15 +10,15 @@ import Foundation
 
 enum UserAPIClientError: LocalizedError {
     case invalidResponse
-    case badStatus(Int)
+    case badStatus(Int, String)
     case decoding(Error)
 
     var errorDescription: String? {
         switch self {
         case .invalidResponse:
             "The server returned an invalid response."
-        case let .badStatus(code):
-            "The server responded with code \(code)."
+        case let .badStatus(code, reason):
+            "E-\(code): \(reason)"
         case let .decoding(error):
             "Can't read data: \(error.localizedDescription)"
         }
