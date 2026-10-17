@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct WorkshopListScene: View {
+    @State private var vm: WorkshopListViewModel = .init()
+
     @Environment(ReservationStore.self) private var reservationStore
 
     @State private var searchText: String = ""
@@ -33,118 +35,60 @@ struct WorkshopListScene: View {
     }
 
     var body: some View {
-        List {
-            ForEach(workshops) { workshop in
-                NavigationLink {
-                    WorkshopDetailScene(workshop: workshop)
-                        .orangeadeTabViewVisibility(.hidden)
+//        List {
+//            ForEach(workshops) { workshop in
+//                NavigationLink {
+//                    WorkshopDetailScene(workshop: workshop)
+//                        .orangeadeTabViewVisibility(.hidden)
+//                } label: {
+//                    WorkshopRow(workshop: workshop,
+//                                isReserved: reservationStore.isBooked(workshop))
+//                }
+//                .listRowBackground(Color.clear)
+//                .listRowSeparatorTint(Styles.listSeparator)
+//            }
+//        }
+//        .listStyle(.plain)
+        WorkshopList(workshops: vm.filteredWorkshops,
+                     action: vm.showBookDetail)
+            .background(Styles.background)
+            .sceneHeader("Workshop",
+                         searchText: $searchText,
+                         searchPlaceholder: "Search a workshop",
+                         topTrailingSplash: .init(version: .one,
+                                                  kind: .quaternary)) {
+                Menu {
+                    Section("Seats") {
+                        Toggle("Only available",
+                               isOn: $onlyAvailableSeats)
+                    }
+
+                    Section("Categories") {
+                        ForEach(categories, id: \.self) { category in
+                            Toggle(category, isOn: Binding(get: {
+                                selectedCategories.contains(category)
+                            }, set: { _, _ in
+                                if selectedCategories.contains(category) {
+                                    selectedCategories.remove(category)
+                                } else {
+                                    selectedCategories.insert(category)
+                                }
+                            }))
+                        }
+                    }
                 } label: {
-                    WorkshopRow(workshop: workshop,
-                                isReserved: reservationStore.isBooked(workshop))
-                }
-                .listRowBackground(Color.clear)
-                .listRowSeparatorTint(Styles.listSeparator)
-            }
-        }
-        .listStyle(.plain)
-        .background(Styles.background)
-        .sceneHeader("Workshop",
-                     searchText: $searchText,
-                     searchPlaceholder: "Search a workshop",
-                     topTrailingSplash: .init(version: .one,
-                                              kind: .quaternary)) {
-            Menu {
-                Section("Seats") {
-                    Toggle("Only available",
-                           isOn: $onlyAvailableSeats)
-                }
-
-                Section("Categories") {
-                    ForEach(categories, id: \.self) { category in
-                        Toggle(category, isOn: Binding(get: {
-                            selectedCategories.contains(category)
-                        }, set: { _, _ in
-                            if selectedCategories.contains(category) {
-                                selectedCategories.remove(category)
-                            } else {
-                                selectedCategories.insert(category)
-                            }
-                        }))
-                    }
-                }
-            } label: {
-                Button("") {}
-                    .buttonStyle(.orangeadeIconProminent(kind: .tertiary,
-                                                         icon: AppImage.Icon.filter.image))
-            }
-        }
-    }
-}
-
-private struct WorkshopRow: View {
-    let workshop: Workshop
-    let isReserved: Bool
-
-    var body: some View {
-        HStack(spacing: AppToken.Primitive.spacing3) {
-            AsyncImage(url: URL(string: workshop.pictureURL)) { phase in
-                switch phase {
-                case let .success(image): image
-                    .resizable()
-                    .scaledToFill()
-
-                default:
-                    Image(systemName: "fork.knife")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(Styles.placeholderForeground)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Styles.placeholderBackground)
+                    Button("") {}
+                        .buttonStyle(.orangeadeIconProminent(kind: .tertiary,
+                                                             icon: AppImage.Icon.filter.image))
                 }
             }
-            .frame(width: 32, height: 32)
-            .clipShape(RoundedRectangle(cornerRadius: AppToken.Primitive.radiusMd))
-
-            VStack(alignment: .leading, spacing: AppToken.Primitive.spacing05) {
-                Text(workshop.name)
-                    .font(Styles.nameFont)
-                    .foregroundStyle(Styles.nameColor)
-                    .lineLimit(1)
-
-                HStack(spacing: AppToken.Primitive.spacing1) {
-                    Text(workshop.category)
-
-                    Text("·")
-
-                    Text("\(workshop.bookedCapacity)/\(workshop.maximumCapacity)")
-                }
-                .font(Styles.subtitleFont)
-                .foregroundStyle(Styles.subtitleColor)
-                .lineLimit(1)
+            .task {
+                await vm.fetchWorkshops()
             }
-
-            Spacer(minLength: 0)
-
-            VStack(alignment: .trailing, spacing: AppToken.Primitive.spacing05) {
-                HStack(spacing: AppToken.Primitive.spacing2) {
-                    if isReserved {
-                        AppImage.Icon.isBooked.image
-                            .font(Styles.reservationIconFont)
-                            .foregroundStyle(Styles.reservationIconColor)
-                    }
-
-                    Text(workshop.startTime,
-                         format: .dateTime.hour().minute())
-                        .font(Styles.timeFont)
-                        .foregroundStyle(Styles.timeColor)
-                }
-
-                Text(workshop.endTime,
-                     format: .dateTime.hour().minute())
-                    .font(Styles.timeFont)
-                    .foregroundStyle(Styles.secondaryTimeColor)
+            .navigationDestination(item: $vm.selectedWorkshopID) { id in
+//                WorkshopDetailScene(id: id)
+                Text("Workshop \(id)")
             }
-        }
-        .padding(.vertical, AppToken.Primitive.spacing1)
     }
 }
 

@@ -12,8 +12,8 @@ struct Workshop: Identifiable {
     let id: UUID
     let name: String
     let category: String
-    let bookedCapacity: Int
-    let maximumCapacity: Int
+    let bookedCapacity: UInt16
+    let maximumCapacity: UInt16
     let startTime: Date
     let endTime: Date
     let about: String
@@ -22,8 +22,12 @@ struct Workshop: Identifiable {
     let isPRM: Bool
     let isFamilyFriendly: Bool
 
-    var remainingCapacity: Int {
-        maximumCapacity - bookedCapacity
+    var remainingCapacity: UInt16 {
+        guard bookedCapacity <= maximumCapacity else {
+            return 999
+        }
+
+        return maximumCapacity - bookedCapacity
     }
 }
 

@@ -379,6 +379,9 @@
         }
       }
     },
+    "Hello, World!" : {
+
+    },
     "onboarding.field.confirm_password.label" : {
       "extractionState" : "manual",
       "localizations" : {
