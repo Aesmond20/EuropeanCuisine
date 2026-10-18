@@ -20,8 +20,8 @@ struct WorkshopAPIClient {
                           method: .get)
     }
 
-    func fetchOne(id: UUID) async throws -> BoothResponse {
-        try await request(path: "booths/\(id)",
+    func fetchOne(id: UUID) async throws -> WorkshopResponse {
+        try await request(path: "workshops/\(id)",
                           method: .get)
     }
 
@@ -33,7 +33,7 @@ struct WorkshopAPIClient {
                                      body: body,
                                      invalidResponseError: WorkshopAPIClientError
                                          .invalidResponse,
-                                     badStatusError: { WorkshopAPIClientError.badStatus($0) })
+                                     badStatusError: { WorkshopAPIClientError.badStatus($0, $1) })
     }
 
     private func request<T: Decodable>(path: String,
@@ -42,7 +42,7 @@ struct WorkshopAPIClient {
         try await baseClient.request(path: path,
                                      method: method,
                                      invalidResponseError: WorkshopAPIClientError.invalidResponse,
-                                     badStatusError: { WorkshopAPIClientError.badStatus($0) },
+                                     badStatusError: { WorkshopAPIClientError.badStatus($0, $1) },
                                      decodingError: { WorkshopAPIClientError.decoding($0) })
     }
 }

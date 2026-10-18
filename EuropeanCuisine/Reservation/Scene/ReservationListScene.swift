@@ -10,23 +10,25 @@ import SwiftUI
 
 struct ReservationListScene: View {
     @Environment(ReservationStore.self) private var reservationStore
+    @Environment(UserStore.self) private var userStore
 
     @State private var searchText: String = ""
     @State private var selectedCategories: Set<String> = []
 
     private var reservations: [Workshop] {
-        WorkshopData.workshops.filter { workshop in
-            let matchesReservation = reservationStore.isBooked(workshop)
+        reservationStore.reservations
+            .filter { $0.status != "cancelled" }
+            .map { Workshop($0.workshop) }
+            .filter { workshop in
+                let matchesSearch = searchText.isEmpty
+                    || workshop.name.localizedCaseInsensitiveContains(searchText)
 
-            let matchesSearch = searchText.isEmpty
-                || workshop.name.localizedCaseInsensitiveContains(searchText)
+                let matchesCategory = selectedCategories.isEmpty
+                    || selectedCategories.contains(workshop.category)
 
-            let matchesCategory = selectedCategories.isEmpty
-                || selectedCategories.contains(workshop.category)
-
-            return matchesReservation && matchesSearch && matchesCategory
-        }
-        .sorted { $0.startTime < $1.startTime }
+                return matchesSearch && matchesCategory
+            }
+            .sorted { $0.startTime < $1.startTime }
     }
 
     var body: some View {
@@ -35,7 +37,7 @@ struct ReservationListScene: View {
 
     private var reservationList: some View {
         List {
-            if reservationStore.isLogIn {
+            if userStore.user != nil {
                 ForEach(reservations) { workshop in
                     NavigationLink {
                         WorkshopDetailScene(workshop: workshop)
@@ -50,14 +52,14 @@ struct ReservationListScene: View {
         }
         .listStyle(.plain)
         .overlay {
-            if !reservationStore.isLogIn {
+            if userStore.user != nil {
                 ContentEmptyView("Not log in",
                                  systemImage: AppImage.Icon.notLogIn.systemName,
                                  description: "You cannot see your bookings because you are not logged in.")
             }
         }
         .background(Styles.background)
-        .if(reservationStore.isLogIn) {
+        .if(userStore.user != nil) {
             $0
                 .sceneHeader("Reservations",
                              searchText: $searchText,
@@ -85,11 +87,19 @@ struct ReservationListScene: View {
                     }
                 }
         }
-        .if(!reservationStore.isLogIn) {
+        .if(userStore.user != nil) {
             $0
                 .sceneHeader("Reservations",
                              topTrailingSplash: .init(version: .two,
                                                       kind: .primary))
+        }
+
+        .task(id: userStore.token) {
+            guard let token = userStore.token else {
+                return
+            }
+
+            await reservationStore.fetchAll(token: token)
         }
     }
 }
@@ -222,5 +232,6 @@ fileprivate enum Styles {
     NavigationStack {
         ReservationListScene()
             .environment(ReservationStore())
+            .environment(UserStore())
     }
 }

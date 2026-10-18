@@ -10,24 +10,56 @@ import SwiftUI
 
 @Observable
 final class ReservationStore {
-    var isLogIn: Bool = true
-    private(set) var reservedWorkshopIDs: Set<UUID> = []
+    var reservations: [ReservationResponse] = []
 
-    init() {}
+    private let apiClient: ReservationAPIClient
 
-    func isBooked(_ workshop: Workshop) -> Bool {
-        reservedWorkshopIDs.contains(workshop.id)
+    init() {
+        self.apiClient = .init()
     }
 
-    func book(_ workshop: Workshop) {
-        guard isLogIn else {
+    func fetchAll(token: String) async {
+        guard let reservationsResponse = try? await apiClient.fetchAll(token: token) else {
             return
         }
 
-        reservedWorkshopIDs.insert(workshop.id)
+        reservations = reservationsResponse
     }
 
-    func cancel(_ workshop: Workshop) {
-        reservedWorkshopIDs.remove(workshop.id)
+    func isBooked(_ workshop: Workshop) -> Bool {
+        reservations.contains { reservation in
+            reservation.workshop.id == workshop.id && reservation.status != "cancelled"
+        }
+    }
+
+    func book(_ workshop: Workshop, token: String) async {
+        guard let reservationResponse = try? await apiClient.create(workshopID: workshop.id,
+                                                                    token: token) else {
+            return
+        }
+
+        if reservations.firstIndex(where: {
+            $0.id == reservationResponse.id
+        }) != nil {
+            reservations.append(reservationResponse)
+        }
+    }
+
+    func cancel(_ workshop: Workshop, token: String) async {
+        guard let reservation = reservations.first(where: {
+            $0.workshop.id == workshop.id && $0.status != "cancelled"
+        }) else {
+            return
+        }
+
+        do {
+            try await apiClient.cancel(id: reservation.id, token: token)
+
+            reservations.removeAll {
+                $0.id == reservation.id
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 }

@@ -13,6 +13,7 @@ struct WorkshopResponse: Decodable {
     let name: String
     let startTime: Date
     let endTime: Date
+    let bookedCapacity: UInt16
     let capacityMax: UInt16
     let description: String
     let pictureURL: String
@@ -20,7 +21,6 @@ struct WorkshopResponse: Decodable {
     let isVegan: Bool
     let isPRM: Bool
     let isFamilyFriendly: Bool
-    let categoryID: UUID
     let categoryName: String
 }
 
@@ -29,12 +29,13 @@ extension Workshop {
         self.id = workshop.id
         self.name = workshop.name
         self.category = workshop.categoryName
-        self.bookedCapacity = UInt16.random(in: 1 ... 10)
-        self.maximumCapacity = workshop.capacityMax
+        self.bookedCapacity = workshop.bookedCapacity
+        self.capacityMax = workshop.capacityMax
         self.startTime = workshop.startTime
         self.endTime = workshop.endTime
-        self.about = workshop.description
+        self.description = workshop.description
         self.pictureURL = workshop.pictureURL
+        self.location = workshop.location
         self.isVegan = workshop.isVegan
         self.isPRM = workshop.isPRM
         self.isFamilyFriendly = workshop.isFamilyFriendly

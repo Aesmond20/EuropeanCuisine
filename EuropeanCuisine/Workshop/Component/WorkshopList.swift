@@ -14,10 +14,6 @@ struct WorkshopList: View {
 
     @Environment(ReservationStore.self) private var reservationStore
 
-    @State private var searchText: String = ""
-    @State private var onlyAvailableSeats: Bool = false
-    @State private var selectedCategories: Set<String> = []
-
     var body: some View {
         List {
             ForEach(workshops) { workshop in
@@ -40,4 +36,5 @@ fileprivate enum Styles {
 
 #Preview {
     WorkshopList(workshops: [], action: { _ in })
+        .environment(ReservationStore())
 }

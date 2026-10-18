@@ -8,22 +8,33 @@
 
 import SwiftUI
 
+@MainActor
 @Observable
 final class WorkshopListViewModel {
     private let client: WorkshopAPIClient
 
-    var searchText: String
     private var sourceWorkshops: [WorkshopResponse]
+
+    var searchText: String
+    var onlyAvailableSeats: Bool
+    var selectedCategories: Set<String>
     var selectedWorkshopID: UUID?
+
+    private(set) var isLoading: Bool
+    private(set) var errorMessage: String?
 
     init() {
         self.client = WorkshopAPIClient()
-        self.searchText = ""
         self.sourceWorkshops = []
+        self.searchText = ""
+        self.onlyAvailableSeats = false
+        self.selectedCategories = []
         self.selectedWorkshopID = nil
+        self.isLoading = false
+        self.errorMessage = nil
     }
 
-    var isBooksEmpty: Bool {
+    var isWorkshopsEmpty: Bool {
         sourceWorkshops.isEmpty
     }
 
@@ -31,31 +42,65 @@ final class WorkshopListViewModel {
         filteredWorkshops.isEmpty
     }
 
-    @MainActor
+    var categories: [String] {
+        Array(Set(sourceWorkshops.map(\.categoryName)))
+            .sorted()
+    }
+
     var filteredWorkshops: [Workshop] {
-        guard searchText.isNotEmpty else {
-            return sourceWorkshops.map(Workshop.init)
+        sourceWorkshops
+            .map(Workshop.init)
+            .filter { workshop in
+                let matchesSearch = searchText.trimmed.isEmpty
+                    || workshop.name.localizedCaseInsensitiveContains(searchText.trimmed)
+
+                let matchesSeats = !onlyAvailableSeats
+                    || workshop.remainingCapacity > 0
+
+                let matchesCategory = selectedCategories.isEmpty
+                    || selectedCategories.contains(workshop.category)
+
+                return matchesSearch
+                    && matchesSeats
+                    && matchesCategory
+            }
+            .sorted { $0.startTime < $1.startTime }
+    }
+
+    var selectedWorkshop: Workshop? {
+        guard let selectedWorkshopID else {
+            return nil
         }
 
-        return sourceWorkshops.filter { workshop in
-            let trimmed = searchText.trimmed
-
-            return workshop.name.localizedCaseInsensitiveContains(trimmed)
-        }
-        .map(Workshop.init)
+        return sourceWorkshops
+            .first { $0.id == selectedWorkshopID }
+            .map(Workshop.init)
     }
 
     func fetchWorkshops() async {
+        guard !isLoading else {
+            return
+        }
+
+        isLoading = true
+        errorMessage = nil
+
+        defer {
+            isLoading = false
+        }
+
         do {
             sourceWorkshops = try await client.fetchAll()
         } catch {
-            sourceWorkshops = []
-
-            print(error.localizedDescription)
+            errorMessage = error.localizedDescription
         }
     }
 
     func showBookDetail(id: UUID) {
         selectedWorkshopID = id
+    }
+
+    func clearError() {
+        errorMessage = nil
     }
 }

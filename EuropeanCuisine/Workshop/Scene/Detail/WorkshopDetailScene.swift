@@ -11,12 +11,13 @@ import SwiftUI
 struct WorkshopDetailScene: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(ReservationStore.self) private var reservationStore
-
-    let workshop: Workshop
+    @Environment(UserStore.self) private var userStore
 
     @State private var imageHeight: Double = 0
     @State private var scrollOffsetY: Double = 0
     @State private var scrollViewWidth: Double = 0
+
+    let workshop: Workshop
 
     private var isReserved: Bool {
         reservationStore.isBooked(workshop)
@@ -52,7 +53,7 @@ struct WorkshopDetailScene: View {
                     .font(Styles.informationFont)
                     .foregroundStyle(Styles.informationColor)
 
-                    Text(workshop.about)
+                    Text(workshop.description)
                         .font(Styles.aboutFont)
                         .foregroundStyle(Styles.aboutColor)
                         .fixedSize(horizontal: false, vertical: true)
@@ -108,6 +109,14 @@ struct WorkshopDetailScene: View {
         .safeAreaInset(edge: .bottom) {
             actionButton
         }
+        .task {
+            guard let token = userStore.token else {
+                return
+            }
+
+            await reservationStore.fetchAll(token: token)
+        }
+        .orangeadeTabViewVisibility(.hidden)
     }
 
     private var goodToKnow: some View {
@@ -150,13 +159,18 @@ struct WorkshopDetailScene: View {
 
     private var actionButton: some View {
         Button(isReserved ? "Cancel" : "Book now") {
-            if isReserved {
-                reservationStore.cancel(workshop)
-            } else {
-                reservationStore.book(workshop)
+            Task {
+                guard let token = userStore.token else {
+                    return
+                }
+                if isReserved {
+                    await reservationStore.cancel(workshop, token: token)
+                } else {
+                    await reservationStore.book(workshop, token: token)
+                }
             }
         }
-        .disabled(!reservationStore.isLogIn)
+        .disabled(userStore.user == nil)
         .buttonStyle(.orangeadeProminent(kind: isReserved ? .secondary : .primary,
                                          isFullWidth: true))
         .padding(.horizontal, AppToken.Primitive.padding4)
@@ -207,4 +221,5 @@ fileprivate enum Styles {
 #Preview {
     WorkshopDetailScene(workshop: WorkshopData.workshops[0])
         .environment(ReservationStore())
+        .environment(UserStore())
 }

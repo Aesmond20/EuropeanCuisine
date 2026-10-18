@@ -9,71 +9,31 @@
 import SwiftUI
 
 struct WorkshopListScene: View {
-    @State private var vm: WorkshopListViewModel = .init()
+    @State private var vm: WorkshopListViewModel
 
-    @Environment(ReservationStore.self) private var reservationStore
-
-    @State private var searchText: String = ""
-    @State private var onlyAvailableSeats: Bool = false
-    @State private var selectedCategories: Set<String> = []
-
-    private var workshops: [Workshop] {
-        WorkshopData.workshops.filter { workshop in
-            let matchesSearch = searchText.isEmpty
-                || workshop.name.localizedCaseInsensitiveContains(searchText)
-
-            let allSeats = !onlyAvailableSeats
-            let matchesSeats = allSeats
-                || workshop.remainingCapacity > 0
-
-            let matchesCategory = selectedCategories.isEmpty
-                || selectedCategories.contains(workshop.category)
-
-            return matchesSearch && matchesSeats && matchesCategory
-        }
-        .sorted { $0.startTime < $1.startTime }
+    init() {
+        self._vm = State(initialValue: WorkshopListViewModel())
     }
 
     var body: some View {
-//        List {
-//            ForEach(workshops) { workshop in
-//                NavigationLink {
-//                    WorkshopDetailScene(workshop: workshop)
-//                        .orangeadeTabViewVisibility(.hidden)
-//                } label: {
-//                    WorkshopRow(workshop: workshop,
-//                                isReserved: reservationStore.isBooked(workshop))
-//                }
-//                .listRowBackground(Color.clear)
-//                .listRowSeparatorTint(Styles.listSeparator)
-//            }
-//        }
-//        .listStyle(.plain)
         WorkshopList(workshops: vm.filteredWorkshops,
                      action: vm.showBookDetail)
             .background(Styles.background)
             .sceneHeader("Workshop",
-                         searchText: $searchText,
+                         searchText: $vm.searchText,
                          searchPlaceholder: "Search a workshop",
                          topTrailingSplash: .init(version: .one,
                                                   kind: .quaternary)) {
                 Menu {
                     Section("Seats") {
                         Toggle("Only available",
-                               isOn: $onlyAvailableSeats)
+                               isOn: $vm.onlyAvailableSeats)
                     }
 
                     Section("Categories") {
-                        ForEach(categories, id: \.self) { category in
-                            Toggle(category, isOn: Binding(get: {
-                                selectedCategories.contains(category)
-                            }, set: { _, _ in
-                                if selectedCategories.contains(category) {
-                                    selectedCategories.remove(category)
-                                } else {
-                                    selectedCategories.insert(category)
-                                }
-                            }))
+                        ForEach(vm.categories, id: \.self) { category in
+                            Toggle(category,
+                                   isOn: categoryBinding(for: category))
                         }
                     }
                 } label: {
@@ -82,35 +42,52 @@ struct WorkshopListScene: View {
                                                              icon: AppImage.Icon.filter.image))
                 }
             }
+            .overlay {
+                if vm.isLoading, vm.isWorkshopsEmpty {
+                    ProgressView()
+                }
+            }
             .task {
                 await vm.fetchWorkshops()
             }
-            .navigationDestination(item: $vm.selectedWorkshopID) { id in
-//                WorkshopDetailScene(id: id)
-                Text("Workshop \(id)")
+            .alert("Unable to load workshops",
+                   isPresented: Binding(get: {
+                                            vm.errorMessage != nil
+                                        },
+                                        set: { isPresented in
+                                            if !isPresented {
+                                                vm.clearError()
+                                            }
+                                        })) {
+                Button("OK", role: .cancel) {
+                    vm.clearError()
+                }
+            } message: {
+                Text(vm.errorMessage ?? "An unexpected error occurred.")
             }
+            .navigationDestination(item: $vm.selectedWorkshopID) { _ in
+                if let workshop = vm.selectedWorkshop {
+                    WorkshopDetailScene(workshop: workshop)
+                }
+            }
+    }
+
+    private func categoryBinding(for category: String) -> Binding<Bool> {
+        Binding(get: {
+                    vm.selectedCategories.contains(category)
+                },
+                set: { isSelected in
+                    if isSelected {
+                        vm.selectedCategories.insert(category)
+                    } else {
+                        vm.selectedCategories.remove(category)
+                    }
+                })
     }
 }
 
 fileprivate enum Styles {
     static let background = AppColor.Scene.background
-    static let listSeparator = AppColor.Scene.divider
-
-    static let nameFont = Font.system(size: 13, weight: .semibold)
-    static let subtitleFont = Font.system(size: 10, weight: .regular)
-
-    static let timeFont = Font.system(size: 10, weight: .regular)
-
-    static let nameColor = AppColor.Label.title
-    static let subtitleColor = AppColor.Label.secondary
-    static let timeColor = AppColor.Label.primary
-    static let secondaryTimeColor = AppColor.Label.secondary
-
-    static let reservationIconFont = Font.system(size: 12, weight: .semibold)
-    static let reservationIconColor = AppColor.accentPrimary
-
-    static let placeholderForeground = AppColor.accentContrast
-    static let placeholderBackground = AppColor.accentSecondary
 }
 
 #Preview {

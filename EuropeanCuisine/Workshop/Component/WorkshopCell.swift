@@ -27,14 +27,15 @@ struct WorkshopCell: View {
                 Text(workshop.name)
                     .font(Styles.titleFont)
                     .foregroundStyle(Styles.titleColor)
-                    .lineLimit(1)
+                    .lineLimit(nil)
 
                 HStack(spacing: AppToken.Primitive.spacing1) {
                     Text(workshop.category)
 
-                    Text("·")
+                    Text(" · ")
+                        .font(Styles.subtitleFont)
 
-                    Text("\(workshop.bookedCapacity)/\(workshop.maximumCapacity)")
+                    Text("\(workshop.bookedCapacity)/\(workshop.capacityMax)")
                 }
                 .font(Styles.subtitleFont)
                 .foregroundStyle(Styles.subtitleColor)
@@ -137,14 +138,15 @@ fileprivate let workshopExample: Workshop = .init(id: UUID(),
                                                   name: "French Pastry Masterclass",
                                                   category: "Recipe",
                                                   bookedCapacity: 7,
-                                                  maximumCapacity: 13,
+                                                  capacityMax: 13,
                                                   startTime: Date.hourMinute(hour: 10, minute: 0),
                                                   endTime: Date.hourMinute(hour: 12, minute: 0),
-                                                  about: """
+                                                  description: """
                                                   Discover the secrets of French pastry and learn how to prepare \
                                                   a delicate classic with a professional pastry chef.
                                                   """,
                                                   pictureURL: "https://picsum.photos/seed/french/600/400",
+                                                  location: "Room 10C",
                                                   isVegan: false,
                                                   isPRM: true,
                                                   isFamilyFriendly: true)

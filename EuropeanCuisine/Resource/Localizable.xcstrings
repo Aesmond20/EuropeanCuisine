@@ -4,18 +4,21 @@
     "" : {
 
     },
+    " · " : {
+
+    },
     "·" : {
 
     },
     "%@" : {
 
     },
-    "%lld/%lld" : {
+    "%u/%u" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "%1$lld/%2$lld"
+            "value" : "%1$u/%2$u"
           }
         }
       }
@@ -350,9 +353,6 @@
         }
       }
     },
-    "Edit" : {
-
-    },
     "First" : {
 
     },
@@ -459,6 +459,9 @@
       }
     },
     "Hello, World!" : {
+
+    },
+    "OK" : {
 
     },
     "onboarding.field.confirm_password.label" : {
@@ -955,6 +958,9 @@
       }
     },
     "Third" : {
+
+    },
+    "Unable to load workshops" : {
 
     }
   },
