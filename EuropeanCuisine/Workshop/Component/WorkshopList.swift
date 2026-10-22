@@ -10,16 +10,15 @@ import SwiftUI
 
 struct WorkshopList: View {
     let workshops: [Workshop]
+    let isReserved: (Workshop) -> Bool
     let action: (UUID) -> Void
-
-    @Environment(ReservationStore.self) private var reservationStore
 
     var body: some View {
         List {
             ForEach(workshops) { workshop in
                 Button(action: { action(workshop.id) }) {
                     WorkshopCell(workshop: workshop,
-                                 isReserved: reservationStore.isBooked(workshop))
+                                 isReserved: isReserved(workshop))
                 }
                 .listRowSeparatorTint(Styles.separatorColor)
                 .listRowBackground(Color.clear)
@@ -35,6 +34,7 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    WorkshopList(workshops: [], action: { _ in })
-        .environment(ReservationStore())
+    WorkshopList(workshops: [],
+                 isReserved: { _ in true },
+                 action: { _ in })
 }

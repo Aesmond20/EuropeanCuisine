@@ -11,12 +11,16 @@ import SwiftUI
 struct WorkshopListScene: View {
     @State private var vm: WorkshopListViewModel
 
+    @Environment(ReservationStore.self) private var reservationStore
+    @Environment(UserStore.self) private var userStore
+
     init() {
         self._vm = State(initialValue: WorkshopListViewModel())
     }
 
     var body: some View {
         WorkshopList(workshops: vm.filteredWorkshops,
+                     isReserved: reservationStore.isBooked,
                      action: vm.showBookDetail)
             .background(Styles.background)
             .sceneHeader("Workshop",
@@ -48,6 +52,7 @@ struct WorkshopListScene: View {
                 }
             }
             .task {
+                await reservationStore.fetchAll(token: userStore.token)
                 await vm.fetchWorkshops()
             }
             .alert("Unable to load workshops",
@@ -94,5 +99,6 @@ fileprivate enum Styles {
     NavigationStack {
         WorkshopListScene()
             .environment(ReservationStore())
+            .environment(UserStore())
     }
 }

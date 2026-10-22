@@ -18,8 +18,14 @@ final class ReservationStore {
         self.apiClient = .init()
     }
 
-    func fetchAll(token: String) async {
+    func fetchAll(token: String?) async {
+        guard let token else {
+            reservations = []
+            return
+        }
+
         guard let reservationsResponse = try? await apiClient.fetchAll(token: token) else {
+            reservations = []
             return
         }
 
