@@ -38,8 +38,8 @@ extension Workshop {
                  name: "French Pastry Masterclass",
                  category: "Recipe",
                  bookedCapacity: 7, capacityMax: 13,
-                 startTime: date(hour: 10, minute: 0),
-                 endTime: date(hour: 12, minute: 0),
+                 startTime: .from(year: 2026, month: 11, day: 26, hour: 14, minute: 15),
+                 endTime: .from(year: 2026, month: 11, day: 26, hour: 17, minute: 15),
                  description: """
                  Discover the secrets of French pastry and learn how to prepare \
                  a delicate classic with a professional pastry chef.
@@ -52,8 +52,8 @@ extension Workshop {
                  name: "Taste of Italy",
                  category: "Recipe",
                  bookedCapacity: 12, capacityMax: 17,
-                 startTime: date(hour: 11, minute: 30),
-                 endTime: date(hour: 13, minute: 0),
+                 startTime: .from(year: 2026, month: 11, day: 27, hour: 14, minute: 30),
+                 endTime: .from(year: 2026, month: 11, day: 27, hour: 16, minute: 15),
                  description: """
                  Travel through Italy with a hands-on workshop dedicated to \
                  fresh pasta, traditional sauces and Mediterranean flavours.
@@ -67,8 +67,8 @@ extension Workshop {
                  name: "European Street Food",
                  category: "Discovery",
                  bookedCapacity: 0, capacityMax: 18,
-                 startTime: date(hour: 13, minute: 30),
-                 endTime: date(hour: 14, minute: 30),
+                 startTime: .from(year: 2026, month: 11, day: 27, hour: 14, minute: 15),
+                 endTime: .from(year: 2026, month: 11, day: 27, hour: 15, minute: 15),
                  description: """
                  Explore some of Europe's most iconic street food traditions \
                  and discover the stories behind their recipes.
@@ -82,8 +82,8 @@ extension Workshop {
                  name: "Mediterranean Flavours",
                  category: "Recipe",
                  bookedCapacity: 5, capacityMax: 15,
-                 startTime: date(hour: 14, minute: 30),
-                 endTime: date(hour: 16, minute: 0),
+                 startTime: .from(year: 2026, month: 11, day: 27, hour: 14, minute: 45),
+                 endTime: .from(year: 2026, month: 11, day: 28, hour: 14, minute: 15),
                  description: """
                                   Learn how Mediterranean ingredients come together in \
                  simple, colourful and generous dishes.
@@ -97,8 +97,8 @@ extension Workshop {
                  name: "European Fashion & Food",
                  category: "Fashion show",
                  bookedCapacity: 25, capacityMax: 30,
-                 startTime: date(hour: 16, minute: 30),
-                 endTime: date(hour: 17, minute: 30),
+                 startTime: .from(year: 2026, month: 11, day: 28, hour: 15, minute: 15),
+                 endTime: .from(year: 2026, month: 11, day: 28, hour: 18, minute: 15),
                  description: """
                  A celebration of European creativity where fashion, food \
                  and cultural influences meet on the same stage.
@@ -112,8 +112,8 @@ extension Workshop {
                  name: "Kids' European Baking",
                  category: "Kids & family",
                  bookedCapacity: 10, capacityMax: 10,
-                 startTime: date(hour: 15, minute: 0),
-                 endTime: date(hour: 16, minute: 0),
+                 startTime: .from(year: 2026, month: 11, day: 25, hour: 14, minute: 15),
+                 endTime: .from(year: 2026, month: 11, day: 25, hour: 16, minute: 15),
                  description: """
                  A fun family workshop where young chefs discover \
                  European baking traditions and create their own sweet treats.
@@ -127,8 +127,8 @@ extension Workshop {
                  name: "From Farm to Table",
                  category: "Keynote",
                  bookedCapacity: 40, capacityMax: 40,
-                 startTime: date(hour: 17, minute: 30),
-                 endTime: date(hour: 18, minute: 30),
+                 startTime: .from(year: 2026, month: 11, day: 26, hour: 16, minute: 15),
+                 endTime: .from(year: 2026, month: 11, day: 26, hour: 20, minute: 15),
                  description: """
                  Meet European producers and chefs to discover how \
                  local ingredients travel from the farm to our plates.
@@ -139,11 +139,4 @@ extension Workshop {
                  isPRM: true,
                  isFamilyFriendly: true),
     ]
-
-    private static func date(hour: Int, minute: Int) -> Date {
-        Calendar.current.date(bySettingHour: hour,
-                              minute: minute,
-                              second: 0,
-                              of: Date()) ?? Date()
-    }
 }

@@ -15,16 +15,35 @@ struct WorkshopList: View {
 
     var body: some View {
         List {
-            ForEach(workshops) { workshop in
-                Button(action: { action(workshop.id) }) {
-                    WorkshopCell(workshop: workshop,
-                                 isReserved: isReserved(workshop))
+            ForEach(groupedWorkshops, id: \.date) { group in
+                Section {
+                    ForEach(group.items) { workshop in
+                        Button(action: { action(workshop.id) }) {
+                            WorkshopCell(workshop: workshop,
+                                         isReserved: isReserved(workshop))
+                        }
+                        .listRowSeparatorTint(Styles.separatorColor)
+                        .listRowBackground(Color.clear)
+                    }
+                } header: {
+                    Text(group.date.formatted(date: .long, time: .omitted))
                 }
-                .listRowSeparatorTint(Styles.separatorColor)
-                .listRowBackground(Color.clear)
             }
         }
         .listStyle(.plain)
+    }
+
+    var groupedWorkshops: [(date: Date, items: [Workshop])] {
+        let grouped = Dictionary(grouping: workshops) { workshop in
+            workshop.startTime.formatted(date: .long, time: .omitted)
+        }
+
+        return grouped.map { _, value in
+            let items = value.sorted(by: { $0.startTime < $1.startTime })
+            let date = items.first?.startTime ?? .now
+
+            return (date, items)
+        }.sorted(by: { $0.date < $1.date })
     }
 }
 
@@ -34,7 +53,7 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    WorkshopList(workshops: [],
+    WorkshopList(workshops: Workshop.examples,
                  isReserved: { _ in true },
                  action: { _ in })
 }
