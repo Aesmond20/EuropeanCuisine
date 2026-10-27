@@ -27,6 +27,8 @@ struct WorkshopList: View {
                     }
                 } header: {
                     Text(group.date.formatted(date: .long, time: .omitted))
+                        .font(Styles.labelFont)
+                        .foregroundStyle(Styles.labelColor)
                 }
             }
         }
@@ -50,6 +52,8 @@ struct WorkshopList: View {
 fileprivate enum Styles {
     static let background = AppColor.Scene.background
     static let separatorColor = AppColor.Scene.divider
+    static let labelFont: Font = .system(size: 20, weight: .bold)
+    static let labelColor = AppColor.Label.title
 }
 
 #Preview {
