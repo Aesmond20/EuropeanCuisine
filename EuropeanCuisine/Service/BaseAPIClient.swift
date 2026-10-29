@@ -28,12 +28,23 @@ struct BaseAPIClient {
     }
 
     func perform(path: String,
+                 queryItems: [URLQueryItem],
                  method: HTTPMethod,
                  body: Data? = nil,
                  authenticationToken token: String? = nil,
                  invalidResponseError: Error,
                  badStatusError: (Int, String) -> Error) async throws -> Data {
-        var urlRequest = URLRequest(url: baseURL.appendingPathComponent(path))
+        var url = baseURL.appendingPathComponent(path)
+
+        if queryItems.isNotEmpty {
+            var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+            components?.queryItems = queryItems
+            if let urlWithQuery = components?.url {
+                url = urlWithQuery
+            }
+        }
+
+        var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.value
         urlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
 
@@ -61,6 +72,7 @@ struct BaseAPIClient {
     }
 
     func request<T: Decodable>(path: String,
+                               queryItems: [URLQueryItem],
                                method: HTTPMethod,
                                body: Data? = nil,
                                authenticationToken: String? = nil,
@@ -68,6 +80,7 @@ struct BaseAPIClient {
                                badStatusError: (Int, String) -> Error,
                                decodingError: (Error) -> Error) async throws -> T {
         let data = try await perform(path: path,
+                                     queryItems: queryItems,
                                      method: method,
                                      body: body,
                                      authenticationToken: authenticationToken,

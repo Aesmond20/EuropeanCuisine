@@ -28,9 +28,11 @@ struct AuthAPIClient {
     }
 
     private func perform(path: String,
+                         queryItems: [URLQueryItem] = [],
                          method: BaseAPIClient.HTTPMethod,
                          body: Data? = nil) async throws -> Data {
         try await baseClient.perform(path: path,
+                                     queryItems: queryItems,
                                      method: method,
                                      body: body,
                                      invalidResponseError: AuthAPIClientError
@@ -39,9 +41,11 @@ struct AuthAPIClient {
     }
 
     private func request<T: Decodable>(path: String,
+                                       queryItems: [URLQueryItem] = [],
                                        method: BaseAPIClient.HTTPMethod,
                                        body: Data? = nil) async throws -> T {
         try await baseClient.request(path: path,
+                                     queryItems: queryItems,
                                      method: method,
                                      body: body,
                                      invalidResponseError: AuthAPIClientError.invalidResponse,

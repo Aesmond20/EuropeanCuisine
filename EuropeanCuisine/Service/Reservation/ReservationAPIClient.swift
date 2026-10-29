@@ -39,16 +39,20 @@ struct ReservationAPIClient {
     }
 
     func isReservedWorkshop(workshopID: UUID, token: String) async throws -> IsReservedResponse {
-        try await request(path: "reservations/is-reserved?workshopID=\(workshopID)",
+        try await request(path: "reservations/is-reserved",
+                          queryItems: [URLQueryItem(name: "workshopID",
+                                                    value: workshopID.uuidString)],
                           method: .get,
                           authenticationToken: token)
     }
 
     private func perform(path: String,
+                         queryItems: [URLQueryItem] = [],
                          method: BaseAPIClient.HTTPMethod,
                          body: Data? = nil,
                          authenticationToken: String? = nil) async throws -> Data {
         try await baseClient.perform(path: path,
+                                     queryItems: queryItems,
                                      method: method,
                                      body: body,
                                      authenticationToken: authenticationToken,
@@ -60,10 +64,12 @@ struct ReservationAPIClient {
     }
 
     private func request<T: Decodable>(path: String,
+                                       queryItems: [URLQueryItem] = [],
                                        method: BaseAPIClient.HTTPMethod,
                                        body: Data? = nil,
                                        authenticationToken: String? = nil) async throws -> T {
         try await baseClient.request(path: path,
+                                     queryItems: queryItems,
                                      method: method,
                                      body: body,
                                      authenticationToken: authenticationToken,

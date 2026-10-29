@@ -16,13 +16,11 @@ enum ReservationAPIClientError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidResponse:
-            "La réponse du serveur est invalide."
-
+            "The server returned an invalid response."
         case let .badStatus(status, reason):
-            "Erreur API (\(status)) : \(reason)"
-
+            "E-\(status): \(reason)"
         case let .decoding(error):
-            "Impossible de lire la réponse du serveur : \(error.localizedDescription)"
+            "Can't read data: \(error.localizedDescription)"
         }
     }
 }

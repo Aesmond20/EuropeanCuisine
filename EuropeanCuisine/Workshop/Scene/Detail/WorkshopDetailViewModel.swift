@@ -84,27 +84,22 @@ final class WorkshopDetailViewModel {
     private func setReservationState() async {
         guard isLogIn else {
             reservationState = .notLogIn
-            print("not log in")
             return
         }
 
         guard let token = userStore.token else {
             reservationState = .notLogIn
-            print("no token")
             return
         }
 
         do {
-            print("before response")
             let response = try await reservationClient
                 .isReservedWorkshop(workshopID: workshopID,
                                     token: token)
-            print("after response")
             reservationState = response.isReserved ? .reserved : .notReserved
 
         } catch {
             reservationState = .notLogIn
-            print("error", error.localizedDescription)
         }
     }
 }
