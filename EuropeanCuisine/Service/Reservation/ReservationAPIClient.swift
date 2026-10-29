@@ -38,6 +38,12 @@ struct ReservationAPIClient {
                               authenticationToken: token)
     }
 
+    func isReservedWorkshop(workshopID: UUID, token: String) async throws -> IsReservedResponse {
+        try await request(path: "reservations/is-reserved?workshopID=\(workshopID)",
+                          method: .get,
+                          authenticationToken: token)
+    }
+
     private func perform(path: String,
                          method: BaseAPIClient.HTTPMethod,
                          body: Data? = nil,
@@ -70,14 +76,4 @@ struct ReservationAPIClient {
                                          ReservationAPIClientError.decoding($0)
                                      })
     }
-}
-
-struct ReservationInput: Encodable {
-    let workshopID: UUID
-}
-
-struct ReservationResponse: Decodable, Identifiable {
-    let id: UUID
-    let status: String
-    let workshop: WorkshopResponse
 }

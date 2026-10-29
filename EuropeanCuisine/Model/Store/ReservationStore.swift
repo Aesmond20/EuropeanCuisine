@@ -24,12 +24,17 @@ final class ReservationStore {
             return
         }
 
-        guard let reservationsResponse = try? await apiClient.fetchAll(token: token) else {
-            reservations = []
-            return
-        }
+        do {
+            let response = try await apiClient.fetchAll(token: token)
+            reservations = response
 
-        reservations = reservationsResponse
+            for reservation in response {
+                print("Réservation : \(reservation.id), statut : \(reservation.status)")
+            }
+        } catch {
+            print(error)
+            reservations = []
+        }
     }
 
     func isBooked(_ workshop: Workshop) -> Bool {

@@ -44,6 +44,10 @@ final class UserStore {
         }
     }
 
+    var hasToken: Bool {
+        token != nil
+    }
+
     func fetchUser() async {
         guard let token,
               let userResponse = try? await apiClient.fetchOne(token: token) else {

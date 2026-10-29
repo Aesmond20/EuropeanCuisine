@@ -67,16 +67,6 @@ final class WorkshopListViewModel {
             .sorted { $0.startTime < $1.startTime }
     }
 
-    var selectedWorkshop: Workshop? {
-        guard let selectedWorkshopID else {
-            return nil
-        }
-
-        return sourceWorkshops
-            .first { $0.id == selectedWorkshopID }
-            .map(Workshop.init)
-    }
-
     func fetchWorkshops() async {
         guard !isLoading else {
             return

@@ -70,10 +70,8 @@ struct WorkshopListScene: View {
             } message: {
                 Text(vm.errorMessage ?? "An unexpected error occurred.")
             }
-            .navigationDestination(item: $vm.selectedWorkshopID) { _ in
-                if let workshop = vm.selectedWorkshop {
-                    WorkshopDetailScene(workshop: workshop)
-                }
+            .navigationDestination(item: $vm.selectedWorkshopID) { id in
+                WorkshopDetailScene(id: id)
             }
     }
 

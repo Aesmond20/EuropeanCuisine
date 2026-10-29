@@ -9,21 +9,56 @@
 import SwiftUI
 
 struct WorkshopDetailScene: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(ReservationStore.self) private var reservationStore
     @Environment(UserStore.self) private var userStore
+
+    private let id: UUID
+
+    init(id: UUID) {
+        self.id = id
+    }
+
+    var body: some View {
+        WorkshopDetailSceneInternal(id: id, userStore: userStore)
+    }
+}
+
+struct WorkshopDetailSceneInternal: View {
+    @State private var vm: WorkshopDetailViewModel
+
+    @Environment(\.dismiss) private var dismiss
 
     @State private var imageHeight: Double = 0
     @State private var scrollOffsetY: Double = 0
     @State private var scrollViewWidth: Double = 0
 
-    let workshop: Workshop
-
-    private var isReserved: Bool {
-        reservationStore.isBooked(workshop)
+    init(id: UUID, userStore: UserStore) {
+        self._vm = State(initialValue: WorkshopDetailViewModel(id: id, userStore: userStore))
     }
 
     var body: some View {
+        Group {
+            if let workshop = vm.workshop {
+                contentView(workshop: workshop)
+            } else {
+                emptyView
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .overlay(alignment: .topLeading) {
+            Button("") {
+                dismiss()
+            }
+            .buttonStyle(.orangeadeIconProminent(kind: .back,
+                                                 icon: Image(systemName: "arrow.left")))
+            .padding(.horizontal)
+        }
+        .safeAreaInset(edge: .bottom) {
+            actionButton
+        }
+        .orangeadeTabViewVisibility(.hidden)
+    }
+
+    private func contentView(workshop: Workshop) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: AppToken.Primitive.spacing5) {
                 VStack(alignment: .leading, spacing: AppToken.Primitive.spacing4) {
@@ -58,7 +93,7 @@ struct WorkshopDetailScene: View {
                         .foregroundStyle(Styles.aboutColor)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    goodToKnow
+                    goodToKnow(workshop: workshop)
                 }
                 .padding(.horizontal, AppToken.Primitive.padding4)
             }
@@ -97,86 +132,78 @@ struct WorkshopDetailScene: View {
             scrollViewWidth = visibleWidth
         }
         .ignoresSafeArea(.all, edges: .top)
-        .navigationBarBackButtonHidden(true)
-        .overlay(alignment: .topLeading) {
-            Button("") {
-                dismiss()
-            }
-            .buttonStyle(.orangeadeIconProminent(kind: .back,
-                                                 icon: Image(systemName: "arrow.left")))
-            .padding(.horizontal)
-        }
-        .safeAreaInset(edge: .bottom) {
-            actionButton
-        }
-        .task {
-            guard let token = userStore.token else {
-                return
-            }
-
-            await reservationStore.fetchAll(token: token)
-        }
-        .orangeadeTabViewVisibility(.hidden)
     }
 
-    private var goodToKnow: some View {
+    private var emptyView: some View {
+        ContentEmptyView("No Workshop found",
+                         systemImage: AppImage.Icon.workshopNotFound.systemName)
+    }
+
+    private func goodToKnow(workshop: Workshop) -> some View {
         VStack(alignment: .leading, spacing: AppToken.Primitive.spacing3) {
             Text("Good to Know")
                 .font(Styles.sectionTitleFont)
                 .foregroundStyle(Styles.sectionTitleColor)
 
             if workshop.isVegan {
-                goodToKnowRow(icon: "leaf.fill",
-                              title: "Vegan friendly")
+                GoodToKnowRow(icon: AppImage.Icon.isVegan.image,
+                              label: "Vegan friendly")
             }
 
             if workshop.isPRM {
-                goodToKnowRow(icon: "figure.roll",
-                              title: "Accessible to people with reduced mobility")
+                GoodToKnowRow(icon: AppImage.Icon.isPRM.image,
+                              label: "Accessible to people with reduced mobility")
             }
 
             if workshop.isFamilyFriendly {
-                goodToKnowRow(icon: "figure.2.and.child.holdinghands",
-                              title: "Kids & family friendly")
+                GoodToKnowRow(icon: AppImage.Icon.isFamilyFriendly.image,
+                              label: "Kids & family friendly")
             }
-        }
-    }
-
-    private func goodToKnowRow(icon: String, title: String) -> some View {
-        HStack(spacing: AppToken.Primitive.spacing3) {
-            Image(systemName: icon)
-                .font(Styles.goodToKnowIconFont)
-                .foregroundStyle(Styles.goodToKnowIconColor)
-                .frame(width: 24)
-
-            Text(title)
-                .font(Styles.goodToKnowFont)
-                .foregroundStyle(Styles.goodToKnowColor)
-
-            Spacer()
         }
     }
 
     private var actionButton: some View {
-        Button(isReserved ? "Cancel" : "Book now") {
-            Task {
-                guard let token = userStore.token else {
-                    return
-                }
-                if isReserved {
-                    await reservationStore.cancel(workshop, token: token)
-                } else {
-                    await reservationStore.book(workshop, token: token)
-                }
-            }
+        Button(vm.actionButtonLabel, role: vm.actionButtonRole) {}
+            .buttonStyle(.orangeadeProminent(kind: vm.actionButtonKind, isFullWidth: true))
+            .disabled(vm.actionButtonDisabled)
+//        Button(isReserved ? "Cancel" : "Book now") {
+//            Task {
+//                guard let token = userStore.token else {
+//                    return
+//                }
+//                if isReserved {
+//                    await reservationStore.cancel(workshop, token: token)
+//                } else {
+//                    await reservationStore.book(workshop, token: token)
+//                }
+//            }
+//        }
+//        .disabled(userStore.user == nil)
+//        .buttonStyle(.orangeadeProminent(kind: isReserved ? .secondary : .primary,
+//                                         isFullWidth: true))
+//        .padding(.horizontal, AppToken.Primitive.padding4)
+//        .padding(.top, AppToken.Primitive.spacing3)
+//        .padding(.bottom, AppToken.Primitive.spacing2)
+//        .background(Styles.background)
+    }
+}
+
+fileprivate struct GoodToKnowRow: View {
+    let icon: Image
+    let label: String
+
+    var body: some View {
+        HStack(spacing: AppToken.Primitive.spacing3) {
+            icon
+                .font(Styles.goodToKnowIconFont)
+                .foregroundStyle(Styles.goodToKnowIconColor)
+                .frame(width: 24)
+
+            Text(label)
+                .font(Styles.goodToKnowFont)
+                .foregroundStyle(Styles.goodToKnowColor)
         }
-        .disabled(userStore.user == nil)
-        .buttonStyle(.orangeadeProminent(kind: isReserved ? .secondary : .primary,
-                                         isFullWidth: true))
-        .padding(.horizontal, AppToken.Primitive.padding4)
-        .padding(.top, AppToken.Primitive.spacing3)
-        .padding(.bottom, AppToken.Primitive.spacing2)
-        .background(Styles.background)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -219,7 +246,7 @@ fileprivate enum Styles {
 }
 
 #Preview {
-    WorkshopDetailScene(workshop: WorkshopData.workshops[0])
+    WorkshopDetailScene(id: UUID())
         .environment(ReservationStore())
         .environment(UserStore())
 }

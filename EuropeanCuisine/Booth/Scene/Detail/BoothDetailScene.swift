@@ -121,7 +121,7 @@ struct BoothDetailScene: View {
 
     private func openingHours(startTime: Date, endTime: Date) -> String {
         let startTime = startTime.formatted(date: .omitted, time: .shortened)
-        let endTime = endTime.formatted(date: .omitted, time: .shortened)
+        let endTnime = endTime.formatted(date: .omitted, time: .shortened)
 
         return "\(startTime) - \(endTime)"
     }

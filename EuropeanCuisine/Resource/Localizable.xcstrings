@@ -177,9 +177,6 @@
         }
       }
     },
-    "Book now" : {
-
-    },
     "booth_detail.empty.title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -267,9 +264,6 @@
           }
         }
       }
-    },
-    "Cancel" : {
-
     },
     "Categories" : {
 
@@ -457,9 +451,6 @@
           }
         }
       }
-    },
-    "Hello, World!" : {
-
     },
     "OK" : {
 
