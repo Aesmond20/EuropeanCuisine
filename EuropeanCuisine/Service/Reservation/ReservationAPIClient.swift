@@ -31,14 +31,25 @@ struct ReservationAPIClient {
                                  authenticationToken: token)
     }
 
+    #warning("Remove cancel")
     func cancel(id: UUID,
                 token: String) async throws {
-        _ = try await perform(path: "reservations/\(id.uuidString)",
+        _ = try await perform(path: "reservations/\(id)",
                               method: .delete,
                               authenticationToken: token)
     }
 
-    func isReservedWorkshop(workshopID: UUID, token: String) async throws -> IsReservedResponse {
+    func cancel(workshopID: UUID,
+                token: String) async throws {
+        _ = try await perform(path: "reservations/cancel",
+                              queryItems: [URLQueryItem(name: "workshopID",
+                                                        value: workshopID.uuidString)],
+                              method: .patch,
+                              authenticationToken: token)
+    }
+
+    func isReservedWorkshop(workshopID: UUID,
+                            token: String) async throws -> IsReservedResponse {
         try await request(path: "reservations/is-reserved",
                           queryItems: [URLQueryItem(name: "workshopID",
                                                     value: workshopID.uuidString)],

@@ -49,6 +49,17 @@ final class WorkshopDetailViewModel {
         }
     }
 
+    var actionButtonIcon: Image {
+        switch reservationState {
+        case .notLogIn:
+            AppImage.Icon.book.image
+        case .reserved:
+            AppImage.Icon.unbook.image
+        case .notReserved:
+            AppImage.Icon.book.image
+        }
+    }
+
     var actionButtonDisabled: Bool {
         if reservationState == .notLogIn {
             return true
@@ -66,6 +77,50 @@ final class WorkshopDetailViewModel {
             return ButtonRole.destructive
         }
         return nil
+    }
+
+    func performAction() {
+        switch reservationState {
+        case .notLogIn:
+            return
+        case .reserved:
+            cancelWorkshopReservation()
+            return
+        case .notReserved:
+            reserveWorkshop()
+        }
+    }
+
+    private func reserveWorkshop() {
+        guard let token = userStore.token else {
+            return
+        }
+
+        Task {
+            do {
+                try await reservationClient.create(workshopID: workshopID,
+                                                   token: token)
+                await setReservationState()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+
+    private func cancelWorkshopReservation() {
+        guard let token = userStore.token else {
+            return
+        }
+
+        Task {
+            do {
+                try await reservationClient.cancel(workshopID: workshopID,
+                                                   token: token)
+                await setReservationState()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
 
     private var isLogIn: Bool {

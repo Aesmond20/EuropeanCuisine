@@ -117,6 +117,7 @@ struct BoothDetailScene: View {
     private var emptyView: some View {
         ContentEmptyView(.boothDetailEmptyTitle,
                          systemImage: AppImage.Icon.boothNotFound.systemName)
+            .background(Styles.background)
     }
 
     private func openingHours(startTime: Date, endTime: Date) -> String {
