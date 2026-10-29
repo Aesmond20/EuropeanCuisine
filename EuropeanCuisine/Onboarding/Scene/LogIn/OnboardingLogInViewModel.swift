@@ -61,7 +61,6 @@ final class OnboardingLogInViewModel {
                 close()
             } catch let AuthAPIClientError.badStatus(code, reason) {
                 errorMessage = String(localized: .onboardingLogInViewErrorInvalidCredentials)
-                print("E\(code): \(reason)")
             } catch {
                 errorMessage = error.localizedDescription
             }

@@ -50,8 +50,6 @@ final class BoothListViewModel {
             sourceBooths = try await client.fetchAll()
         } catch {
             sourceBooths = []
-
-            print(error.localizedDescription)
         }
     }
 
