@@ -21,3 +21,7 @@ struct ReservationResponse: Decodable, Identifiable {
 struct IsReservedResponse: Decodable {
     let isReserved: Bool
 }
+
+struct IsReservedListResponse: Decodable {
+    let reservedWorkshopIDs: [UUID]
+}

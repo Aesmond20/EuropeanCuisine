@@ -34,10 +34,8 @@ struct ContentView: View {
 }
 
 #Preview {
-    @Previewable @State var reservationStore = ReservationStore()
-    @Previewable @State var store = UserStore()
+    @Previewable @State var userStore = UserStore()
 
     ContentView()
-        .environment(reservationStore)
-        .environment(store)
+        .environment(userStore)
 }

@@ -9,18 +9,23 @@
 import SwiftUI
 
 struct WorkshopListScene: View {
-    @State private var vm: WorkshopListViewModel
-
-    @Environment(ReservationStore.self) private var reservationStore
     @Environment(UserStore.self) private var userStore
 
-    init() {
-        self._vm = State(initialValue: WorkshopListViewModel())
+    var body: some View {
+        WorkshopListSceneInternal(userStore: userStore)
+    }
+}
+
+struct WorkshopListSceneInternal: View {
+    @State private var vm: WorkshopListViewModel
+
+    init(userStore: UserStore) {
+        self._vm = State(initialValue: WorkshopListViewModel(userStore: userStore))
     }
 
     var body: some View {
         WorkshopList(workshops: vm.filteredWorkshops,
-                     isReserved: reservationStore.isBooked,
+                     isReserved: vm.isReservedWorkshop,
                      action: vm.showBookDetail)
             .background(Styles.background)
             .sceneHeader("Workshop",
@@ -52,8 +57,7 @@ struct WorkshopListScene: View {
                 }
             }
             .task {
-                await reservationStore.fetchAll(token: userStore.token)
-                await vm.fetchWorkshops()
+                await vm.fetchData()
             }
             .alert("Unable to load workshops",
                    isPresented: Binding(get: {
@@ -96,7 +100,6 @@ fileprivate enum Styles {
 #Preview {
     NavigationStack {
         WorkshopListScene()
-            .environment(ReservationStore())
             .environment(UserStore())
     }
 }

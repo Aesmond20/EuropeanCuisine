@@ -8,12 +8,14 @@
 
 import SwiftUI
 
-@MainActor
 @Observable
 final class WorkshopListViewModel {
     private let client: WorkshopAPIClient
+    private let reservationClient: ReservationAPIClient
+    private let userStore: UserStore
 
     private var sourceWorkshops: [WorkshopResponse]
+    private var reservedWorkshopIDs: [UUID]
 
     var searchText: String
     var onlyAvailableSeats: Bool
@@ -23,15 +25,18 @@ final class WorkshopListViewModel {
     private(set) var isLoading: Bool
     private(set) var errorMessage: String?
 
-    init() {
+    init(userStore: UserStore) {
         self.client = WorkshopAPIClient()
-        self.sourceWorkshops = []
+        self.reservationClient = ReservationAPIClient()
+        self.userStore = userStore
         self.searchText = ""
         self.onlyAvailableSeats = false
         self.selectedCategories = []
         self.selectedWorkshopID = nil
         self.isLoading = false
         self.errorMessage = nil
+        self.sourceWorkshops = []
+        self.reservedWorkshopIDs = []
     }
 
     var isWorkshopsEmpty: Bool {
@@ -67,9 +72,26 @@ final class WorkshopListViewModel {
             .sorted { $0.startTime < $1.startTime }
     }
 
-    func fetchWorkshops() async {
+    func fetchData() async {
+        await sourceWorkshops = fetchWorkshops()
+        await reservedWorkshopIDs = areReservedWorkshops(ids: sourceWorkshops.map(\.id))
+    }
+
+    func showBookDetail(id: UUID) {
+        selectedWorkshopID = id
+    }
+
+    func clearError() {
+        errorMessage = nil
+    }
+
+    func isReservedWorkshop(_ workshop: Workshop) -> Bool {
+        reservedWorkshopIDs.contains(workshop.id)
+    }
+
+    private func fetchWorkshops() async -> [WorkshopResponse] {
         guard !isLoading else {
-            return
+            return []
         }
 
         isLoading = true
@@ -80,17 +102,26 @@ final class WorkshopListViewModel {
         }
 
         do {
-            sourceWorkshops = try await client.fetchAll()
+            return try await client.fetchAll()
         } catch {
             errorMessage = error.localizedDescription
+            return []
         }
     }
 
-    func showBookDetail(id: UUID) {
-        selectedWorkshopID = id
-    }
+    private func areReservedWorkshops(ids: [UUID]) async -> [UUID] {
+        guard let token = userStore.token else {
+            return []
+        }
 
-    func clearError() {
-        errorMessage = nil
+        do {
+            let response = try await reservationClient
+                .areReservedWorkshops(workshopIDs: ids,
+                                      token: token)
+
+            return response.reservedWorkshopIDs
+        } catch {
+            return []
+        }
     }
 }

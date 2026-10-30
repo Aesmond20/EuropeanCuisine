@@ -182,6 +182,5 @@ fileprivate enum Styles {
 
 #Preview {
     WorkshopDetailScene(id: UUID())
-        .environment(ReservationStore())
         .environment(UserStore())
 }

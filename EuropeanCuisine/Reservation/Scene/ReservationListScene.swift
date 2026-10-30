@@ -18,9 +18,6 @@ struct ReservationListScene: View {
 struct ReservationListSceneInternal: View {
     @State private var vm: ReservationListViewModel
 
-    //    @Environment(ReservationStore.self) private var reservationStore
-    //    @Environment(UserStore.self) private var userStore
-
     //    @State private var searchText: String = ""
     //    @State private var selectedCategories: Set<String> = []
 
@@ -136,14 +133,6 @@ struct ReservationListSceneInternal: View {
 //                .sceneHeader("Reservations",
 //                             topTrailingSplash: .init(version: .two,
 //                                                      kind: .primary))
-//        }
-//
-//        .task(id: userStore.token) {
-//            guard let token = userStore.token else {
-//                return
-//            }
-//
-//            await reservationStore.fetchAll(token: token)
 //        }
 //    }
 
@@ -288,7 +277,6 @@ fileprivate enum Styles {
 #Preview {
     NavigationStack {
         ReservationListScene()
-            .environment(ReservationStore())
             .environment(UserStore())
     }
 }
