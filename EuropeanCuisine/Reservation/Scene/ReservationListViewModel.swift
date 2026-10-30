@@ -54,35 +54,19 @@ final class ReservationListViewModel {
         .map { workshop in
             Workshop(workshop)
         }
-        //        sourceReservations
-        //            .map(Reservation.init)
-        //            .filter { reservation in
-        //                let matchesSearch = searchText.trimmed.isEmpty
-        //                    ||
-        //                    reservation.name.localizedCaseInsensitiveContains(searchText.trimmed)
-        //
-        //                let matchesSeats = !onlyAvailableSeats
-        //                    || reservation.remainingCapacity > 0
-        //
-        //                let matchesCategory = selectedCategories.isEmpty
-        //                    || selectedCategories.contains(reservation.category)
-        //
-        //                return matchesSearch
-        //                    && matchesSeats
-        //                    && matchesCategory
-        //            }
-        //            .sorted { $0.startTime < $1.startTime }
-    }
+        .filter { workshop in
+            let matchesSearch = searchText.trimmed.isEmpty
+                ||
+                workshop.name.localizedCaseInsensitiveContains(searchText.trimmed)
 
-//    var selectedReservation: Reservation? {
-//        guard let selectedWorkshopID else {
-//            return nil
-//        }
-//
-//        return sourceReservations
-//            .first { $0.id == selectedWorkshopID }
-//            .map(Workshop.init)
-//    }
+            let matchesCategory = selectedCategories.isEmpty
+                || selectedCategories.contains(workshop.category)
+
+            return matchesSearch
+                && matchesCategory
+        }
+        .sorted { $0.startTime < $1.startTime }
+    }
 
     func fetchReservations() async {
         guard !isLoading else {

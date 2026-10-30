@@ -18,28 +18,9 @@ struct ReservationListScene: View {
 struct ReservationListSceneInternal: View {
     @State private var vm: ReservationListViewModel
 
-    //    @State private var searchText: String = ""
-    //    @State private var selectedCategories: Set<String> = []
-
     init(userStore: UserStore) {
         self._vm = State(initialValue: ReservationListViewModel(userStore: userStore))
     }
-
-    //    private var reservations: [Reservation] {
-    //        reservationStore.reservations
-    //            .filter { $0.status != "cancelled" }
-    //            .map { Workshop($0.workshop) }
-    //            .filter { workshop in
-    //                let matchesSearch = searchText.isEmpty
-    //                    || workshop.name.localizedCaseInsensitiveContains(searchText)
-    //
-    //                let matchesCategory = selectedCategories.isEmpty
-    //                    || selectedCategories.contains(workshop.category)
-    //
-    //                return matchesSearch && matchesCategory
-    //            }
-    //            .sorted { $0.startTime < $1.startTime }
-    //    }
 
     var body: some View {
         ReservationList(workshops: vm.filteredReservedWorkshops,
@@ -75,66 +56,6 @@ struct ReservationListSceneInternal: View {
                 WorkshopDetailScene(id: id)
             }
     }
-
-//    private var reservationList: some View {
-//        List {
-//            if userStore.user != nil {
-//                ForEach(reservations) { workshop in
-//                    NavigationLink {
-//                        WorkshopDetailScene(workshop: workshop)
-//                            .orangeadeTabViewVisibility(.hidden)
-//                    } label: {
-//                        ReservationRow(workshop: workshop)
-//                    }
-//                    .listRowBackground(Color.clear)
-//                    .listRowSeparatorTint(Styles.listSeparator)
-//                }
-//            }
-//        }
-//        .listStyle(.plain)
-//        .overlay {
-//            if userStore.user == nil {
-//                ContentEmptyView("Not log in",
-//                                 systemImage: AppImage.Icon.notLogIn.systemName,
-//                                 description: "You cannot see your bookings because you are not logged in.")
-//            }
-//        }
-//        .background(Styles.background)
-//        .if(userStore.user != nil) {
-//            $0
-//                .sceneHeader("Reservations",
-//                             searchText: $searchText,
-//                             searchPlaceholder: "Search a workshop",
-//                             topTrailingSplash: .init(version: .two,
-//                                                      kind: .primary)) {
-//                    Menu {
-//                        Section("Categories") {
-//                            ForEach(categories, id: \.self) { category in
-//                                Toggle(category, isOn: Binding(get: {
-//                                    selectedCategories.contains(category)
-//                                }, set: { _, _ in
-//                                    if selectedCategories.contains(category) {
-//                                        selectedCategories.remove(category)
-//                                    } else {
-//                                        selectedCategories.insert(category)
-//                                    }
-//                                }))
-//                            }
-//                        }
-//                    } label: {
-//                        Button("") {}
-//                            .buttonStyle(.orangeadeIconProminent(kind: .tertiary,
-//                                                                 icon: AppImage.Icon.filter.image))
-//                    }
-//                }
-//        }
-//        .if(userStore.user != nil) {
-//            $0
-//                .sceneHeader("Reservations",
-//                             topTrailingSplash: .init(version: .two,
-//                                                      kind: .primary))
-//        }
-//    }
 
     private func categoryBinding(for category: String) -> Binding<Bool> {
         Binding(get: {
