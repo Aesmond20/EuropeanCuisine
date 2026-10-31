@@ -63,32 +63,44 @@ struct WorkshopDetailSceneInternal: View {
                         .font(Styles.titleFont)
                         .foregroundStyle(Styles.titleColor)
 
-                    HStack(spacing: AppToken.Primitive.spacing2) {
-                        Text(workshop.category)
+                    Text(workshop.category)
+                        .font(Styles.subtitleFont)
+                        .foregroundStyle(Styles.subtitleColor)
 
-                        Text("·")
+//                    HStack(spacing: AppToken.Primitive.spacing2) {
+//                        Text("·")
+//
+//                        Text(workshop.startTime,
+//                             format: .dateTime
+//                                 .weekday(.abbreviated)
+//                                 .day()
+//                                 .month(.abbreviated))
+//
+//                        Text("·")
+//
+//                        Text(workshop.startTime,
+//                             format: .dateTime
+//                                 .weekday(.abbreviated)
+//                                 .day()
+//                                 .month(.abbreviated))
+//                    }
+//                    .font(Styles.informationFont)
+//                    .foregroundStyle(Styles.informationColor)
 
-                        Text(workshop.startTime,
-                             format: .dateTime
-                                 .weekday(.abbreviated)
-                                 .day()
-                                 .month(.abbreviated))
+                    VStack(alignment: .leading,
+                           spacing: Styles.inlineInfosVerticalSpacing) {
+                        DetailInlineInfo(icon: AppImage.Icon.remainingSeats.image,
+                                         label: "\(workshop.remainingCapacity) seats left")
 
-                        Text("·")
+                        DetailInlineInfo(icon: AppImage.Icon.eventDate.image,
+                                         label: dateAndTime(workshop: workshop))
 
-                        Text(workshop.startTime,
-                             format: .dateTime
-                                 .weekday(.abbreviated)
-                                 .day()
-                                 .month(.abbreviated))
+                        DetailInlineInfo(icon: AppImage.Icon.workshopLocation.image,
+                                         label: workshop.location)
                     }
-                    .font(Styles.informationFont)
-                    .foregroundStyle(Styles.informationColor)
 
-                    Text(workshop.description)
-                        .font(Styles.aboutFont)
-                        .foregroundStyle(Styles.aboutColor)
-                        .fixedSize(horizontal: false, vertical: true)
+                    DetailSectionParagraph(title: "About",
+                                           paragraph: workshop.description)
 
                     DetailGoodToKnow(title: "Good to Know",
                                      isVegan: workshop.isVegan,
@@ -153,6 +165,23 @@ struct WorkshopDetailSceneInternal: View {
                                              isFullWidth: true))
             .disabled(vm.actionButtonDisabled)
     }
+
+    private func dateAndTime(workshop: Workshop) -> String {
+        let dayFormat = Date.FormatStyle.dateTime
+            .weekday(.wide)
+            .month(.wide)
+            .day()
+            .locale(Locale(identifier: "en_US"))
+        let day = workshop.startTime.formatted(dayFormat)
+
+        var timeFormat = Date.FormatStyle(date: .omitted,
+                                          time: .shortened,
+                                          locale: Locale(identifier: "en_US"))
+        timeFormat.timeZone = TimeZone(secondsFromGMT: 0)!
+        let start = workshop.startTime.formatted(timeFormat)
+        let end = workshop.endTime.formatted(timeFormat)
+        return "\(day)\n\(start) - \(end)"
+    }
 }
 
 fileprivate enum Styles {
@@ -162,22 +191,18 @@ fileprivate enum Styles {
 
     static let titleFont = Font.dosis(size: 28,
                                       weight: .bold)
-
-    static let sectionTitleFont = Font.dosis(size: 24,
-                                             weight: .bold)
-
     static let titleColor = AppColor.Label.title
-    static let sectionTitleColor = AppColor.Label.title
+
+    static let subtitleFont: Font = .system(size: 17,
+                                            weight: .medium)
+    static let subtitleColor = AppColor.Label.primary
 
     static let informationFont = Font.system(size: 14,
                                              weight: .medium)
 
     static let informationColor = AppColor.Label.secondary
 
-    static let aboutFont = Font.system(size: 16,
-                                       weight: .regular)
-
-    static let aboutColor = AppColor.Label.primary
+    static let inlineInfosVerticalSpacing = AppToken.Primitive.spacing4
 }
 
 #Preview {

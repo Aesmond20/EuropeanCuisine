@@ -30,8 +30,11 @@ enum DateUtils {
         } else if (-recentlyClosedWindow ... 0).contains(minutesToClose) {
             return String(localized: .dateClosingStatusClosedAgo(minutes: -minutesToClose))
         } else {
-            let startText = start.formatted(date: .omitted, time: .shortened)
-            let endText = end.formatted(date: .omitted, time: .shortened)
+            let format = Date.FormatStyle(date: .omitted,
+                                          time: .shortened,
+                                          locale: Locale(identifier: "en_US"))
+            let startText = start.formatted(format)
+            let endText = end.formatted(format)
             return "\(startText) - \(endText)"
         }
     }

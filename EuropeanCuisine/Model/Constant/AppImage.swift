@@ -50,6 +50,7 @@ enum AppImage {
         case remainingSeats
         case eventDate
         case boothLocation
+        case workshopLocation
         case isVegan
         case isPRM
         case isFamilyFriendly
@@ -124,6 +125,8 @@ enum AppImage {
             case .eventDate:
                 "calendar.badge"
             case .boothLocation:
+                "mappin.and.ellipse"
+            case .workshopLocation:
                 "mappin.and.ellipse"
             case .isVegan:
                 "leaf.fill"

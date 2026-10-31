@@ -54,8 +54,7 @@ struct BoothDetailScene: View {
                                      label: booth.location)
 
                     DetailInlineInfo(icon: AppImage.Icon.eventDate.image,
-                                     label: openingHours(startTime: booth.startTime,
-                                                         endTime: booth.endTime))
+                                     label: booth.closingStatusText() ?? "-")
                 }
 
                 DetailSectionParagraph(title: .boothDetailSectionAboutTitle,
@@ -118,13 +117,6 @@ struct BoothDetailScene: View {
         ContentEmptyView(.boothDetailEmptyTitle,
                          systemImage: AppImage.Icon.boothNotFound.systemName)
             .background(Styles.background)
-    }
-
-    private func openingHours(startTime: Date, endTime: Date) -> String {
-        let startTime = startTime.formatted(date: .omitted, time: .shortened)
-        let endTnime = endTime.formatted(date: .omitted, time: .shortened)
-
-        return "\(startTime) - \(endTime)"
     }
 }
 

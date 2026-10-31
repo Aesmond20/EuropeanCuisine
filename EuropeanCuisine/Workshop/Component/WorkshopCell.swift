@@ -52,18 +52,23 @@ struct WorkshopCell: View {
                             .foregroundStyle(Styles.reservationIconColor)
                     }
 
-                    Text(workshop.startTime,
-                         format: .dateTime.hour().minute())
+                    Text(workshop.startTime.formatted(timeFormat))
                         .font(Styles.timeFont)
                         .foregroundStyle(Styles.timeColor)
                 }
 
-                Text(workshop.endTime,
-                     format: .dateTime.hour().minute())
+                Text(workshop.endTime.formatted(timeFormat))
                     .font(Styles.timeFont)
                     .foregroundStyle(Styles.secondaryTimeColor)
             }
         }
+    }
+
+    private var timeFormat: Date.FormatStyle {
+        Date.FormatStyle(date: .omitted,
+                         time: .shortened,
+                         locale: Locale(identifier: "en_US"),
+                         timeZone: .gmt)
     }
 
     @ViewBuilder
@@ -140,7 +145,7 @@ fileprivate let workshopExample: Workshop = .init(id: UUID(),
                                                   bookedCapacity: 7,
                                                   capacityMax: 13,
                                                   startTime: Date.hourMinute(hour: 10, minute: 0),
-                                                  endTime: Date.hourMinute(hour: 12, minute: 0),
+                                                  endTime: Date.hourMinute(hour: 15, minute: 0),
                                                   description: """
                                                   Discover the secrets of French pastry and learn how to prepare \
                                                   a delicate classic with a professional pastry chef.
