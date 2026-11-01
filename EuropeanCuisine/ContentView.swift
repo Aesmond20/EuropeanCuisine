@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("isOnboardingPresented") private var isOnboardingPresented: Bool = true
+
     var body: some View {
         OrangeadeTabView(selection: 0) {
             OrangeadeTab(icon: AppTab.booths.icon,
@@ -28,6 +30,11 @@ struct ContentView: View {
             OrangeadeTab(icon: AppTab.profile.icon,
                          name: AppTab.profile.name) {
                 AppTab.profile.rootView
+            }
+        }
+        .fullScreenCover(isPresented: $isOnboardingPresented) {
+            NavigationStack {
+                OnboardingStartScene()
             }
         }
     }

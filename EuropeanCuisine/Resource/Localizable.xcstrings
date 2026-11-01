@@ -4,9 +4,6 @@
     "" : {
 
     },
-    " · " : {
-
-    },
     "·" : {
 
     },
@@ -347,7 +344,10 @@
         }
       }
     },
-    "First" : {
+    "English" : {
+
+    },
+    "Français" : {
 
     },
     "global.button.back.label" : {
@@ -887,9 +887,6 @@
     "Seats" : {
 
     },
-    "Second" : {
-
-    },
     "tab_bar_item.booths" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -944,9 +941,6 @@
           }
         }
       }
-    },
-    "Third" : {
-
     },
     "Unable to load workshops" : {
 
