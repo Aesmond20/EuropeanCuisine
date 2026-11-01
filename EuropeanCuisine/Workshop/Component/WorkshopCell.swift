@@ -27,12 +27,11 @@ struct WorkshopCell: View {
                 Text(workshop.name)
                     .font(Styles.titleFont)
                     .foregroundStyle(Styles.titleColor)
-                    .lineLimit(nil)
 
-                HStack(spacing: AppToken.Primitive.spacing1) {
+                HStack(spacing: AppToken.Primitive.spacing2) {
                     Text(workshop.category)
 
-                    Text(" · ")
+                    Text("·")
                         .font(Styles.subtitleFont)
 
                     Text("\(workshop.bookedCapacity)/\(workshop.capacityMax)")

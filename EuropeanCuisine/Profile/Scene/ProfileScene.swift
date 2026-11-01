@@ -125,15 +125,12 @@ fileprivate struct ProfileList: View {
             ProfileListRow(icon: AppImage.Icon.language.image,
                            label: .profileListLanguageLabel) {
                 Picker("",
-                       selection: .constant("First")) {
-                    Text("First")
-                        .tag("First")
+                       selection: .constant("English")) {
+                    Text("English")
+                        .tag("English")
 
-                    Text("Second")
-                        .tag("Second")
-
-                    Text("Third")
-                        .tag("Third")
+                    Text("Français")
+                        .tag("Français")
                 }
                 .tint(Styles.languageTint)
             }

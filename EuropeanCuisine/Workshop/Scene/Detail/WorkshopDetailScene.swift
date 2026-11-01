@@ -44,6 +44,7 @@ struct WorkshopDetailSceneInternal: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .orangeadeTabViewVisibility(.hidden)
         .overlay(alignment: .topLeading) {
             Button("") {
                 dismiss()
@@ -52,64 +53,40 @@ struct WorkshopDetailSceneInternal: View {
                                                  icon: AppImage.Icon.back.image))
             .padding(.horizontal)
         }
-        .orangeadeTabViewVisibility(.hidden)
     }
 
     private func contentView(workshop: Workshop) -> some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: AppToken.Primitive.spacing5) {
-                VStack(alignment: .leading, spacing: AppToken.Primitive.spacing4) {
-                    Text(workshop.name)
-                        .font(Styles.titleFont)
-                        .foregroundStyle(Styles.titleColor)
+            VStack(alignment: .leading,
+                   spacing: Styles.verticalSpacing) {
+                DetailHeader(title: workshop.name,
+                             subtitle: workshop.category)
 
-                    Text(workshop.category)
-                        .font(Styles.subtitleFont)
-                        .foregroundStyle(Styles.subtitleColor)
+                VStack(alignment: .leading,
+                       spacing: Styles.inlineInfosVerticalSpacing) {
+                    DetailInlineInfo(icon: AppImage.Icon.remainingSeats.image,
+                                     label: "\(workshop.remainingCapacity) seats left")
 
-//                    HStack(spacing: AppToken.Primitive.spacing2) {
-//                        Text("·")
-//
-//                        Text(workshop.startTime,
-//                             format: .dateTime
-//                                 .weekday(.abbreviated)
-//                                 .day()
-//                                 .month(.abbreviated))
-//
-//                        Text("·")
-//
-//                        Text(workshop.startTime,
-//                             format: .dateTime
-//                                 .weekday(.abbreviated)
-//                                 .day()
-//                                 .month(.abbreviated))
-//                    }
-//                    .font(Styles.informationFont)
-//                    .foregroundStyle(Styles.informationColor)
+                    DetailInlineInfo(icon: AppImage.Icon.eventDate.image,
+                                     label: dateAndTime(workshop: workshop))
 
-                    VStack(alignment: .leading,
-                           spacing: Styles.inlineInfosVerticalSpacing) {
-                        DetailInlineInfo(icon: AppImage.Icon.remainingSeats.image,
-                                         label: "\(workshop.remainingCapacity) seats left")
+                    DetailInlineInfo(icon: AppImage.Icon.workshopLocation.image,
+                                     label: workshop.location)
+                }
 
-                        DetailInlineInfo(icon: AppImage.Icon.eventDate.image,
-                                         label: dateAndTime(workshop: workshop))
+                DetailSectionParagraph(title: "About",
+                                       paragraph: workshop.description)
 
-                        DetailInlineInfo(icon: AppImage.Icon.workshopLocation.image,
-                                         label: workshop.location)
-                    }
-
-                    DetailSectionParagraph(title: "About",
-                                           paragraph: workshop.description)
-
+                if workshop.isVegan || workshop.isPRM || workshop.isFamilyFriendly {
                     DetailGoodToKnow(title: "Good to Know",
                                      isVegan: workshop.isVegan,
                                      isPRM: workshop.isPRM,
                                      isFamilyFriendly: workshop.isFamilyFriendly)
                 }
-                .padding(.horizontal, AppToken.Primitive.padding4)
             }
-            .padding(.bottom, AppToken.Primitive.padding8)
+            .padding(.horizontal)
+            .padding(.vertical, Styles.verticalPadding)
+            .background(Styles.background)
             .padding(.top, imageHeight)
         }
         .background(alignment: .top) {
@@ -123,7 +100,7 @@ struct WorkshopDetailSceneInternal: View {
             .offset(y: min(0, scrollOffsetY))
             .clipped()
             .overlay(alignment: .bottom) {
-                Image(.waveIcon)
+                AppImage.detailSceneWave
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(Styles.background)
@@ -189,18 +166,8 @@ fileprivate enum Styles {
 
     static let background = AppColor.Scene.background
 
-    static let titleFont = Font.dosis(size: 28,
-                                      weight: .bold)
-    static let titleColor = AppColor.Label.title
-
-    static let subtitleFont: Font = .system(size: 17,
-                                            weight: .medium)
-    static let subtitleColor = AppColor.Label.primary
-
-    static let informationFont = Font.system(size: 14,
-                                             weight: .medium)
-
-    static let informationColor = AppColor.Label.secondary
+    static let verticalSpacing = AppToken.Primitive.spacing6
+    static let verticalPadding = AppToken.Primitive.padding4
 
     static let inlineInfosVerticalSpacing = AppToken.Primitive.spacing4
 }
