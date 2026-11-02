@@ -98,9 +98,10 @@ final class WorkshopDetailViewModel {
 
         Task {
             do {
-                try await reservationClient.create(workshopID: workshopID,
-                                                   token: token)
+                let _ = try await reservationClient.create(workshopID: workshopID,
+                                                           token: token)
                 await setReservationState()
+                await fetchWorkshop()
             } catch {
                 print(error.localizedDescription)
             }
@@ -117,6 +118,7 @@ final class WorkshopDetailViewModel {
                 try await reservationClient.cancel(workshopID: workshopID,
                                                    token: token)
                 await setReservationState()
+                await fetchWorkshop()
             } catch {
                 print(error.localizedDescription)
             }

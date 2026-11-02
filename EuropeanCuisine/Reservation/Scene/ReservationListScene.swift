@@ -23,9 +23,25 @@ struct ReservationListSceneInternal: View {
     }
 
     var body: some View {
+        Group {
+            if vm.isLogIn {
+                contentView
+            } else {
+                emptyView
+            }
+        }
+        .background(Styles.background)
+        .task {
+            await vm.fetchReservations()
+        }
+        .navigationDestination(item: $vm.selectedWorkshopID) { id in
+            WorkshopDetailScene(id: id)
+        }
+    }
+
+    private var contentView: some View {
         ReservationList(workshops: vm.filteredReservedWorkshops,
                         action: vm.showWorkshopDetail)
-            .background(Styles.background)
             .sceneHeader("Reservations",
                          searchText: $vm.searchText,
                          searchPlaceholder: "Search a reservation",
@@ -49,12 +65,15 @@ struct ReservationListSceneInternal: View {
                     ProgressView()
                 }
             }
-            .task {
-                await vm.fetchReservations()
-            }
-            .navigationDestination(item: $vm.selectedWorkshopID) { id in
-                WorkshopDetailScene(id: id)
-            }
+    }
+
+    private var emptyView: some View {
+        ContentEmptyView("Not logged in",
+                         systemImage: AppImage.Icon.notLogIn.systemName,
+                         description:
+                         "You cannot see your reservations because you are not logged in.")
+            .sceneHeader("Reservations", topTrailingSplash: .init(version: .one,
+                                                                  kind: .primary))
     }
 
     private func categoryBinding(for category: String) -> Binding<Bool> {
@@ -71,104 +90,104 @@ struct ReservationListSceneInternal: View {
     }
 }
 
-private struct ReservationRow: View {
-    let workshop: Workshop
+// private struct ReservationRow: View {
+//    let workshop: Workshop
+//
+//    var body: some View {
+//        HStack(spacing: AppToken.Primitive.spacing3) {
+//            AsyncImage(url: URL(string: workshop.pictureURL)) { phase in
+//                switch phase {
+//                case let .success(image):
+//                    image
+//                        .resizable()
+//                        .scaledToFill()
+//
+//                default:
+//                    Image(systemName: "fork.knife")
+//                        .font(.system(size: 15, weight: .medium))
+//                        .foregroundStyle(Styles.placeholderForeground)
+//                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                        .background(Styles.placeholderBackground)
+//                }
+//            }
+//            .frame(width: 32, height: 32)
+//            .clipShape(RoundedRectangle(cornerRadius: AppToken.Primitive.radiusMd))
+//
+//            VStack(alignment: .leading, spacing: AppToken.Primitive.spacing5) {
+//                Text(workshop.name)
+//                    .font(Styles.nameFont)
+//                    .foregroundStyle(Styles.nameColor)
+//                    .lineLimit(1)
+//
+//                Text(workshop.category)
+//                    .font(Styles.subtitleFont)
+//                    .foregroundStyle(Styles.subtitleColor)
+//                    .lineLimit(1)
+//            }
+//
+//            Spacer(minLength: 0)
+//
+//            VStack(alignment: .trailing, spacing: AppToken.Primitive.spacing5) {
+//                AppImage.Icon.isBooked.image
+//                    .font(Styles.reservationIconFont)
+//                    .foregroundStyle(Styles.reservationIconColor)
+//
+//                Text(workshop.startTime, format: .dateTime.hour().minute())
+//                    .font(Styles.timeFont)
+//                    .foregroundStyle(Styles.timeColor)
+//            }
+//        }
+//        .padding(.vertical, AppToken.Primitive.spacing1)
+//    }
+// }
 
-    var body: some View {
-        HStack(spacing: AppToken.Primitive.spacing3) {
-            AsyncImage(url: URL(string: workshop.pictureURL)) { phase in
-                switch phase {
-                case let .success(image):
-                    image
-                        .resizable()
-                        .scaledToFill()
+// private struct ReservationFilterView: View {
+//    @Binding var selectedCategory: String?
+//
+//    private let categories = [
+//        "Recipe",
+//        "Fashion show",
+//        "Keynote",
+//        "Kids & family",
+//        "Discovery",
+//    ]
+//
+//    var body: some View {
+//        VStack(alignment: .leading, spacing: AppToken.Primitive.spacing4) {
+//            Text("Categories")
+//                .font(Styles.filterTitleFont)
+//                .foregroundStyle(Styles.filterTitleColor)
+//
+//            ForEach(categories, id: \.self) { category in
+//                Button {
+//                    if selectedCategory == category {
+//                        selectedCategory = nil
+//                    } else {
+//                        selectedCategory = category
+//                    }
+//                } label: {
+//                    HStack {
+//                        Text(category)
+//                            .font(Styles.filterRowFont)
+//                            .foregroundStyle(Styles.filterRowColor)
+//
+//                        Spacer()
+//
+//                        if selectedCategory == category {
+//                            Image(systemName: "checkmark")
+//                                .font(Styles.checkmarkFont)
+//                                .foregroundStyle(Styles.checkmarkColor)
+//                        }
+//                    }
+//                    .contentShape(Rectangle())
+//                }
+//            }
+//        }
+//        .padding(AppToken.Primitive.padding4)
+//    }
+// }
 
-                default:
-                    Image(systemName: "fork.knife")
-                        .font(.system(size: 15, weight: .medium))
-                        .foregroundStyle(Styles.placeholderForeground)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Styles.placeholderBackground)
-                }
-            }
-            .frame(width: 32, height: 32)
-            .clipShape(RoundedRectangle(cornerRadius: AppToken.Primitive.radiusMd))
-
-            VStack(alignment: .leading, spacing: AppToken.Primitive.spacing5) {
-                Text(workshop.name)
-                    .font(Styles.nameFont)
-                    .foregroundStyle(Styles.nameColor)
-                    .lineLimit(1)
-
-                Text(workshop.category)
-                    .font(Styles.subtitleFont)
-                    .foregroundStyle(Styles.subtitleColor)
-                    .lineLimit(1)
-            }
-
-            Spacer(minLength: 0)
-
-            VStack(alignment: .trailing, spacing: AppToken.Primitive.spacing5) {
-                AppImage.Icon.isBooked.image
-                    .font(Styles.reservationIconFont)
-                    .foregroundStyle(Styles.reservationIconColor)
-
-                Text(workshop.startTime, format: .dateTime.hour().minute())
-                    .font(Styles.timeFont)
-                    .foregroundStyle(Styles.timeColor)
-            }
-        }
-        .padding(.vertical, AppToken.Primitive.spacing1)
-    }
-}
-
-private struct ReservationFilterView: View {
-    @Binding var selectedCategory: String?
-
-    private let categories = [
-        "Recipe",
-        "Fashion show",
-        "Keynote",
-        "Kids & family",
-        "Discovery",
-    ]
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: AppToken.Primitive.spacing4) {
-            Text("Categories")
-                .font(Styles.filterTitleFont)
-                .foregroundStyle(Styles.filterTitleColor)
-
-            ForEach(categories, id: \.self) { category in
-                Button {
-                    if selectedCategory == category {
-                        selectedCategory = nil
-                    } else {
-                        selectedCategory = category
-                    }
-                } label: {
-                    HStack {
-                        Text(category)
-                            .font(Styles.filterRowFont)
-                            .foregroundStyle(Styles.filterRowColor)
-
-                        Spacer()
-
-                        if selectedCategory == category {
-                            Image(systemName: "checkmark")
-                                .font(Styles.checkmarkFont)
-                                .foregroundStyle(Styles.checkmarkColor)
-                        }
-                    }
-                    .contentShape(Rectangle())
-                }
-            }
-        }
-        .padding(AppToken.Primitive.padding4)
-    }
-}
-
-fileprivate enum Styles {
+private enum Styles {
     static let background = AppColor.Scene.background
     static let listSeparator = AppColor.Scene.divider
 

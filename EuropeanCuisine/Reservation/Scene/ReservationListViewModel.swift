@@ -68,6 +68,10 @@ final class ReservationListViewModel {
         .sorted { $0.startTime < $1.startTime }
     }
 
+    var isLogIn: Bool {
+        userStore.hasToken
+    }
+
     func fetchReservations() async {
         guard !isLoading else {
             return
